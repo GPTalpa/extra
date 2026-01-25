@@ -1,0 +1,27 @@
+@use "@styles/variables" as *;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Montserrat";
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  color: $color-text-main;
+  background-color: $color-bg-element;
+  border: 1px solid $color-text-muted;
+  border-radius: $border-radius;
+  padding: 0.5rem 0.75rem;
+}

@@ -1,0 +1,38 @@
+@use "@styles/mixins.scss" as *;
+@use "@styles/variables.scss" as *;
+
+header {
+  @include flex-center($justify: space-between);
+  margin-bottom: 50px;
+
+  nav {
+    @include overlay;
+
+    ul {
+      @include flex-center($justify: space-between);
+      gap: 47px;
+      padding: 0.5rem 1.75rem;
+
+      li {
+        line-height: 20px;
+        font-size: 18px;
+        color: $color-text-main;
+      }
+    }
+  }
+
+  .search__bar {
+    position: relative;
+
+    input {
+      padding-left: 60px;
+    }
+  }
+
+  .profile {
+    @include overlay;
+    @include flex-center;
+    padding: 4px 18px 4px 4px;
+    gap: 20px;
+  }
+}

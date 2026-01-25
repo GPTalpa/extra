@@ -1,0 +1,63 @@
+@use "@styles/reset.scss";
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/globals" as *;
+@use "@styles/typography" as *;
+
+@font-face {
+  font-family: "Monserrat";
+  src: url("/fonts/Montserrat-Regular.ttf") format("truetype-variations");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monserrat";
+  src: url("/fonts/Montserrat-Medium.ttf") format("truetype-variations");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monserrat";
+  src: url("/fonts/Montserrat-SemiBold.ttf") format("truetype-variations");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-Regular.ttf") format("truetype-variations");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-Medium.ttf") format("truetype-variations");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-SemiBold.ttf") format("truetype-variations");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  max-width: 1200px;
+  padding: 20px 50px;
+  margin: 0 auto;
+  background-image: url("/icon/bg_pattern.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

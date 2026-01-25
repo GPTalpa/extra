@@ -1,0 +1,33 @@
+@use "@styles/mixins.scss" as *;
+@use "@styles/variables.scss" as *;
+
+.site-footer {
+  @include flex-center($justify: space-between);
+  @include overlay($border-radius: 30px);
+  margin-top: 100px;
+
+  padding: 16px 30px;
+  font-size: 18px;
+  margin-bottom: 13px;
+
+  address {
+    @include flex-center($direction: column, $align: flex-start);
+    gap: 10px;
+
+    a {
+      color: rgba(204, 204, 204, 1);
+    }
+  }
+
+  .footer-policy {
+    @include flex-center($direction: column, $align: flex-end);
+    color: rgba(128, 128, 128, 1);
+    text-align: right;
+    gap: 10px;
+
+    a,
+    p {
+      color: rgba(128, 128, 128, 1);
+    }
+  }
+}

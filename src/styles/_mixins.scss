@@ -1,0 +1,46 @@
+// Flex center
+@mixin flex-center($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// Linear gradient overlay (для SVG или картинок)
+@mixin overlay(
+  $color: rgba(0, 0, 0, 0.5),
+  $border-color: rgba(255, 255, 255, 0.2),
+  $border-radius: 40px
+) {
+  position: relative;
+  border: 1px solid $border-color;
+  backdrop-filter: blur(10px);
+  border-radius: $border-radius;
+  background: $color;
+}
+
+// Шрифты
+@mixin font-girloy-500() {
+  font-family: "Girloy sans-serif";
+  font-weight: 500;
+}
+
+@mixin font-girloy-600() {
+  font-family: "Girloy sans-serif";
+  font-weight: 600;
+}
+
+@mixin font-montserrat-400() {
+  font-family: "Montserrat sans-serif";
+  font-weight: 400;
+}
+
+@mixin font-montserrat-500() {
+  font-family: "Montserrat sans-serif";
+  font-weight: 500;
+}
+
+@mixin font-montserrat-600() {
+  font-family: "Montserrat sans-serif";
+  font-weight: 600;
+}

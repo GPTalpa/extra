@@ -1,0 +1,50 @@
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+
+body {
+  @include font-montserrat-400;
+  color: $color-text-main;
+  background-color: $color-bg-page;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include font-girloy-600;
+  color: $color-text-main;
+  margin: 0;
+}
+
+p,
+span,
+a,
+li {
+  @include font-montserrat-400;
+  color: $color-text-main;
+  letter-spacing: 1px;
+}
+
+a {
+  text-decoration: none;
+  transition: color $transition-default;
+
+  &:hover {
+    color: lighten($color-accent, 10%);
+  }
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 500;
+}

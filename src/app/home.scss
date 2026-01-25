@@ -1,0 +1,79 @@
+@use "@styles/mixins" as *;
+
+.main__section {
+  @include flex-center;
+  gap: 60px;
+
+  &--text {
+    max-width: 615px;
+
+    h1 {
+      margin-bottom: 42px;
+    }
+
+    p {
+      color: rgba(204, 204, 204, 1);
+      font-size: 18px;
+    }
+  }
+
+  &__images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+
+    &--item {
+      @include flex-center($direction: column);
+      @include overlay($border-radius: 20px);
+      padding: 8px 18px;
+      gap: 15px;
+
+      p {
+        text-align: center;
+      }
+
+      &--red {
+        border-color: rgba(250, 40, 40, 0.2);
+      }
+      &--green {
+        border-color: rgba(75, 250, 40, 0.2);
+      }
+      &--blue {
+        border-color: rgba(40, 145, 250, 0.2);
+      }
+    }
+  }
+
+  margin-bottom: 30px;
+}
+
+.popular {
+  @include flex-center($direction: column);
+
+  &__items {
+    @include flex-center;
+    gap: 28px;
+    margin-top: 30px;
+
+    &--item-wrapper {
+      @include flex-center($direction: column);
+      gap: 14px;
+      p {
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+
+    &--item-image {
+      @include overlay;
+      padding: 37px 70px;
+      cursor: pointer;
+
+      &:hover {
+        border: 0.94px solid rgba(250, 40, 40, 1);
+        box-shadow: 0px 0px 28.09px 0px rgba(250, 40, 40, 0.5);
+        backdrop-filter: blur(9.362361907958984px);
+      }
+    }
+  }
+}
