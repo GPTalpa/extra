@@ -34,7 +34,7 @@ a {
   transition: color $transition-default;
 
   &:hover {
-    color: lighten($color-accent, 10%);
+    color: adjust($color-accent, 10%);
   }
 }
 
