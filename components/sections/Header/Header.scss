@@ -4,14 +4,18 @@
 header {
   @include flex-center($justify: space-between);
   margin-bottom: 50px;
+  gap: 30px;
 
   nav {
     @include overlay;
-
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      max-width 0.3s ease;
     ul {
       @include flex-center($justify: space-between);
       gap: 47px;
-      padding: 0.5rem 1.75rem;
+      padding: 0.8rem 1.35rem;
 
       li {
         line-height: 20px;
@@ -23,16 +27,42 @@ header {
 
   .search__bar {
     position: relative;
+    transition:
+      max-width 0.35s ease,
+      flex 0.35s ease;
 
     input {
       padding-left: 60px;
+      width: 100%;
+      transition:
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+
+      outline: none;
+      box-shadow: none;
+      -webkit-tap-highlight-color: transparent;
+      &:focus-visible {
+        outline: none;
+      }
     }
   }
 
-  .profile {
-    @include overlay;
-    @include flex-center($align: normal);
-    padding: 4px 18px 4px 4px;
-    gap: 20px;
+  &:has(.search__bar:focus-within) {
+    nav {
+      opacity: 0;
+      transform: translateX(-10px);
+      pointer-events: none;
+      max-width: 0;
+    }
+
+    .search__bar {
+      max-width: 100%;
+      flex: 1;
+
+      input {
+        border-color: rgba(250, 40, 40, 1);
+        box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.5);
+      }
+    }
   }
 }

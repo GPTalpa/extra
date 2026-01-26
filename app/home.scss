@@ -27,19 +27,37 @@
       @include overlay($border-radius: 20px);
       padding: 8px 18px;
       gap: 15px;
-
+      cursor: pointer;
       p {
         text-align: center;
       }
 
       &--red {
         border-color: rgba(250, 40, 40, 0.2);
+
+        &:hover {
+          border: 0.94px solid rgb(250, 40, 40);
+          box-shadow: 0px 0px 28.09px 0px rgba(250, 40, 40, 0.5);
+          backdrop-filter: blur(9.362361908px);
+        }
       }
       &--green {
         border-color: rgba(75, 250, 40, 0.2);
+
+        &:hover {
+          border: 0.94px solid rgb(75, 250, 40);
+          box-shadow: 0px 0px 28.09px 0px rgba(75, 250, 40, 0.5);
+          backdrop-filter: blur(9.362361908px);
+        }
       }
       &--blue {
         border-color: rgba(40, 145, 250, 0.2);
+
+        &:hover {
+          border: 0.94px solid rgb(40, 145, 250);
+          box-shadow: 0px 0px 28.09px 0px rgba(40, 145, 250, 0.5);
+          backdrop-filter: blur(9.362361908px);
+        }
       }
     }
   }
