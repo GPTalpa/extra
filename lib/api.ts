@@ -1,5 +1,5 @@
-import { API_URL } from "@/lib/constants";
-import { fetcher } from "@/lib/fetcher";
+import { API_URL } from "lib/constants";
+import { fetcher } from "lib/fetcher";
 
 export async function getProducts() {
   return fetcher(`${API_URL}/api/products`);

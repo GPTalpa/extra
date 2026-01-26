@@ -21,7 +21,7 @@ textarea {
   font-family: inherit;
   color: $color-text-main;
   background-color: $color-bg-element;
-  border: 1px solid $color-text-muted;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: $border-radius;
   padding: 0.5rem 0.75rem;
 }

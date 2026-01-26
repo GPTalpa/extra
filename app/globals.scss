@@ -1,0 +1,15 @@
+@use "@styles/reset.scss";
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+@use "@styles/globals" as *;
+@use "@styles/typography" as *;
+
+body {
+  max-width: 1200px;
+  padding: 20px 50px;
+  margin: 0 auto;
+  background-image: url("/icon/bg_pattern.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

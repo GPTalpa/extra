@@ -21,26 +21,26 @@
 
 // Шрифты
 @mixin font-girloy-500() {
-  font-family: "Girloy sans-serif";
+  font-family: var(--font-gilroy);
   font-weight: 500;
 }
 
 @mixin font-girloy-600() {
-  font-family: "Girloy sans-serif";
+  font-family: var(--font-gilroy);
   font-weight: 600;
 }
 
 @mixin font-montserrat-400() {
-  font-family: "Montserrat sans-serif";
+  font-family: var(--font-montserrat);
   font-weight: 400;
 }
 
 @mixin font-montserrat-500() {
-  font-family: "Montserrat sans-serif";
+  font-family: var(--font-montserrat);
   font-weight: 500;
 }
 
 @mixin font-montserrat-600() {
-  font-family: "Montserrat sans-serif";
+  font-family: var(--font-montserrat);
   font-weight: 600;
 }

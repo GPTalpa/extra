@@ -31,7 +31,7 @@ header {
 
   .profile {
     @include overlay;
-    @include flex-center;
+    @include flex-center($align: normal);
     padding: 4px 18px 4px 4px;
     gap: 20px;
   }

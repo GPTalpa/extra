@@ -12,7 +12,7 @@ const nextConfig: NextConfig = withBundleAnalyzer({
   output: "standalone",
   compress: true,
   sassOptions: {
-    includePaths: [path.join(process.cwd(), "src/styles")],
+    includePaths: [path.join(process.cwd(), "/styles")],
   },
   webpack(
     config: Configuration,
@@ -21,16 +21,16 @@ const nextConfig: NextConfig = withBundleAnalyzer({
     // Алиасы
     if (config.resolve?.alias) {
       Object.assign(config.resolve.alias, {
-        "@": path.resolve(__dirname, "src"),
-        "@app": path.resolve(__dirname, "src/app"),
-        "@ui": path.resolve(__dirname, "src/components/ui"),
-        "@layout": path.resolve(__dirname, "src/components/layout"),
-        "@sections": path.resolve(__dirname, "src/components/sections"),
-        "@components": path.resolve(__dirname, "src/components"),
-        "@lib": path.resolve(__dirname, "src/lib"),
-        "@hooks": path.resolve(__dirname, "src/hooks"),
-        "@styles": path.resolve(__dirname, "src/styles"),
-        "@types": path.resolve(__dirname, "src/types"),
+        "@": path.resolve(__dirname, "/"),
+        "@app": path.resolve(__dirname, "app"),
+        "@ui": path.resolve(__dirname, "components/ui"),
+        "@layout": path.resolve(__dirname, "components/layout"),
+        "@sections": path.resolve(__dirname, "components/sections"),
+        "@components": path.resolve(__dirname, "components"),
+        "@lib": path.resolve(__dirname, "lib"),
+        "@hooks": path.resolve(__dirname, "hooks"),
+        "@styles": path.resolve(__dirname, "styles"),
+        "@types": path.resolve(__dirname, "types"),
       });
     }
 
