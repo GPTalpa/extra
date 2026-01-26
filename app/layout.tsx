@@ -36,7 +36,7 @@ const gilroy = localFont({
       style: "normal",
     },
     {
-      path: "fonts/Gilroy-SemiBold.ttf",
+      path: "fonts/Gilroy-Semibold.ttf",
       weight: "600",
       style: "normal",
     },
@@ -46,7 +46,7 @@ const gilroy = localFont({
 });
 
 import Header from "@sections/Header";
-import Footer from "@sections/Footer";
+import Footer from "components/sections/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
