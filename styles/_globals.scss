@@ -1,4 +1,5 @@
 @use "@styles/variables" as *;
+@use "@styles/mixins" as *;
 
 * {
   box-sizing: border-box;
@@ -41,5 +42,10 @@ textarea {
   &--active {
     background: rgba(250, 40, 40, 0.5);
     border-color: rgba(250, 40, 40, 0.5);
+  }
+
+  &-primaty--active {
+    background: rgba(250, 40, 40, 1);
+    @include flex-center;
   }
 }

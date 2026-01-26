@@ -34,6 +34,9 @@ const Header = () => {
           <Image src="/icon/search.svg" alt="" width={21} height={21} />
         </i>
         <input type="text" placeholder="Глобальный поиск..." />
+        <button className="btn btn-primaty--active">
+          <Image src="/icon/search_black.svg" alt="" width={21} height={21} />
+        </button>
       </div>
 
       <Profile />

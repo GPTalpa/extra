@@ -32,6 +32,11 @@
         text-align: center;
       }
 
+      transition:
+        border 0.35s ease,
+        box-shadow 0.35s ease,
+        backdrop-filter 0.35s ease;
+
       &--red {
         border-color: rgba(250, 40, 40, 0.2);
 

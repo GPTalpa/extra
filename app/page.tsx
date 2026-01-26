@@ -1,6 +1,7 @@
 import "./home.scss";
 import Image from "next/image";
 
+import Item from "@ui/Item";
 export default function Home() {
   return (
     <main>
@@ -14,35 +15,12 @@ export default function Home() {
         </div>
         <div className="main__section__images">
           <div></div>
-          <div className="main__section__images--item main__section__images--item--blue">
-            <Image
-              src="/images/help.webp"
-              alt="Открыть справку"
-              width={64}
-              height={64}
-            />
-            <p>Открыть справку</p>
-          </div>
-          <div className="main__section__images--item main__section__images--item--green">
-            <Image
-              src="/images/profile.webp"
-              alt="Личный кабинет"
-              width={64}
-              height={64}
-            />
-            <p>Личный кабинет</p>
-          </div>
+
+          <Item text="Открыть справку" image="help.webp" extraClass="blue" />
+          <Item text="Личный кабинет" image="profile.webp" extraClass="green" />
           <div></div>
           <div></div>
-          <div className="main__section__images--item main__section__images--item--red">
-            <Image
-              src="/images/filter.webp"
-              alt="Подобрать прибор"
-              width={64}
-              height={64}
-            />
-            <p>Подобрать прибор</p>
-          </div>
+          <Item text="Подобрать прибор" image="filter.webp" extraClass="red" />
         </div>
       </section>
       <section className="popular">
