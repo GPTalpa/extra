@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Profile from "@ui/Profile";
+import Input from "@ui/Input";
 
 const Header = () => {
   return (
@@ -22,23 +23,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <div className="search__bar">
-        <i
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "30px",
-            transform: "translateY(-50%)",
-          }}
-        >
-          <Image src="/icon/search.svg" alt="" width={21} height={21} />
-        </i>
-        <input type="text" placeholder="Глобальный поиск..." />
-        <button className="btn btn-primaty--active">
-          <Image src="/icon/search_black.svg" alt="" width={21} height={21} />
-        </button>
-      </div>
-
+      <Input placeholder="Глобальный поиск..." />
       <Profile />
     </header>
   );

@@ -1,0 +1,22 @@
+@use "@styles/mixins.scss" as *;
+
+.navigation {
+  @include flex-center($justify: flex-start);
+  gap: 10px;
+  max-width: 60%;
+
+  &--btn {
+    @include flex-center;
+    @include overlay;
+    width: 57px;
+    height: 57px;
+  }
+
+  &--search-bar {
+    flex: 1;
+    @include flex-center($justify: flex-start);
+    input {
+      font-size: 24px;
+    }
+  }
+}

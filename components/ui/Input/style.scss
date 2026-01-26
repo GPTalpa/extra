@@ -1,0 +1,32 @@
+@use "@styles/mixins.scss" as *;
+
+.search__bar {
+  position: relative;
+  transition:
+    max-width 0.35s ease,
+    flex 0.35s ease;
+
+  input {
+    padding-left: 60px;
+    width: 100%;
+    transition:
+      border-color 0.35s ease,
+      box-shadow 0.35s ease;
+
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  .btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    max-width: 81px;
+  }
+}
