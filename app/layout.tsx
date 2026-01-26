@@ -45,8 +45,8 @@ const gilroy = localFont({
   variable: "--font-gilroy",
 });
 
-import Header from "components/sections/Header";
-import Footer from "components/sections/Footer";
+import Header from "@sections/Header";
+import Footer from "@sections/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
