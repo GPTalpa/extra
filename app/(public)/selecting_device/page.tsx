@@ -38,7 +38,7 @@ import { redirect } from "next/navigation";
 // };
 
 async function getUser() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const cookieHeader = cookieStore.get("accessToken")?.value;
 
   const res = await fetch(`${API_URL}/auth/me`, {
