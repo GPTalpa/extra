@@ -1,12 +1,11 @@
 // import { Metadata } from "next";
 import "./style.scss";
 import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import Input from "@ui/Input";
-import { API_URL, get } from "@lib/api";
+import { API_URL } from "@lib/api";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 // export const metadata: Metadata = {
 //   title: aliciaMountPageMeta.title,
@@ -39,8 +38,8 @@ import { cookies } from "next/headers";
 // };
 
 async function getUser() {
-  const cookieStore = cookies(); // <- получаем все куки
-  const cookieHeader = (await cookieStore).get("accessToken")?.value; // <- только accessToken
+  const cookieStore = await cookies(); // <- напрямую объект, await не нужен
+  const cookieHeader = cookieStore.get("accessToken")?.value; // <- только accessToken
 
   const res = await fetch(`${API_URL}/auth/me`, {
     headers: {
