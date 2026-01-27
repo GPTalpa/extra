@@ -16,6 +16,15 @@
     position: relative;
   }
 
+  &__image {
+    @include flex-center;
+    background: rgba(179, 179, 179, 1);
+    border: 0.81px solid rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+    width: 41px;
+    height: 41px;
+  }
+
   /* вот оно — расширение поверх */
   &__panel {
     position: absolute;

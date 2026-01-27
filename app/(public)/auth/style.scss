@@ -1,0 +1,23 @@
+.auth {
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__title {
+    color: rgba(102, 102, 102, 1);
+    font-size: 54px;
+    font-weight: 600;
+    text-align: center;
+
+    button {
+      &:hover {
+        color: rgba(255, 255, 255, 1);
+      }
+    }
+  }
+}
+
+.active {
+  color: rgba(255, 255, 255, 1);
+}

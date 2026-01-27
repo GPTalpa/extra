@@ -2,8 +2,11 @@
 import "./style.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import Input from "@ui/Input";
+import { API_URL, get } from "@lib/api";
+import { cookies } from "next/headers";
 
 // export const metadata: Metadata = {
 //   title: aliciaMountPageMeta.title,
@@ -35,7 +38,26 @@ import Input from "@ui/Input";
 //   },
 // };
 
-export default function SelectingDevice() {
+async function getUser() {
+  const cookieStore = cookies(); // <- получаем все куки
+  const cookieHeader = (await cookieStore).get("accessToken")?.value; // <- только accessToken
+
+  const res = await fetch(`${API_URL}/auth/me`, {
+    headers: {
+      cookie: cookieHeader ? `accessToken=${cookieHeader}` : "",
+    },
+    cache: "no-store", // всегда свежие данные
+  });
+
+  if (!res.ok) return null;
+  return res.json();
+}
+
+export default async function SelectingDevice() {
+  const data = await getUser();
+  if (!data?.user) {
+    redirect("/auth");
+  }
   return (
     <main>
       <section>

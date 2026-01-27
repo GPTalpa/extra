@@ -1,0 +1,136 @@
+@use "@styles/variables" as *;
+
+.auth-form {
+  max-width: 490px;
+  width: 100%;
+  margin: 40px auto;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.auth-title {
+  font-size: 54px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+.auth-subtitle {
+  font-size: 18px;
+  font-weight: normal;
+  color: rgba(179, 179, 179, 1);
+  letter-spacing: 0;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-field span {
+  font-size: 14px;
+  color: #444;
+}
+
+.auth-field input,
+.auth-field select {
+  padding: 16px 24px;
+  border-radius: 60px;
+  font-size: 24px;
+  transition: 0.2s ease;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border: none;
+}
+
+.auth-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.auth-field input:focus,
+.auth-field select:focus {
+  border-color: #000;
+  outline: none;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.auth-button {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 60px;
+  border: 1px solid rgba(250, 40, 40, 1);
+  background: rgba(250, 40, 40, 0.01);
+  font-size: 30px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.5);
+}
+
+.auth-button:hover {
+  opacity: 0.9;
+}
+
+.auth-remember {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+
+  input {
+    display: none;
+  }
+
+  .custom-checkbox {
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(250, 40, 40, 0.5);
+    border-radius: 4px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  /* красная галочка */
+  input:checked + .custom-checkbox::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 3px;
+    width: 7px;
+    height: 11px;
+    border: solid $color-accent;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+  }
+
+  span {
+    font-size: 18px;
+    color: $color-accent;
+  }
+}
+
+.auth-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 18px;
+  color: $color-accent;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+}

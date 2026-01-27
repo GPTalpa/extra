@@ -9,11 +9,15 @@ import Input from "@ui/Input";
 const Header = () => {
   return (
     <header className="site-header">
-      <Image src="/icon/logo.svg" alt="Логотип" width={116} height={72} />
+      <Link href="/">
+        {" "}
+        <Image src="/icon/logo.svg" alt="Логотип" width={116} height={72} />
+      </Link>
+
       <nav>
         <ul>
           <li>
-            <Link href={"#"}>Подбор прибора</Link>
+            <Link href="/selecting_device">Подбор прибора</Link>
           </li>
           <li>
             <Link href={"#"}>Справка</Link>
