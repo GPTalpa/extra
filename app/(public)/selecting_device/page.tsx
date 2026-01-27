@@ -38,8 +38,8 @@ import { redirect } from "next/navigation";
 // };
 
 async function getUser() {
-  const cookieStore = await cookies(); // <- напрямую объект, await не нужен
-  const cookieHeader = cookieStore.get("accessToken")?.value; // <- только accessToken
+  const cookieStore = cookies();
+  const cookieHeader = cookieStore.get("accessToken")?.value;
 
   const res = await fetch(`${API_URL}/auth/me`, {
     headers: {
