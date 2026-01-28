@@ -12,7 +12,7 @@
 //   });
 // }
 
-export const API_URL = "http://147.45.108.163:4000/api";
+export const API_URL = "/api/proxy/api";
 // export const API_URL = "http://localhost:4000/api";
 
 export async function post<T>(url: string, body: unknown): Promise<T> {
