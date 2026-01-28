@@ -57,6 +57,7 @@ export default async function SelectingDevice() {
   if (!data?.user) {
     redirect("/auth");
   }
+
   return (
     <main>
       <section>

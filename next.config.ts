@@ -30,7 +30,8 @@ const nextConfig: NextConfig = withBundleAnalyzer({
         "@lib": path.resolve(__dirname, "lib"),
         "@hooks": path.resolve(__dirname, "hooks"),
         "@styles": path.resolve(__dirname, "styles"),
-        "@types": path.resolve(__dirname, "types"),
+        "@mytypes": path.resolve(__dirname, "types"),
+        "@utils": path.resolve(__dirname, "utils"),
       });
     }
 

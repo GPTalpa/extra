@@ -1,27 +1,22 @@
-"use client";
-
-import "./style.scss";
-
 import Image from "next/image";
-import { useUIStore } from "store";
+import Link from "next/link";
 
 interface IItem {
   text: string;
   image: string;
   extraClass?: string;
+  href: string;
 }
 
-const Item = ({ text, image, extraClass }: IItem) => {
-  const { profileOpen } = useUIStore();
-
+const Item = ({ text, image, extraClass, href }: IItem) => {
   return (
-    <div
+    <Link
       className={`main__section__images--item ${extraClass ? `main__section__images--item--${extraClass}` : ""}`}
-      style={profileOpen ? { zIndex: -1 } : { zIndex: 1 }}
+      href={href}
     >
       <Image src={`/images/${image}`} alt={text} width={64} height={64} />
       <p>{text}</p>
-    </div>
+    </Link>
   );
 };
 

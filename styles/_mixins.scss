@@ -44,3 +44,9 @@
   font-family: var(--font-montserrat);
   font-weight: 600;
 }
+
+@mixin hover() {
+  border: 0.94px solid rgb(250, 40, 40);
+  box-shadow: 0px 0px 28.09px 0px rgba(250, 40, 40, 0.5);
+  backdrop-filter: blur(9.362361908px);
+}

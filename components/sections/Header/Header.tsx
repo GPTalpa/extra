@@ -5,8 +5,11 @@ import Link from "next/link";
 
 import Profile from "@ui/Profile";
 import Input from "@ui/Input";
+import getUser from "@utils/getUser";
 
-const Header = () => {
+const Header = async () => {
+  const data = await getUser();
+
   return (
     <header className="site-header">
       <Link href="/">
@@ -28,7 +31,7 @@ const Header = () => {
         </ul>
       </nav>
       <Input placeholder="Глобальный поиск..." />
-      <Profile />
+      <Profile user={data?.user ? data.user : null} />
     </header>
   );
 };

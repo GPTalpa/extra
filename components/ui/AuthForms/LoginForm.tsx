@@ -4,22 +4,31 @@ import "./style.scss";
 import { useState } from "react";
 import { useAuthStore } from "store";
 import { post } from "@lib/api";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [withErrors, setWithErrors] = useState(false);
+  const { loading, setMode, setLoading } = useAuthStore();
 
-  const { setMode } = useAuthStore();
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const data = await post("/auth/login", { email, password });
-      console.log("Токен и пользователь:", data);
-      console.log("Успешный вход!");
+      setLoading(false);
+      setWithErrors(false);
+      window.location.href = "/profile";
     } catch (err: unknown) {
+      setLoading(false);
       if (err instanceof Error) {
         console.log(err.message);
+        setWithErrors(true);
       } else {
         console.log("Неизвестная ошибка");
       }
@@ -36,6 +45,7 @@ const LoginForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
           placeholder="Элекетронная почта"
+          className={withErrors ? "with-error" : ""}
         />
       </label>
 
@@ -47,6 +57,7 @@ const LoginForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
           placeholder="Пароль"
+          className={withErrors ? "with-error" : ""}
         />
       </label>
 
@@ -59,7 +70,18 @@ const LoginForm = () => {
       </button>
 
       <button className="auth-button" type="submit">
-        Войти
+        {loading ? (
+          <Image
+            src="/icon/loading.gif"
+            alt="Загрузка"
+            width={20}
+            height={20}
+          />
+        ) : withErrors ? (
+          "Неверная почта или пароль"
+        ) : (
+          "Войти"
+        )}
       </button>
       <label className="auth-remember">
         <input

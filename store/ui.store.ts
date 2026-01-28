@@ -2,14 +2,14 @@ import { create } from "zustand";
 
 type UIState = {
   profileOpen: boolean;
-  toggleProfile: () => void;
+  setProfile: (e: boolean) => void;
   closeProfile: () => void;
 };
 
 export const useUIStore = create<UIState>((set) => ({
   profileOpen: false,
 
-  toggleProfile: () => set((state) => ({ profileOpen: !state.profileOpen })),
+  setProfile: (profileOpen) => set({ profileOpen }),
 
   closeProfile: () => set({ profileOpen: false }),
 }));

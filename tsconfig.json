@@ -24,7 +24,8 @@
       "@lib/*": ["lib/*"],
       "@hooks/*": ["hooks/*"],
       "@styles/*": ["styles/*"],
-      "@types/*": ["types/*"]
+      "@mytypes/*": ["types/*"],
+      "@utils/*": ["utils/*"]
     },
     "plugins": [{ "name": "next" }]
   },

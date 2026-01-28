@@ -16,11 +16,26 @@ export default function Home() {
         <div className="main__section__images">
           <div></div>
 
-          <Item text="Открыть справку" image="help.webp" extraClass="blue" />
-          <Item text="Личный кабинет" image="profile.webp" extraClass="green" />
+          <Item
+            text="Открыть справку"
+            image="help.webp"
+            extraClass="blue"
+            href="#"
+          />
+          <Item
+            text="Личный кабинет"
+            image="profile.webp"
+            extraClass="green"
+            href="/profile"
+          />
           <div></div>
           <div></div>
-          <Item text="Подобрать прибор" image="filter.webp" extraClass="red" />
+          <Item
+            text="Подобрать прибор"
+            image="filter.webp"
+            extraClass="red"
+            href="#"
+          />
         </div>
       </section>
       <section className="popular">

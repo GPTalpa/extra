@@ -3,6 +3,7 @@ import { post } from "@lib/api";
 import "./style.scss";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const roles = ["Пользователь", "Администратор", "Менеджер", "Клиент"];
 
@@ -12,12 +13,15 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [samePass, setSamePass] = useState(true);
+  const [withErrors, setWithErrors] = useState(false);
 
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password !== repeatPassword) {
-      alert("Пароли не совпадают");
+      setSamePass(false);
       return;
     }
     try {
@@ -27,10 +31,11 @@ const RegisterForm = () => {
         role,
         email,
       });
-      console.log("Токен и пользователь:", data);
-      console.log("Успешный вход!");
+      setWithErrors(false);
+      router.push("/profile");
     } catch (err: unknown) {
       if (err instanceof Error) {
+        setWithErrors(true);
         console.log(err.message);
       } else {
         console.log("Неизвестная ошибка");
@@ -48,6 +53,7 @@ const RegisterForm = () => {
           onChange={(e) => setFullName(e.target.value)}
           required
           placeholder="ФИО"
+          className={withErrors ? "with-error" : ""}
         />
       </label>
 
@@ -57,6 +63,8 @@ const RegisterForm = () => {
           value={role}
           onChange={(e) => setRole(e.target.value)}
           style={{ color: "#646464" }}
+          required
+          className={withErrors ? "with-error" : ""}
         >
           <option value="" disabled hidden>
             Роль
@@ -76,6 +84,7 @@ const RegisterForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
           placeholder="Электронная почта"
+          className={withErrors ? "with-error" : ""}
         />
       </label>
 
@@ -87,6 +96,7 @@ const RegisterForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
           placeholder="Пароль"
+          className={samePass && !withErrors ? "" : "with-error"}
         />
       </label>
 
@@ -98,11 +108,12 @@ const RegisterForm = () => {
           onChange={(e) => setRepeatPassword(e.target.value)}
           required
           placeholder="Повтор пароля"
+          className={samePass && !withErrors ? "" : "with-error"}
         />
       </label>
 
       <button className="auth-button" type="submit">
-        Зарегистрироваться
+        {withErrors ? "Проверьте заполненные данные" : "Зарегистрироваться"}
       </button>
     </form>
   );

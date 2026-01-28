@@ -45,7 +45,11 @@
   transition: 0.2s ease;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
-  border: none;
+  border: 1px solid transparent;
+
+  &.with-error {
+    border-color: rgba(250, 40, 40, 1);
+  }
 }
 
 .auth-field select {
