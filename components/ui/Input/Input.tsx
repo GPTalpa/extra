@@ -1,9 +1,6 @@
-"use client";
-
 import "./style.scss";
 
 import Image from "next/image";
-import { useUIStore } from "store";
 
 interface IInput {
   placeholder: string;
@@ -11,8 +8,6 @@ interface IInput {
 }
 
 const Input = ({ placeholder, className }: IInput) => {
-  const { profileOpen, toggleProfile } = useUIStore();
-
   return (
     <div className={`search__bar ${className ? className : ""}`}>
       <i
