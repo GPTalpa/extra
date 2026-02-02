@@ -24,7 +24,7 @@ const LoginForm = () => {
       console.log(data);
       setLoading(false);
       setWithErrors(false);
-      window.location.href = "/profile";
+      // window.location.href = "/profile";
     } catch (err: unknown) {
       setLoading(false);
       if (err instanceof Error) {

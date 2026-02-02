@@ -1,0 +1,15 @@
+@use "@styles/mixins.scss" as *;
+
+.check {
+  @include flex-center();
+  min-height: 65vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+
+  p {
+    font-size: 18px;
+    color: rgba(179, 179, 179, 1);
+  }
+}

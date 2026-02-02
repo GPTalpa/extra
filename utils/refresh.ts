@@ -6,7 +6,7 @@ async function refresh() {
     const res: Response = await post(`/auth/refresh/`, {});
     return res;
   } catch (err) {
-    console.error("getUser error:", err);
+    console.error("refresh error:", err);
     return null;
   }
 }

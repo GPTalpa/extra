@@ -34,7 +34,7 @@ const ProfileNav = ({ user }: IProfileProps) => {
   const onBtnClick = async (action: "profile" | "logout" | "login") => {
     switch (action) {
       case "profile":
-        router.push("/profile");
+        window.location.href = "/profile";
         break;
       case "logout":
         await post("/auth/logout/", {});

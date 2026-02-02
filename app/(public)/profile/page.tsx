@@ -2,10 +2,6 @@
 
 // import { Metadata } from "next";
 import "./style.scss";
-import Image from "next/image";
-
-import Input from "@ui/Input";
-import { redirect } from "next/navigation";
 import ProgressDots from "@ui/ProgressDots";
 
 import getUser from "@utils/getUser";
@@ -14,7 +10,6 @@ import { useEffect, useState } from "react";
 import { User } from "@mytypes/user";
 
 import { useRouter } from "next/navigation";
-import refresh from "@utils/refresh";
 
 export default function ProfilePage() {
   const [data, setData] = useState<User | null | undefined>(undefined);
@@ -22,13 +17,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     async function fetchData() {
-      let dataServ = await getUser();
-      console.log("USER:", dataServ);
-      if (!dataServ) {
-        const refreshToken = await refresh();
-        console.log("USER:", refreshToken);
-        dataServ = await getUser();
-      }
+      const dataServ = await getUser();
       setData(dataServ);
     }
 

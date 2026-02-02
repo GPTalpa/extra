@@ -16,6 +16,8 @@ const RegisterForm = () => {
   const [samePass, setSamePass] = useState(true);
   const [withErrors, setWithErrors] = useState(false);
 
+  const [passError, setPassError] = useState("");
+
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,13 +34,13 @@ const RegisterForm = () => {
         role,
         email,
       });
-      console.log(data)
+      console.log(data);
       setWithErrors(false);
       router.push("/profile");
     } catch (err: unknown) {
       if (err instanceof Error) {
         setWithErrors(true);
-        console.log(err.message);
+        setPassError(err.message);
       } else {
         console.log("Неизвестная ошибка");
       }
@@ -115,7 +117,11 @@ const RegisterForm = () => {
       </label>
 
       <button className="auth-button" type="submit">
-        {withErrors ? "Проверьте заполненные данные" : "Зарегистрироваться"}
+        {withErrors
+          ? passError
+            ? passError
+            : "Проверьте заполненные данные"
+          : "Зарегистрироваться"}
       </button>
     </form>
   );

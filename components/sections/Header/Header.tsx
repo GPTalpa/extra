@@ -11,21 +11,26 @@ import getUser from "@utils/getUser";
 import NavMobile from "@ui/NavMobile";
 import { use, useEffect, useRef, useState } from "react";
 import { User } from "@mytypes/user";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const [data, setData] = useState<User | null>(null);
   const [open, setOpen] = useState(false);
-
+  const pathname = usePathname();
+  console.log(pathname);
   const ref = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     async function fetchData() {
       const dataServ = await getUser();
-      console.log("USER:", dataServ);
       setData(dataServ);
     }
-
-    fetchData();
-  }, []);
+    if (pathname === "/check") {
+      return;
+    } else {
+      fetchData();
+    }
+  }, [pathname]);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
