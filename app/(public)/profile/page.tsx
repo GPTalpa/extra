@@ -1,3 +1,5 @@
+"use client";
+
 // import { Metadata } from "next";
 import "./style.scss";
 import Image from "next/image";
@@ -7,83 +9,52 @@ import { redirect } from "next/navigation";
 import ProgressDots from "@ui/ProgressDots";
 
 import getUser from "@utils/getUser";
+import Profile from "@sections/Profile";
+import { useEffect, useState } from "react";
+import { User } from "@mytypes/user";
 
-export default async function ProfilePage() {
-  const data = await getUser();
-  if (!data?.user) {
-    redirect("/auth");
+import { useRouter } from "next/navigation";
+import refresh from "@utils/refresh";
+
+export default function ProfilePage() {
+  const [data, setData] = useState<User | null | undefined>(undefined);
+  const router = useRouter();
+
+  useEffect(() => {
+    async function fetchData() {
+      let dataServ = await getUser();
+      console.log("USER:", dataServ);
+      if (!dataServ) {
+        const refreshToken = await refresh();
+        console.log("USER:", refreshToken);
+        dataServ = await getUser();
+      }
+      setData(dataServ);
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data === null) {
+      router.replace("/auth");
+    }
+  }, [data, router]);
+
+  if (!data) {
+    return null;
   }
-  const { fullName, email, role, avatarUrl } = data.user;
-
+  const { full_name, email, role, avatarUrl } = data;
   return (
     <main className="profile-page">
       <section>
         <div className="profile-page__header">
-          <div className="profile-page__header__left-side">
-            <div className="profile-page__header__left-side__info">
-              <div className="profile-page__header__left-side__info__heading">
-                <div className="profile-page__header__left-side__info__heading--profile-image">
-                  {avatarUrl ? (
-                    <Image
-                      src={avatarUrl}
-                      width={76}
-                      height={76}
-                      alt="Фотография профиля"
-                    />
-                  ) : (
-                    <Image
-                      src="/icon/profile.svg"
-                      width={76}
-                      height={76}
-                      alt="Фотография профиля"
-                    />
-                  )}
-                </div>
-                <div className="profile-page__header__left-side__info__heading__name-role">
-                  <p className="profile-page__header__left-side__info__heading__name-role--name">
-                    {fullName}
-                  </p>
-                  <p className="profile-page__header__left-side__info__heading__name-role--role">
-                    Роль: <span>{role}</span>
-                  </p>
-                </div>
-              </div>
-              <address className="profile-page__header__left-side__info__contacts">
-                <div className="profile-page__header__left-side__info__contacts__tel">
-                  <Image
-                    src="/icon/telephone.svg"
-                    width={37}
-                    height={35}
-                    alt="Иконка телефона"
-                  />
-                  <div className="profile-page__header__left-side__info__contacts__tel--phone">
-                    <p>Телефон:</p>
-                    <span>+7 (123) 456 78 90</span>
-                  </div>
-                </div>
-                <div className="profile-page__header__left-side__info__contacts__mail">
-                  <Image
-                    src="/icon/mail.svg"
-                    width={37}
-                    height={28}
-                    alt="Иконка почты"
-                  />
-                  <div className="profile-page__header__left-side__info__contacts__mail--email">
-                    <p>Почта:</p>
-                    <span>{email}</span>
-                  </div>
-                </div>
-              </address>
-            </div>
-            <button className="profile-page__header__left-side__info--edit">
-              <Image
-                src="/icon/pensil.svg"
-                width={29}
-                height={29}
-                alt="Иконка карандаша"
-              />
-            </button>
-          </div>
+          <Profile
+            fullName={full_name}
+            email={email}
+            role={role}
+            avatarUrl={avatarUrl}
+          />
           <div className="profile-page__header__right-side">
             <div className="profile-page__header__right-side__notify">
               <div className="profile-page__header__right-side__notify--counter">

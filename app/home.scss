@@ -100,3 +100,32 @@
     }
   }
 }
+
+@media (max-width: 560px) {
+  .main__section {
+    margin-bottom: 60px;
+    flex-direction: column;
+
+    &__images {
+      gap: 10px;
+    }
+
+    &--text {
+      p {
+        text-align: center;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .popular {
+    &__items {
+      display: grid;
+      grid-template-columns: 2fr 2fr;
+
+      &--item-image {
+        padding: 11px 27px;
+      }
+    }
+  }
+}

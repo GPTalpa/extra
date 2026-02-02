@@ -10,10 +10,10 @@ import { useRef, useEffect } from "react";
 import { post } from "@lib/api";
 
 interface IProfileProps {
-  user: User;
+  user: User | null;
 }
 
-const Profile = ({ user }: IProfileProps) => {
+const ProfileNav = ({ user }: IProfileProps) => {
   const { profileOpen, setProfile } = useUIStore();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -37,7 +37,7 @@ const Profile = ({ user }: IProfileProps) => {
         router.push("/profile");
         break;
       case "logout":
-        await post("/auth/logout", {});
+        await post("/auth/logout/", {});
         window.location.href = "/";
         break;
       case "login":
@@ -94,4 +94,4 @@ const Profile = ({ user }: IProfileProps) => {
   );
 };
 
-export default Profile;
+export default ProfileNav;

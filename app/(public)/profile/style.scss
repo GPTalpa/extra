@@ -6,89 +6,6 @@
     gap: 18px;
     margin-bottom: 36px;
 
-    &__left-side {
-      @include overlay;
-      @include flex-center($justify: space-between, $align: flex-start);
-      padding: 36px 36px 36px 46px;
-      gap: 20px;
-      width: 100%;
-
-      &__info {
-        @include flex-center($direction: column, $align: flex-start);
-        gap: 48px;
-        &__heading {
-          @include flex-center($justify: space-between);
-          gap: 24px;
-
-          &--profile-image {
-            width: 76px;
-            height: 76px;
-            border-radius: 50%;
-            overflow: hidden;
-            background-color: rgba(179, 179, 179, 1);
-          }
-
-          &__name-role {
-            @include flex-center($direction: column, $align: flex-start);
-            gap: 18px;
-
-            &--name {
-              font-size: 30px;
-              @include font-girloy-500;
-            }
-
-            &--role {
-              font-size: 18px;
-              @include font-montserrat-400;
-              color: rgba(179, 179, 179, 1);
-
-              span {
-                color: rgba(255, 255, 255, 1);
-              }
-            }
-          }
-        }
-
-        &__contacts {
-          @include flex-center($justify: space-between);
-          gap: 48px;
-
-          &__tel,
-          &__mail {
-            @include flex-center;
-            @include font-montserrat-400;
-            font-size: 20px;
-            gap: 12px;
-            line-height: 25px;
-          }
-
-          &__tel {
-            &--phone {
-              p {
-                color: rgba(179, 179, 179, 1);
-              }
-
-              span {
-                color: rgba(255, 255, 255, 1);
-              }
-            }
-          }
-
-          &__mail {
-            &--email {
-              p {
-                color: rgba(179, 179, 179, 1);
-              }
-
-              span {
-                color: rgba(255, 255, 255, 1);
-              }
-            }
-          }
-        }
-      }
-    }
-
     &__right-side {
       @include flex-center($direction: column, $justify: space-between);
       gap: 18px;
@@ -179,6 +96,83 @@
         border-radius: 20px;
         margin-top: 20px;
         line-height: 50px;
+      }
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .profile-page {
+    &__header {
+      flex-direction: column;
+
+      &__left-side {
+        padding: 25px !important;
+        gap: 0 !important;
+
+        &__info {
+          &__heading {
+            &--profile-image {
+              height: 52px !important;
+              width: 52px !important;
+              display: flex;
+            }
+
+            &__name-role {
+              max-width: 172px;
+              &--name {
+                font-size: 18px !important;
+              }
+            }
+          }
+
+          &__contacts {
+            flex-direction: column !important;
+            gap: 18px !important;
+            align-items: flex-start !important;
+
+            &__tel,
+            &__mail {
+              font-size: 14px !important;
+              line-height: 16px !important;
+            }
+
+            img {
+              width: 25px;
+              height: 25px;
+            }
+
+            &--edit-field {
+              width: 90% !important;
+            }
+          }
+        }
+      }
+    }
+
+    &__content {
+      h2 {
+        font-size: 24px;
+      }
+
+      &__course {
+        &__heading {
+          &--name {
+            font-size: 14px;
+          }
+          &--progress {
+            font-size: 18px;
+          }
+        }
+
+        &--continue {
+          font-size: 14px;
+          margin-top: 15px;
+          padding: 8px 14px;
+          line-height: 1;
+          max-width: 122px;
+          border-radius: 11.6px;
+        }
       }
     }
   }

@@ -6,6 +6,29 @@ header {
   margin-bottom: 50px;
   gap: 30px;
 
+  .burger {
+    display: none;
+    width: 52px;
+    height: 36px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    @include overlay;
+
+    span {
+      display: block;
+      height: 2px;
+      width: 22px;
+      background: rgba(255, 255, 255, 1);
+      margin-bottom: 3px;
+      transition: 0.3s;
+    }
+  }
+
+  .nav-mobile {
+    display: none;
+  }
+
   nav {
     @include overlay;
     transition:
@@ -45,6 +68,28 @@ header {
       .btn {
         display: flex;
       }
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  header {
+    margin-top: 50px;
+    flex-direction: row-reverse;
+
+    .burger {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav {
+      display: none;
+    }
+
+    .nav--input {
+      display: none;
     }
   }
 }

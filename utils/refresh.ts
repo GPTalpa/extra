@@ -1,9 +1,9 @@
 import { get, post } from "@lib/api";
 import { User } from "@mytypes/user";
 
-async function getUser() {
+async function refresh() {
   try {
-    const res: User = await get(`/auth/me/`);
+    const res: Response = await post(`/auth/refresh/`, {});
     return res;
   } catch (err) {
     console.error("getUser error:", err);
@@ -11,4 +11,4 @@ async function getUser() {
   }
 }
 
-export default getUser;
+export default refresh;

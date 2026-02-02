@@ -28,7 +28,7 @@ const ResetPasswordForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          placeholder="Эллектронная почта"
+          placeholder="Электронная почта"
         />
       </label>
 

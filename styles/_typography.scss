@@ -48,3 +48,15 @@ h2 {
   font-size: 36px;
   font-weight: 500;
 }
+
+@media (max-width: 560px) {
+  h1 {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+}

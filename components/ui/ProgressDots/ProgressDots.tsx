@@ -1,3 +1,5 @@
+import "./style.scss";
+
 type Props = {
   total: number;
   completed: number;
@@ -5,13 +7,15 @@ type Props = {
 
 const ProgressDots = ({ total, completed }: Props) => {
   return (
-    <div style={{ display: "flex", gap: 5.5, flexWrap: "wrap" }}>
+    <div
+      style={{ display: "flex", gap: 5.5, flexWrap: "wrap" }}
+      className="progressDots"
+    >
       {Array.from({ length: total }).map((_, i) => (
         <div
           key={i}
+          className="progressDots--dot"
           style={{
-            width: 48,
-            height: 48,
             borderRadius: "50%",
             background:
               i < completed

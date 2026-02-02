@@ -1,22 +1,57 @@
+"use client";
+
 import "./Header.scss";
 
 import Image from "next/image";
 import Link from "next/link";
 
-import Profile from "@ui/Profile";
+import ProfileNav from "@ui/ProfileNav";
 import Input from "@ui/Input";
 import getUser from "@utils/getUser";
+import NavMobile from "@ui/NavMobile";
+import { use, useEffect, useRef, useState } from "react";
+import { User } from "@mytypes/user";
 
-const Header = async () => {
-  const data = await getUser();
+const Header = () => {
+  const [data, setData] = useState<User | null>(null);
+  const [open, setOpen] = useState(false);
 
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    async function fetchData() {
+      const dataServ = await getUser();
+      console.log("USER:", dataServ);
+      setData(dataServ);
+    }
+
+    fetchData();
+  }, []);
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
-    <header className="site-header">
+    <header className="site-header" ref={ref}>
+      <button
+        className="burger"
+        aria-label="Открыть меню"
+        onClick={() => setOpen(true)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <Link href="/">
         {" "}
         <Image src="/icon/logo.svg" alt="Логотип" width={116} height={72} />
       </Link>
-
       <nav>
         <ul>
           <li>
@@ -30,8 +65,9 @@ const Header = async () => {
           </li>
         </ul>
       </nav>
-      <Input placeholder="Глобальный поиск..." />
-      <Profile user={data?.user ? data.user : null} />
+      <NavMobile open={open} />
+      <Input className="nav--input" placeholder="Глобальный поиск..." />
+      <ProfileNav user={data ? data : null} />
     </header>
   );
 };

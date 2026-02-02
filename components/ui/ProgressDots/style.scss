@@ -1,0 +1,21 @@
+.progressDots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5.5px;
+
+  &--dot {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 560px) {
+  .progressDots {
+    gap: 2.93px;
+
+    &--dot {
+      width: 27.5px;
+      height: 27.5px;
+    }
+  }
+}

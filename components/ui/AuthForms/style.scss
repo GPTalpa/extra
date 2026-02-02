@@ -78,6 +78,10 @@
   cursor: pointer;
   transition: 0.2s ease;
   box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.5);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 
 .auth-button:hover {
@@ -136,5 +140,19 @@
   &:hover {
     opacity: 1;
     text-decoration: underline;
+  }
+}
+
+@media (max-width: 560px) {
+  .auth-title {
+    font-size: 35.69px;
+  }
+
+  .auth-subtitle {
+    font-size: 16px;
+  }
+
+  .auth-button {
+    font-size: 19.83px;
   }
 }

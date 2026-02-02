@@ -5,7 +5,7 @@ import "./style.scss";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const roles = ["Пользователь", "Администратор", "Менеджер", "Клиент"];
+import { ROLES } from "@lib/constants";
 
 const RegisterForm = () => {
   const [fullName, setFullName] = useState("");
@@ -25,12 +25,14 @@ const RegisterForm = () => {
       return;
     }
     try {
-      const data = await post("/auth/register", {
-        fullName,
-        password,
+      const data = await post("/auth/register/", {
+        full_name: fullName,
+        password: password,
+        password_confirm: repeatPassword,
         role,
         email,
       });
+      console.log(data)
       setWithErrors(false);
       router.push("/profile");
     } catch (err: unknown) {
@@ -69,9 +71,9 @@ const RegisterForm = () => {
           <option value="" disabled hidden>
             Роль
           </option>
-          {roles.map((r) => (
-            <option key={r} value={r}>
-              {r}
+          {ROLES.map((r) => (
+            <option key={r.key} value={r.key}>
+              {r.name}
             </option>
           ))}
         </select>

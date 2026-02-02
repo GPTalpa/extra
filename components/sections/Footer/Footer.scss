@@ -31,3 +31,24 @@
     }
   }
 }
+
+@media (max-width: 560px) {
+  .site-footer {
+    flex-direction: column;
+    gap: 20px;
+    font-size: 10px;
+    padding: 12px;
+
+    address {
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .footer-policy {
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+}

@@ -1,11 +1,24 @@
 // src/lib/constants.ts
 
-export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://147.45.108.163:4000";
+export const API_URL = "https://webcoder-app.ru/api/";
 
-export const ROLES = {
-  USER: "user",
-  ADMIN: "admin",
-} as const;
+export const ROLES = [
+  {
+    name: "Пользователь",
+    key: 'user'
+  },
+  {
+    name: "Администратор",
+    key: 'admin'
+  },
+  {
+    name: "Менеджер",
+    key: 'manager'
+  },
+  {
+    name: "Клиент",
+    key: 'client'
+  }
+] as const;
 
 export const PRODUCT_CATEGORIES = ["Electronics", "Books", "Clothes"] as const;

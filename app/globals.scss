@@ -13,3 +13,9 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+@media (max-width: 560px) {
+  body {
+    padding: 20px 10px;
+  }
+}

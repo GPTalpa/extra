@@ -5,11 +5,18 @@ import Image from "next/image";
 interface IInput {
   placeholder: string;
   className?: string;
+  isMobile?: boolean;
 }
 
-const Input = ({ placeholder, className }: IInput) => {
+const Input = ({ placeholder, className, isMobile = false }: IInput) => {
   return (
-    <div className={`search__bar ${className ? className : ""}`}>
+    <div
+      className={
+        isMobile
+          ? `search__bar--mobile ${className ? className : ""}`
+          : `search__bar ${className ? className : ""}`
+      }
+    >
       <i
         style={{
           position: "absolute",

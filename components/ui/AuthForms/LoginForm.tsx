@@ -20,7 +20,8 @@ const LoginForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await post("/auth/login", { email, password });
+      const data = await post("/auth/login/", { email, password });
+      console.log(data);
       setLoading(false);
       setWithErrors(false);
       window.location.href = "/profile";
@@ -44,7 +45,7 @@ const LoginForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          placeholder="Элекетронная почта"
+          placeholder="Электронная почта"
           className={withErrors ? "with-error" : ""}
         />
       </label>

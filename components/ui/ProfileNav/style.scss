@@ -25,7 +25,6 @@
     height: 41px;
   }
 
-  /* вот оно — расширение поверх */
   &__panel {
     position: absolute;
     top: -200px;
@@ -73,6 +72,16 @@
       &--btns {
         @include flex-center($direction: column);
         gap: 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .profile {
+    &.is-open {
+      .profile__panel {
+        left: 0;
       }
     }
   }
