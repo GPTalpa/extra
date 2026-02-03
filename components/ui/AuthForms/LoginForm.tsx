@@ -4,7 +4,6 @@ import "./style.scss";
 import { useState } from "react";
 import { useAuthStore } from "store";
 import { post } from "@lib/api";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const LoginForm = () => {
@@ -14,21 +13,17 @@ const LoginForm = () => {
   const [withErrors, setWithErrors] = useState(false);
   const { loading, setMode, setLoading } = useAuthStore();
 
-  const router = useRouter();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
       const data = await post("/auth/login/", { email, password });
-      console.log(data);
       setLoading(false);
       setWithErrors(false);
-      // window.location.href = "/profile";
+      window.location.href = "/profile";
     } catch (err: unknown) {
       setLoading(false);
       if (err instanceof Error) {
-        console.log(err.message);
         setWithErrors(true);
       } else {
         console.log("Неизвестная ошибка");

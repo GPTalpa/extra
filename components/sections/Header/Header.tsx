@@ -12,6 +12,7 @@ import NavMobile from "@ui/NavMobile";
 import { use, useEffect, useRef, useState } from "react";
 import { User } from "@mytypes/user";
 import { usePathname } from "next/navigation";
+import { get } from "@lib/api";
 
 const Header = () => {
   const [data, setData] = useState<User | null>(null);
@@ -42,6 +43,24 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (pathname === "/verify-email") {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get("token");
+      async function fetchData() {
+        try {
+          const dataServ = await get(`/auth/verify-email/?token=${token}`);
+          console.log(dataServ);
+        } catch (e) {
+          throw e;
+        }
+      }
+
+      fetchData();
+    }
+    console.log(pathname);
+  }, [pathname]);
   return (
     <header className="site-header" ref={ref}>
       <button

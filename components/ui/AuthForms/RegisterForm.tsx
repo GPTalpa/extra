@@ -36,7 +36,7 @@ const RegisterForm = () => {
       });
       console.log(data);
       setWithErrors(false);
-      router.push("/profile");
+      window.location.href = "/check";
     } catch (err: unknown) {
       if (err instanceof Error) {
         setWithErrors(true);
