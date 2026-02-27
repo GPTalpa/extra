@@ -3,6 +3,8 @@ import { useState } from "react";
 import "./style.scss";
 import Image from "next/image";
 import Malfunction from "@sections/Malfunction";
+import Faq from "@sections/Faq";
+import Recomendation from "@sections/Recomendation";
 
 export default function Help() {
   const [isOpenHelp, setIsOpenHelp] = useState(false);
@@ -23,6 +25,13 @@ export default function Help() {
         return <Malfunction handleBack={handleBack} />;
         break;
 
+      case "faq":
+        return <Faq handleBack={handleBack} />;
+        break;
+
+      case "recomendation":
+        return <Recomendation handleBack={handleBack} />;
+        break;
       default:
         break;
     }
@@ -49,7 +58,10 @@ export default function Help() {
                 Тип текста-заполнителя, обычно используемый в дизайне
               </p>
             </div>
-            <div className="help__item help__item--2">
+            <div
+              className="help__item help__item--2"
+              onClick={() => handleSetterOpenedHelp("recomendation")}
+            >
               <Image
                 src="/icon/advice.svg"
                 alt=""
@@ -73,7 +85,10 @@ export default function Help() {
                 Тип текста-заполнителя, обычно используемый в дизайне
               </p>
             </div>
-            <div className="help__item help__item--4">
+            <div
+              className="help__item help__item--4"
+              onClick={() => handleSetterOpenedHelp("faq")}
+            >
               <Image
                 src="/icon/faq.svg"
                 alt=""
