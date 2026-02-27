@@ -34,7 +34,6 @@ const RegisterForm = () => {
         role,
         email,
       });
-      console.log(data);
       setWithErrors(false);
       window.location.href = "/check";
     } catch (err: unknown) {

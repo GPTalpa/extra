@@ -20,7 +20,7 @@ export default function Home() {
             text="Открыть справку"
             image="help.webp"
             extraClass="blue"
-            href="#"
+            href="/help"
           />
           <Item
             text="Личный кабинет"
@@ -34,7 +34,7 @@ export default function Home() {
             text="Подобрать прибор"
             image="filter.webp"
             extraClass="red"
-            href="#"
+            href="/selecting_device"
           />
         </div>
       </section>

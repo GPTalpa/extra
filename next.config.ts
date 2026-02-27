@@ -9,16 +9,18 @@ const nextConfig: NextConfig = withBundleAnalyzer({
 })({
   reactStrictMode: true,
   poweredByHeader: false,
-  output: "standalone",
-  compress: true,
+
+  output: "export", // 🔥 ВАЖНО
+  images: {
+    unoptimized: true,
+  },
+  turbopack: {},
+
   sassOptions: {
     includePaths: [path.join(process.cwd(), "/styles")],
   },
-  webpack(
-    config: Configuration,
-    { dev, isServer }: { dev: boolean; isServer: boolean },
-  ) {
-    // Алиасы
+
+  webpack(config, { dev, isServer }) {
     if (config.resolve?.alias) {
       Object.assign(config.resolve.alias, {
         "@": path.resolve(__dirname, "/"),
@@ -35,7 +37,6 @@ const nextConfig: NextConfig = withBundleAnalyzer({
       });
     }
 
-    // Минификация CSS только для клиентского продакшн
     if (!dev && !isServer && config.optimization?.minimizer) {
       config.optimization.minimizer.push(new CssMinimizerPlugin());
     }

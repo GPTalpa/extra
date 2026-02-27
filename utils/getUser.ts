@@ -6,7 +6,6 @@ async function getUser() {
     const res: User = await get(`/auth/me/`);
     return res;
   } catch (err) {
-    console.error("getUser error:", err);
     return null;
   }
 }

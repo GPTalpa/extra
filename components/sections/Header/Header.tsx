@@ -18,20 +18,19 @@ const Header = () => {
   const [data, setData] = useState<User | null>(null);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  console.log(pathname);
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      const dataServ = await getUser();
-      setData(dataServ);
-    }
-    if (pathname === "/check") {
-      return;
-    } else {
-      fetchData();
-    }
-  }, [pathname]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const dataServ = await getUser();
+  //     setData(dataServ);
+  //   }
+  //   if (pathname === "/check") {
+  //     return;
+  //   } else {
+  //     fetchData();
+  //   }
+  // }, [pathname]);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -51,7 +50,6 @@ const Header = () => {
       async function fetchData() {
         try {
           const dataServ = await get(`/auth/verify-email/?token=${token}`);
-          console.log(dataServ);
         } catch (e) {
           throw e;
         }
@@ -59,7 +57,6 @@ const Header = () => {
 
       fetchData();
     }
-    console.log(pathname);
   }, [pathname]);
   return (
     <header className="site-header" ref={ref}>
@@ -82,7 +79,7 @@ const Header = () => {
             <Link href="/selecting_device">Подбор прибора</Link>
           </li>
           <li>
-            <Link href={"#"}>Справка</Link>
+            <Link href={"/help"}>Справка</Link>
           </li>
           <li>
             <Link href={"#"}>Обучение</Link>
