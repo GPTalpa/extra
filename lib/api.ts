@@ -1,28 +1,4 @@
-export const API_URL = "https://webcoder-app.ru/api";
-
-let isRefreshing = false;
-let refreshPromise: Promise<boolean> | null = null;
-
-async function refreshToken(): Promise<boolean> {
-  if (isRefreshing && refreshPromise) {
-    return refreshPromise;
-  }
-
-  isRefreshing = true;
-
-  refreshPromise = fetch(`${API_URL}/auth/refresh/`, {
-    method: "POST",
-    credentials: "include",
-  })
-    .then((res) => res.ok)
-    .catch(() => false)
-    .finally(() => {
-      isRefreshing = false;
-      refreshPromise = null;
-    });
-
-  return refreshPromise;
-}
+export const API_URL = "https://extrabackend.duckdns.org/api/v1";
 
 async function parseError(res: Response): Promise<string> {
   try {
@@ -67,23 +43,6 @@ export async function get<T>(url: string): Promise<T> {
 
   if (res.ok) {
     return res.json();
-  }
-
-  if (res.status === 401) {
-    const refreshed = await refreshToken();
-
-    if (refreshed) {
-      const retry = await fetch(`${API_URL}${url}`, {
-        method: "GET",
-        credentials: "include",
-      });
-
-      if (retry.ok) {
-        return retry.json();
-      }
-    }
-
-    throw new Error("UNAUTHORIZED");
   }
 
   const err = await res.json().catch(() => ({}));

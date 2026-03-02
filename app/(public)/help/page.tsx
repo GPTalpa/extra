@@ -5,6 +5,7 @@ import Image from "next/image";
 import Malfunction from "@sections/Malfunction";
 import Faq from "@sections/Faq";
 import Recomendation from "@sections/Recomendation";
+import Terms from "@sections/Terms";
 
 export default function Help() {
   const [isOpenHelp, setIsOpenHelp] = useState(false);
@@ -31,6 +32,9 @@ export default function Help() {
 
       case "recomendation":
         return <Recomendation handleBack={handleBack} />;
+        break;
+      case "terms":
+        return <Terms handleBack={handleBack} />;
         break;
       default:
         break;
@@ -73,7 +77,10 @@ export default function Help() {
                 Тип текста-заполнителя, обычно используемый в дизайне
               </p>
             </div>
-            <div className="help__item help__item--3">
+            <div
+              className="help__item help__item--3"
+              onClick={() => handleSetterOpenedHelp("terms")}
+            >
               <Image
                 src="/icon/term.svg"
                 alt=""

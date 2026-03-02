@@ -65,3 +65,52 @@
     }
   }
 }
+
+.recomendation-detail {
+  &__content {
+    margin-top: 42px;
+    @include overlay;
+    padding: 48px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &--title {
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 110%;
+  }
+
+  ul {
+    list-style: disc;
+    li {
+      list-style: disc;
+    }
+  }
+
+  &--image {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+
+    p {
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  h3 {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 150%;
+  }
+
+  &--text {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 130%;
+  }
+}

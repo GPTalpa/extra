@@ -23,6 +23,8 @@ const RegisterForm = () => {
     e.preventDefault();
 
     if (password !== repeatPassword) {
+      console.log(password);
+      console.log(repeatPassword);
       setSamePass(false);
       return;
     }
@@ -30,12 +32,10 @@ const RegisterForm = () => {
       const data = await post("/auth/register/", {
         full_name: fullName,
         password: password,
-        password_confirm: repeatPassword,
         role,
         email,
       });
       setWithErrors(false);
-      window.location.href = "/check";
     } catch (err: unknown) {
       if (err instanceof Error) {
         setWithErrors(true);

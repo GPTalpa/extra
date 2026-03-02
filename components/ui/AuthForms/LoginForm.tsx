@@ -17,7 +17,7 @@ const LoginForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await post("/auth/login/", { email, password });
+      const data = await post("/auth/login/", { username: email, password });
       setLoading(false);
       setWithErrors(false);
       window.location.href = "/profile";
