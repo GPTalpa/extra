@@ -1,13 +1,30 @@
 "use client";
+import { post } from "@lib/api";
 import "./style.scss";
 
 import { useState } from "react";
+import Image from "next/image";
+import { useAuthStore } from "store";
 
 const ResetPasswordForm = () => {
   const [email, setEmail] = useState("");
+  const { loading, setLoading } = useAuthStore();
+  const [withErrors, setWithErrors] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const data = await post("/auth/forgot-passsword", { email });
+      setLoading(false);
+      setWithErrors(false);
+    } catch (err: unknown) {
+      setLoading(false);
+      if (err instanceof Error) {
+        setWithErrors(true);
+      } else {
+        console.log("Неизвестная ошибка");
+      }
+    }
   };
 
   return (
@@ -32,7 +49,18 @@ const ResetPasswordForm = () => {
       </label>
 
       <button className="auth-button" type="submit">
-        Получить письмо
+        {loading ? (
+          <Image
+            src="/icon/loading.gif"
+            alt="Загрузка"
+            width={20}
+            height={20}
+          />
+        ) : withErrors ? (
+          "Неверная почта"
+        ) : (
+          "Получить письмо"
+        )}
       </button>
     </form>
   );

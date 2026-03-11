@@ -3,7 +3,6 @@ import { post } from "@lib/api";
 import "./style.scss";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 import { ROLES } from "@lib/constants";
 
@@ -18,23 +17,21 @@ const RegisterForm = () => {
 
   const [passError, setPassError] = useState("");
 
-  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password !== repeatPassword) {
-      console.log(password);
-      console.log(repeatPassword);
       setSamePass(false);
       return;
     }
     try {
       const data = await post("/auth/register/", {
-        full_name: fullName,
+        fullname: fullName,
         password: password,
         role,
         email,
       });
+      window.location.href = "/check";
       setWithErrors(false);
     } catch (err: unknown) {
       if (err instanceof Error) {

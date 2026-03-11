@@ -37,7 +37,7 @@ const ProfileNav = ({ user }: IProfileProps) => {
         window.location.href = "/profile";
         break;
       case "logout":
-        await post("/auth/logout/", {});
+        await post("/auth/logout", {});
         window.location.href = "/";
         break;
       case "login":

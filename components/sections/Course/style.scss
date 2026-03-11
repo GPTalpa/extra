@@ -1,0 +1,14 @@
+.course {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+
+  &--back {
+    color: rgba(250, 40, 40, 1);
+    font-size: 23.75px;
+    line-height: 110.00000000000001%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}

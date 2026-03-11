@@ -2,8 +2,6 @@
 
 import "./style.scss";
 
-import { useState } from "react";
-
 import { LoginForm, RegisterForm, ResetPasswordForm } from "@ui/AuthForms";
 import { useAuthStore } from "store";
 

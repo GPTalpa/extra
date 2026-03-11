@@ -3,7 +3,7 @@ import "./style.scss";
 
 import { useState } from "react";
 import { useAuthStore } from "store";
-import { post } from "@lib/api";
+import { postForm } from "@lib/api";
 import Image from "next/image";
 
 const LoginForm = () => {
@@ -17,7 +17,8 @@ const LoginForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await post("/auth/login/", { username: email, password });
+      const data = await postForm("/auth/login", { username: email, password });
+      console.log(data);
       setLoading(false);
       setWithErrors(false);
       window.location.href = "/profile";

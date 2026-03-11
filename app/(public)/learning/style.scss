@@ -1,0 +1,161 @@
+@use "@styles/mixins.scss" as *;
+
+.learning {
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 42px;
+
+    &--input {
+      max-width: 868.74658203125px;
+    }
+
+    &__filter {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      /* Firefox */
+      scrollbar-width: none;
+      /* IE */
+      -ms-overflow-style: none;
+      margin-top: 12px;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      &__item {
+        width: fit-content;
+        // white-space: nowrap;
+        flex: 0 0 auto;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        gap: 12.35px;
+
+        &.active {
+          border-color: rgba(250, 40, 40, 1);
+          backdrop-filter: blur(10px);
+          box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.7);
+        }
+
+        span {
+          width: 11.771240234375px;
+          height: 11.771240234375px;
+          background: rgba(250, 40, 40, 1);
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  &__content {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  &__item {
+    @include overlay;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 24px;
+    position: relative;
+
+    &--title {
+      font-size: 30px;
+      line-height: 100%;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    &--description {
+      font-size: 18px;
+      font-weight: 400;
+      max-width: 458px;
+      margin-bottom: 36px;
+    }
+
+    &--dots {
+      display: flex;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+
+      .progressDots {
+        max-width: 755.9041748046875px;
+      }
+    }
+
+    &--progress {
+      font-size: 36px;
+      color: rgba(255, 255, 255, 0.4);
+
+      .completed {
+        color: rgba(250, 40, 40, 1);
+      }
+
+      .total {
+        color: rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    &__btns {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    &--btn {
+      padding: 17px;
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      font-size: 30px;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(250, 40, 40, 1);
+        backdrop-filter: blur(10px);
+        box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.7);
+      }
+    }
+
+    &.in-progress {
+      &::after {
+        position: absolute;
+        content: "В процессе";
+        padding: 17px 30px;
+        border: 1px solid rgba(250, 40, 40, 0.5);
+        background: rgba(250, 40, 40, 0.5);
+        backdrop-filter: blur(10px);
+        font-size: 24px;
+        color: rgba(255, 255, 255, 1);
+        top: -20px;
+        right: -30px;
+        border-radius: 20px;
+      }
+    }
+
+    &.new {
+      &::after {
+        position: absolute;
+        content: "Новое";
+        padding: 17px 30px;
+        border: 1px solid rgba(250, 40, 40, 0.5);
+        background: rgba(250, 40, 40, 0.5);
+        backdrop-filter: blur(10px);
+        font-size: 24px;
+        color: rgba(255, 255, 255, 1);
+        top: -20px;
+        right: -30px;
+        border-radius: 20px;
+      }
+    }
+  }
+}

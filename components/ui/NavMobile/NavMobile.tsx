@@ -21,7 +21,7 @@ const NavMobile = ({ open }: { open: boolean }) => {
           <Link href={"/help"}>Справка</Link>
         </li>
         <li>
-          <Link href={"#"}>Обучение</Link>
+          <Link href={"/learning"}>Обучение</Link>
         </li>
       </ul>
     </nav>

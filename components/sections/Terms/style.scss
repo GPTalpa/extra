@@ -1,0 +1,45 @@
+.terms {
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 42px;
+  }
+
+  &--description {
+    width: 516.260009765625px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    padding: 25px 20px;
+    color: rgba(204, 204, 204, 1);
+    font-size: 18px;
+    display: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    position: absolute;
+    z-index: 9999;
+  }
+
+  &--title {
+    font-size: 24px;
+    line-height: 110.00000000000001%;
+  }
+
+  &__item {
+    position: relative;
+
+    &:hover {
+      .terms--title {
+        font-size: 30px;
+        color: rgba(250, 40, 40, 1);
+        font-weight: 500;
+      }
+
+      .terms--description {
+        display: block;
+      }
+    }
+  }
+}

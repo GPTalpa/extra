@@ -29,6 +29,40 @@ export async function post<T>(url: string, body: unknown): Promise<T> {
     throw new Error(message);
   }
 
+  if (url === "/auth/logout") {
+    return res.ok as unknown as T;
+  }
+
+  return res.json();
+}
+
+export async function postForm<T>(
+  url: string,
+  body: Record<string, string | number | boolean>,
+): Promise<T> {
+  const params = new URLSearchParams();
+
+  Object.entries(body).forEach(([key, value]) => {
+    params.append(key, String(value));
+  });
+
+  const res = await fetch(`${API_URL}${url}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: params.toString(),
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const message = await parseError(res);
+    throw new Error(message);
+  }
+
+  if (url === "/auth/login") {
+    return res.ok as unknown as T;
+  }
   return res.json();
 }
 

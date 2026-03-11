@@ -8,11 +8,16 @@ import getUser from "@utils/getUser";
 import Profile from "@sections/Profile";
 import { useEffect, useState } from "react";
 import { User } from "@mytypes/user";
+import { CourseProgress } from "@mytypes/courseProgress";
 
 import { useRouter } from "next/navigation";
+import getProfileCourses from "@utils/getProfileCourses";
 
 export default function ProfilePage() {
   const [data, setData] = useState<User | null | undefined>(undefined);
+  const [dataCourse, setDataCourse] = useState<
+    CourseProgress | null | undefined
+  >(undefined);
   const router = useRouter();
 
   useEffect(() => {
@@ -25,6 +30,14 @@ export default function ProfilePage() {
   }, []);
 
   useEffect(() => {
+    async function fetchData() {
+      const dataServ = await getProfileCourses();
+      setDataCourse(dataServ);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     if (data === null) {
       router.replace("/auth");
     }
@@ -33,13 +46,13 @@ export default function ProfilePage() {
   if (!data) {
     return null;
   }
-  const { full_name, email, role, avatarUrl } = data;
+  const { fullname, email, role, avatarUrl } = data;
   return (
     <main className="profile-page">
       <section>
         <div className="profile-page__header">
           <Profile
-            fullName={full_name}
+            fullName={fullname}
             email={email}
             role={role}
             avatarUrl={avatarUrl}
@@ -58,41 +71,44 @@ export default function ProfilePage() {
         </div>
         <div className="profile-page__content">
           <h2>Мои курсы</h2>
-          <div className="profile-page__content__course">
-            <div className="profile-page__content__course__heading">
-              <p className="profile-page__content__course__heading--name">
-                Какой-то курс:{" "}
-              </p>
-              <p className="profile-page__content__course__heading--progress">
-                <span className="completed">4</span>/
-                <span className="total">25</span>
-              </p>
-            </div>
+          <div className="profile-page__content__container">
+            {!dataCourse ? "" : <>{dataCourse}</>}
+            {/* <div className="profile-page__content__course">
+              <div className="profile-page__content__course__heading">
+                <p className="profile-page__content__course__heading--name">
+                  Какой-то курс:{" "}
+                </p>
+                <p className="profile-page__content__course__heading--progress">
+                  <span className="completed">4</span>/
+                  <span className="total">25</span>
+                </p>
+              </div>
 
-            <div className="profile-page__content__course--progress">
-              <ProgressDots completed={4} total={25} />
+              <div className="profile-page__content__course--progress">
+                <ProgressDots completed={4} total={25} />
+              </div>
+              <button className="profile-page__content__course--continue">
+                Продолжить
+              </button>
             </div>
-            <button className="profile-page__content__course--continue">
-              Продолжить
-            </button>
-          </div>
-          <div className="profile-page__content__course">
-            <div className="profile-page__content__course__heading">
-              <p className="profile-page__content__course__heading--name">
-                Еще один курс:{" "}
-              </p>
-              <p className="profile-page__content__course__heading--progress">
-                <span className="completed">2</span>/
-                <span className="total">16</span>
-              </p>
-            </div>
+            <div className="profile-page__content__course">
+              <div className="profile-page__content__course__heading">
+                <p className="profile-page__content__course__heading--name">
+                  Еще один курс:{" "}
+                </p>
+                <p className="profile-page__content__course__heading--progress">
+                  <span className="completed">2</span>/
+                  <span className="total">16</span>
+                </p>
+              </div>
 
-            <div className="profile-page__content__course--progress">
-              <ProgressDots completed={2} total={16} />
-            </div>
-            <button className="profile-page__content__course--continue">
-              Продолжить
-            </button>
+              <div className="profile-page__content__course--progress">
+                <ProgressDots completed={2} total={16} />
+              </div>
+              <button className="profile-page__content__course--continue">
+                Продолжить
+              </button>
+            </div> */}
           </div>
         </div>
       </section>

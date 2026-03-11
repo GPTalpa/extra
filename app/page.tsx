@@ -1,8 +1,25 @@
+"use client";
+
 import "./home.scss";
 import Image from "next/image";
 
 import Item from "@ui/Item";
+import { useEffect, useState } from "react";
+import getProducts from "@utils/getProducts";
+import { Products } from "@mytypes/products";
 export default function Home() {
+  const [data, setData] = useState<Products[] | null | undefined>(undefined);
+
+  useEffect(() => {
+    async function fetchData() {
+      const dataServ = await getProducts(4);
+      setData(dataServ);
+    }
+
+    fetchData();
+  }, []);
+
+  console.log(data);
   return (
     <main>
       <section className="main__section">
@@ -41,50 +58,23 @@ export default function Home() {
       <section className="popular">
         <h2>Популярные приборы</h2>
         <div className="popular__items">
-          <div className="popular__items--item-wrapper">
-            <div className="popular__items--item-image">
-              <Image
-                src="/images/item.webp"
-                alt="РДЭ-Мастер-К-10-1.5"
-                width={114}
-                height={168}
-              />
-            </div>
-            <p>РДЭ-Мастер-К-10-1.5</p>
-          </div>
-          <div className="popular__items--item-wrapper">
-            <div className="popular__items--item-image">
-              <Image
-                src="/images/item.webp"
-                alt="РДЭ-Мастер-К-10-1.5"
-                width={114}
-                height={168}
-              />
-            </div>
-            <p>РДЭ-Мастер-К-10-1.5</p>
-          </div>
-          <div className="popular__items--item-wrapper">
-            <div className="popular__items--item-image">
-              <Image
-                src="/images/item.webp"
-                alt="РДЭ-Мастер-К-10-1.5"
-                width={114}
-                height={168}
-              />
-            </div>
-            <p>РДЭ-Мастер-К-10-1.5</p>
-          </div>
-          <div className="popular__items--item-wrapper">
-            <div className="popular__items--item-image">
-              <Image
-                src="/images/item.webp"
-                alt="РДЭ-Мастер-К-10-1.5"
-                width={114}
-                height={168}
-              />
-            </div>
-            <p>РДЭ-Мастер-К-10-1.5</p>
-          </div>
+          {!data
+            ? ""
+            : data.map((elem) => {
+                return (
+                  <div className="popular__items--item-wrapper" key={elem.id}>
+                    <div className="popular__items--item-image">
+                      <Image
+                        src={elem.image_url[0]}
+                        alt="РДЭ-Мастер-К-10-1.5"
+                        width={114}
+                        height={168}
+                      />
+                    </div>
+                    <p>{elem.title}</p>
+                  </div>
+                );
+              })}
         </div>
       </section>
     </main>

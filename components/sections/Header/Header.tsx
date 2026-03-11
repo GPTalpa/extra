@@ -17,20 +17,17 @@ import { get } from "@lib/api";
 const Header = () => {
   const [data, setData] = useState<User | null>(null);
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
   const ref = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const dataServ = await getUser();
-  //     setData(dataServ);
-  //   }
-  //   if (pathname === "/check") {
-  //     return;
-  //   } else {
-  //     fetchData();
-  //   }
-  // }, [pathname]);
+  useEffect(() => {
+    async function fetchData() {
+      const dataServ = await getUser();
+      setData(dataServ);
+    }
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -43,21 +40,6 @@ const Header = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (pathname === "/verify-email") {
-      const params = new URLSearchParams(window.location.search);
-      const token = params.get("token");
-      async function fetchData() {
-        try {
-          const dataServ = await get(`/auth/verify-email/?token=${token}`);
-        } catch (e) {
-          throw e;
-        }
-      }
-
-      fetchData();
-    }
-  }, [pathname]);
   return (
     <header className="site-header" ref={ref}>
       <button
@@ -82,7 +64,7 @@ const Header = () => {
             <Link href={"/help"}>Справка</Link>
           </li>
           <li>
-            <Link href={"#"}>Обучение</Link>
+            <Link href={"/learning"}>Обучение</Link>
           </li>
         </ul>
       </nav>
