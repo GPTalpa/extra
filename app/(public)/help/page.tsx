@@ -59,7 +59,7 @@ export default function Help() {
               />
               <p className="help__item--title">Аварийные режимы</p>
               <p className="help__item--description">
-                Тип текста-заполнителя, обычно используемый в дизайне
+                Инструкции для нештатных ситуаций
               </p>
             </div>
             <div
@@ -74,7 +74,7 @@ export default function Help() {
               />
               <p className="help__item--title">Рекомендации</p>
               <p className="help__item--description">
-                Тип текста-заполнителя, обычно используемый в дизайне
+                Полезные советы по эксплуатации и обслуживанию приборов
               </p>
             </div>
             <div
@@ -89,7 +89,7 @@ export default function Help() {
               />
               <p className="help__item--title">Термины</p>
               <p className="help__item--description">
-                Тип текста-заполнителя, обычно используемый в дизайне
+                Простые объяснения технических терминов
               </p>
             </div>
             <div
@@ -104,7 +104,7 @@ export default function Help() {
               />
               <p className="help__item--title">FAQ</p>
               <p className="help__item--description">
-                Тип текста-заполнителя, обычно используемый в дизайне
+                Быстрые ответы на популярные вопросы клиентов.
               </p>
             </div>
           </div>

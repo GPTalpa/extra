@@ -1,14 +1,35 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import "./style.scss";
 
 import Image from "next/image";
+import getFaq from "@utils/getFaq";
 
 interface IFaq {
   handleBack: () => void;
 }
 
+type Faq = {
+  id: string;
+  question: string;
+  answer: string;
+};
+
 const Faq = ({ handleBack }: IFaq) => {
+  const [data, setData] = useState<Faq[] | null | undefined>(undefined);
+
+  useEffect(() => {
+    async function fetchData() {
+      const dataServ = await getFaq();
+      setData(dataServ);
+    }
+
+    fetchData();
+  }, []);
+
+  console.log(data);
+
   return (
     <div className="help-faq">
       <div className="help__header">
@@ -20,123 +41,38 @@ const Faq = ({ handleBack }: IFaq) => {
       <div className="help-faq__content">
         <h2>FAQ</h2>
         <div className="faq_right">
-          <details className="faq__item" id="faq-q1">
-            <summary className="faq__summary">
-              <span className="faq__item--question">Какой то вопрос?</span>
-              <span className="faq__chev" aria-hidden="true">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="33"
-                  height="33"
-                  viewBox="0 0 33 33"
-                  fill="none"
-                >
-                  <path
-                    d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
-                    stroke="currentColor"
-                    stroke-width="3"
-                  />
-                </svg>
-              </span>
-            </summary>
-            <div className="faq__content">
-              <p>
-                Лорем Ипсум — это тип текста-заполнителя, обычно используемый в
-                дизайне и издательском деле для заполнения пространства на
-                странице и создания впечатления о том, как будет выглядеть
-                конечный контент. Лорем Ипсум на русском языке происходит от
-                латинского текста римского философа Цицерона и используется с
-                1960-х годов. Текст бессмысленный и не несет никакого
-                конкретного смысла, позволяя дизайнерам сосредоточиться на
-                макете и визуальных элементах, не отвлекаясь на значимый
-                контент.
-              </p>
-            </div>
-          </details>
-          <details className="faq__item" id="faq-q2">
-            <summary className="faq__summary">
-              <span className="faq__item--question">Еще один?</span>
-              <span className="faq__chev" aria-hidden="true">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="33"
-                  height="33"
-                  viewBox="0 0 33 33"
-                  fill="none"
-                >
-                  <path
-                    d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
-                    stroke="currentColor"
-                    stroke-width="3"
-                  />
-                </svg>
-              </span>
-            </summary>
-            <div className="faq__content">
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos
-                natus debitis deleniti, sed reiciendis est facilis odio
-                distinctio, ipsam cumque, ratione tempora hic accusantium? Atque
-                quidem laborum unde perspiciatis molestias?
-              </p>
-            </div>
-          </details>
-          <details className="faq__item" id="faq-q3">
-            <summary className="faq__summary">
-              <span className="faq__item--question">Еще один?</span>
-              <span className="faq__chev" aria-hidden="true">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="33"
-                  height="33"
-                  viewBox="0 0 33 33"
-                  fill="none"
-                >
-                  <path
-                    d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
-                    stroke="currentColor"
-                    stroke-width="3"
-                  />
-                </svg>
-              </span>
-            </summary>
-            <div className="faq__content">
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias,
-                laudantium. At dicta similique cumque nam consequatur quas
-                quibusdam ipsa doloremque nobis! Magni eveniet quo officia
-                veritatis natus quis? Nihil, harum.
-              </p>
-            </div>
-          </details>
-          <details className="faq__item" id="faq-q4">
-            <summary className="faq__summary">
-              <span className="faq__item--question">Вопрос</span>
-              <span className="faq__chev" aria-hidden="true">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="33"
-                  height="33"
-                  viewBox="0 0 33 33"
-                  fill="none"
-                >
-                  <path
-                    d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
-                    stroke="currentColor"
-                    stroke-width="3"
-                  />
-                </svg>
-              </span>
-            </summary>
-            <div className="faq__content">
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum
-                tempora modi omnis nobis expedita, aliquam optio est ipsa. Nulla
-                dolor quidem ratione labore deleniti? Tempora sit cupiditate
-                quis repellat provident?
-              </p>
-            </div>
-          </details>
+          {!data
+            ? ""
+            : data.map((elem) => {
+                return (
+                  <details className="faq__item" key={elem.id}>
+                    <summary className="faq__summary">
+                      <span className="faq__item--question">
+                        {elem.question}
+                      </span>
+                      <span className="faq__chev" aria-hidden="true">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="33"
+                          height="33"
+                          viewBox="0 0 33 33"
+                          fill="none"
+                        >
+                          <path
+                            d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
+                            stroke="currentColor"
+                            stroke-width="3"
+                          />
+                        </svg>
+                      </span>
+                    </summary>
+                    <div className="faq__content">
+                      <p>{elem.answer}</p>
+                    </div>
+                  </details>
+                );
+              })}
+
         </div>
       </div>
     </div>

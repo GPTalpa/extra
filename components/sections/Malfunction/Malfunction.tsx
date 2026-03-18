@@ -32,23 +32,6 @@ const Malfunction = ({ handleBack }: IMalfunction) => {
     setIsOpenDetail(action);
   };
 
-  const chooseFilter = () => {
-    switch (typeMalfunctiom) {
-      case "type1":
-        return (
-          <PressureSwitch handleClickMalfunction={handleClickMalfunction} />
-        );
-        break;
-
-      case "type2":
-        return <></>;
-        break;
-
-      default:
-        break;
-    }
-  };
-
   return (
     <>
       {" "}
@@ -65,40 +48,8 @@ const Malfunction = ({ handleBack }: IMalfunction) => {
               className="malfunctiom__header--input"
               placeholder="Введите серийный номер, проблему или название..."
             />
-            <div
-              className="malfunctiom__header__filter"
-              ref={scrollRef}
-              onWheel={handleWheel}
-            >
-              <button
-                className={`btn malfunctiom__header__filter__item ${typeMalfunctiom === "type1" ? "active" : ""}`}
-                onClick={() => setTypeMalfunctiom("type1")}
-              >
-                {typeMalfunctiom === "type1" ? <span></span> : ""}
-                Реле давления
-              </button>
-              <button
-                className={`btn malfunctiom__header__filter__item ${typeMalfunctiom === "type2" ? "active" : ""}`}
-                onClick={() => setTypeMalfunctiom("type2")}
-              >
-                {typeMalfunctiom === "type2" ? <span></span> : ""}
-                Устр-ва плавного впуска
-              </button>
-              <button className="btn malfunctiom__header__filter__item">
-                Устр-ва защиты насоса
-              </button>
-              <button className="btn malfunctiom__header__filter__item">
-                Устр-ва защиты насоса
-              </button>{" "}
-              <button className="btn malfunctiom__header__filter__item">
-                Устр-ва защиты насоса
-              </button>{" "}
-              <button className="btn malfunctiom__header__filter__item">
-                Устр-ва защиты насоса
-              </button>
-            </div>
           </div>
-          {chooseFilter()}
+          <PressureSwitch handleClickMalfunction={handleClickMalfunction} />
         </div>
       )}
       {isOpenDetail && (
