@@ -81,6 +81,8 @@
     &--item-wrapper {
       @include flex-center($direction: column);
       gap: 14px;
+      justify-content: flex-start;
+      height: -webkit-fill-available;
       p {
         font-size: 20px;
         font-weight: 500;
@@ -91,6 +93,7 @@
       @include overlay;
       padding: 37px 70px;
       cursor: pointer;
+      height: 168px;
 
       &:hover {
         border: 0.94px solid rgba(250, 40, 40, 1);

@@ -19,6 +19,8 @@ export default function Home() {
     fetchData();
   }, []);
 
+  console.log(data);
+
   return (
     <main>
       <section className="main__section">
@@ -64,8 +66,12 @@ export default function Home() {
                   <div className="popular__items--item-wrapper" key={elem.id}>
                     <div className="popular__items--item-image">
                       <Image
-                        src={`https://extrabackend.duckdns.org${elem.image_url[0]}`}
-                        alt="РДЭ-Мастер-К-10-1.5"
+                        src={
+                          elem.image_url[0]
+                            ? `https://extrabackend.duckdns.org${elem.image_url[0]}`
+                            : "/images/no-photo.png"
+                        }
+                        alt={elem.title}
                         width={114}
                         height={168}
                       />

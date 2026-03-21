@@ -80,7 +80,11 @@ export default function SelectingDevice() {
                         {" "}
                         <div className="selectingDevice__item--image">
                           <Image
-                            src={`https://extrabackend.duckdns.org${elem.image_url[0]}`}
+                            src={
+                              elem.image_url[0]
+                                ? `https://extrabackend.duckdns.org${elem.image_url[0]}`
+                                : "/images/no-photo.png"
+                            }
                             alt=""
                             width={180}
                             height={265}

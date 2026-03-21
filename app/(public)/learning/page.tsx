@@ -59,6 +59,17 @@ export default function Learning() {
     setIsOpenCurse(false);
   };
 
+  const getLvl = (level: string) => {
+    switch (level) {
+      case "beginner":
+        return "Новичок";
+        break;
+
+      default:
+        break;
+    }
+  };
+
   // const handleSetterOpenedHelp = (arg: string) => {
   //   setIsOpenHelp(true);
   //   setOpenedHelp(arg);
@@ -126,7 +137,40 @@ export default function Learning() {
             </button>
           </div>
           <div className="learning__content">
-            <div className="learning__item in-progress">
+            {!data
+              ? "Загрузка..."
+              : data.map((elem) => {
+                  return (
+                    <div className="learning__item" key={elem.id}>
+                      <p className="learning__item--title">
+                        {elem.title}: уровень {getLvl(elem.level)}
+                      </p>
+                      <p className="learning__item--description">
+                        {elem.description}
+                      </p>
+                      <div className="learning__item--dots">
+                        <ProgressDots completed={1} total={18} />
+                        <p className="learning__item--progress">
+                          <span className="completed">2</span>/
+                          <span className="total">16</span>
+                        </p>
+                      </div>
+
+                      <div className="learning__item__btns">
+                        <button
+                          className="learning__item--btn"
+                          onClick={() => setIsOpenCurse(true)}
+                        >
+                          Продолжить
+                        </button>
+                        <button className="learning__item--btn">
+                          Отменить курс
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+            {/* <div className="learning__item in-progress">
               <p className="learning__item--title">
                 Курс для монтажника: уровень Новичок
               </p>
@@ -206,7 +250,7 @@ export default function Learning() {
                 </button>
                 <button className="learning__item--btn">Отменить курс</button>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
       )}
