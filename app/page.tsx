@@ -64,7 +64,7 @@ export default function Home() {
                   <div className="popular__items--item-wrapper" key={elem.id}>
                     <div className="popular__items--item-image">
                       <Image
-                        src={elem.image_url[0]}
+                        src={`https://extrabackend.duckdns.org${elem.image_url[0]}`}
                         alt="РДЭ-Мастер-К-10-1.5"
                         width={114}
                         height={168}

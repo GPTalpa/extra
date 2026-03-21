@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./style.scss";
 import Image from "next/image";
 import Malfunction from "@sections/Malfunction";
@@ -9,10 +9,35 @@ import Terms from "@sections/Terms";
 import Input from "@ui/Input";
 import ProgressDots from "@ui/ProgressDots";
 import Course from "@sections/Course";
+import { useDebounce } from "@hooks/useDebounce";
+import { CourseType } from "@mytypes/course";
+import getCourses from "@utils/getCourses";
 
 export default function Learning() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isOpenCurse, setIsOpenCurse] = useState(false);
+  const [data, setData] = useState<CourseType[] | null | undefined>(undefined);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!debouncedSearchTerm) {
+        const dataServ = await getCourses();
+        setData(dataServ);
+      }
+
+      // if (debouncedSearchTerm) {
+      //   const dataServ = await getCourses(debouncedSearchTerm);
+      //   setData(dataServ);
+      // }
+    }
+
+    fetchData();
+  }, [debouncedSearchTerm]);
+
+  console.log(data);
 
   const [typeLearning, settypeLearning] = useState("type1");
 
@@ -122,7 +147,7 @@ export default function Learning() {
                 <button
                   className="learning__item--btn"
                   onClick={() => setIsOpenCurse(true)}
-                  >
+                >
                   Продолжить
                 </button>
                 <button className="learning__item--btn">Отменить курс</button>

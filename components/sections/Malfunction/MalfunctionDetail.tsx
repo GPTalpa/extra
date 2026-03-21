@@ -1,8 +1,28 @@
+import { Malfunction } from "@mytypes/malfunction";
+import getMalfunction from "@utils/getMalfunction";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 interface IMalfunction {
   handleClickMalfunction: (event: boolean) => void;
+  choosenMalfunction: string | null | undefined;
 }
-const MalfunctionDetail = ({ handleClickMalfunction }: IMalfunction) => {
+const MalfunctionDetail = ({
+  handleClickMalfunction,
+  choosenMalfunction,
+}: IMalfunction) => {
+  const [data, setData] = useState<Malfunction | null | undefined>(undefined);
+  // const images = data?.image_url;
+
+  useEffect(() => {
+    async function fetchData() {
+      const dataServ = await getMalfunction(choosenMalfunction);
+      setData(dataServ);
+    }
+
+    fetchData();
+  }, [choosenMalfunction]);
+
+  console.log(data);
   return (
     <>
       <div className="help__header">

@@ -12,7 +12,9 @@ interface IMalfunction {
 
 const Malfunction = ({ handleBack }: IMalfunction) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [typeMalfunctiom, setTypeMalfunctiom] = useState("type1");
+  const [choosenMalfunction, setChoosenMalfunction] = useState<
+    string | null | undefined
+  >(null);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
 
   const handleWheel = (e: React.WheelEvent) => {
@@ -27,9 +29,15 @@ const Malfunction = ({ handleBack }: IMalfunction) => {
     el.scrollLeft += e.deltaY;
   };
 
-  const handleClickMalfunction = (action: boolean) => {
-    console.log(action);
-    setIsOpenDetail(action);
+  const handleClickMalfunction = (action: boolean, id?: string) => {
+    if (action === false) {
+      setIsOpenDetail(action);
+    }
+
+    if (action === true) {
+      setIsOpenDetail(action);
+      setChoosenMalfunction(id);
+    }
   };
 
   return (
@@ -53,7 +61,7 @@ const Malfunction = ({ handleBack }: IMalfunction) => {
         </div>
       )}
       {isOpenDetail && (
-        <MalfunctionDetail handleClickMalfunction={handleClickMalfunction} />
+        <MalfunctionDetail handleClickMalfunction={handleClickMalfunction} choosenMalfunction={choosenMalfunction}/>
       )}
     </>
   );

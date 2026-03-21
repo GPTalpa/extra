@@ -1,14 +1,25 @@
 import "./style.scss";
-
 import Image from "next/image";
 
 interface IInput {
   placeholder: string;
   className?: string;
   isMobile?: boolean;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
-const Input = ({ placeholder, className, isMobile = false }: IInput) => {
+const Input = ({
+  placeholder,
+  className,
+  isMobile = false,
+  value = "",
+  onChange,
+}: IInput) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e.target.value);
+  };
+
   return (
     <div
       className={
@@ -27,10 +38,12 @@ const Input = ({ placeholder, className, isMobile = false }: IInput) => {
       >
         <Image src="/icon/search.svg" alt="" width={21} height={21} />
       </i>
-      <input type="text" placeholder={placeholder} />
-      <button className="btn btn-primaty--active">
-        <Image src="/icon/search_black.svg" alt="" width={21} height={21} />
-      </button>
+      <input
+        type="text"
+        placeholder={placeholder}
+        value={value}
+        onChange={handleChange}
+      />
     </div>
   );
 };

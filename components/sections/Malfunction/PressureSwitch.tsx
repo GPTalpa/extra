@@ -1,147 +1,60 @@
+import { Malfunction } from "@mytypes/malfunction";
+import getMalfunctions from "@utils/getMalfunctions";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface IMalfunction {
-  handleClickMalfunction: (event: boolean) => void;
+  handleClickMalfunction: (event: boolean, id: string) => void;
 }
 
 const PressureSwitch = ({ handleClickMalfunction }: IMalfunction) => {
+  const [data, setData] = useState<Malfunction[] | null | undefined>(undefined);
+
+  useEffect(() => {
+    async function fetchData() {
+      const dataServ = await getMalfunctions();
+      setData(dataServ);
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="malfunctiom__content">
-      <div
-        className="malfunctiom__content__item"
-        onClick={() => handleClickMalfunction(true)}
-      >
-        <div className="malfunctiom__content__item--left">
-          <p>Какая то проблема</p>
-          <Image
-            src="/images/error.png"
-            width={112.4537353515625}
-            height={59.19719696044922}
-            alt=""
-          />
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="33"
-          height="33"
-          viewBox="0 0 33 33"
-          fill="none"
-        >
-          <path
-            d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
-            stroke="currentColor"
-            stroke-width="3"
-          />
-        </svg>
-      </div>
-      <div
-        className="malfunctiom__content__item"
-        onClick={() => handleClickMalfunction(true)}
-      >
-        <div className="malfunctiom__content__item--left">
-          <p>Какая то проблема</p>
-          <Image
-            src="/images/error.png"
-            width={112.4537353515625}
-            height={59.19719696044922}
-            alt=""
-          />
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="33"
-          height="33"
-          viewBox="0 0 33 33"
-          fill="none"
-        >
-          <path
-            d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
-            stroke="currentColor"
-            stroke-width="3"
-          />
-        </svg>
-      </div>
-      <div
-        className="malfunctiom__content__item"
-        onClick={() => handleClickMalfunction(true)}
-      >
-        <div className="malfunctiom__content__item--left">
-          <p>Какая то проблема</p>
-          <Image
-            src="/images/error.png"
-            width={112.4537353515625}
-            height={59.19719696044922}
-            alt=""
-          />
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="33"
-          height="33"
-          viewBox="0 0 33 33"
-          fill="none"
-        >
-          <path
-            d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
-            stroke="currentColor"
-            stroke-width="3"
-          />
-        </svg>
-      </div>
-      <div
-        className="malfunctiom__content__item"
-        onClick={() => handleClickMalfunction(true)}
-      >
-        <div className="malfunctiom__content__item--left">
-          <p>Какая то проблема</p>
-          <Image
-            src="/images/error.png"
-            width={112.4537353515625}
-            height={59.19719696044922}
-            alt=""
-          />
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="33"
-          height="33"
-          viewBox="0 0 33 33"
-          fill="none"
-        >
-          <path
-            d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
-            stroke="currentColor"
-            stroke-width="3"
-          />
-        </svg>
-      </div>
-      <div
-        className="malfunctiom__content__item"
-        onClick={() => handleClickMalfunction(true)}
-      >
-        <div className="malfunctiom__content__item--left">
-          <p>Какая то проблема</p>
-          <Image
-            src="/images/error.png"
-            width={112.4537353515625}
-            height={59.19719696044922}
-            alt=""
-          />
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="33"
-          height="33"
-          viewBox="0 0 33 33"
-          fill="none"
-        >
-          <path
-            d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
-            stroke="currentColor"
-            stroke-width="3"
-          />
-        </svg>
-      </div>
+      {!data
+        ? ""
+        : data.map((elem) => {
+            return (
+              <div
+                className="malfunctiom__content__item"
+                onClick={() => handleClickMalfunction(true, elem.id)}
+                key={elem.id}
+              >
+                <div className="malfunctiom__content__item--left">
+                  <p>{elem.title}</p>
+                  {/* <Image
+                    src="/images/error.png"
+                    width={112.4537353515625}
+                    height={59.19719696044922}
+                    alt=""
+                  /> */}
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="33"
+                  height="33"
+                  viewBox="0 0 33 33"
+                  fill="none"
+                >
+                  <path
+                    d="M1.06055 1.06055L30.7011 30.7008M30.7011 30.7008V1.06055M30.7011 30.7008H1.06055"
+                    stroke="currentColor"
+                    stroke-width="3"
+                  />
+                </svg>
+              </div>
+            );
+          })}
     </div>
   );
 };
