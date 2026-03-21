@@ -5,7 +5,7 @@ import { Navigation, Thumbs } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
@@ -61,46 +61,46 @@ const Device = ({ handleBack, openedId }: IDevice) => {
     data: CharacteristicsData,
     parentKey: string = "",
   ): JSX.Element[] => {
-    if (data) {
-      return Object.entries(data).map(([key, value]) => {
-        // Формируем отображаемое имя ключа (красивое форматирование)
-        const displayKey = parentKey ? `${parentKey} > ${key}` : key;
+    if (!data) {
+      return []; // Возвращаем пустой массив вместо undefined
+    }
 
-        // Если значение - объект, рекурсивно обрабатываем его
-        if (
-          typeof value === "object" &&
-          value !== null &&
-          !Array.isArray(value)
-        ) {
-          return renderCharacteristics(
-            value as CharacteristicsData,
-            displayKey,
-          );
-        }
+    return Object.entries(data).flatMap(([key, value]) => {
+      // Формируем отображаемое имя ключа (красивое форматирование)
+      const displayKey = parentKey ? `${parentKey} > ${key}` : key;
 
-        // Если значение === true → используем только ключ
-        if (value === true) {
-          return (
-            <div key={displayKey} className="device__content__char__item">
-              <p className="device__content__char--value">{displayKey}</p>
-            </div>
-          );
-        }
+      // Если значение - объект, рекурсивно обрабатываем его
+      if (
+        typeof value === "object" &&
+        value !== null &&
+        !Array.isArray(value)
+      ) {
+        return renderCharacteristics(value as CharacteristicsData, displayKey);
+      }
 
-        if (value === false) {
-          return;
-        }
-
-        // Для всех остальных значений (числа, строки, false, null)
+      // Если значение === true → используем только ключ
+      if (value === true) {
         return (
           <div key={displayKey} className="device__content__char__item">
-            <p className="device__content__char--name">{displayKey}:</p>
-            <div></div>
-            <p className="device__content__char--value">{String(value)}</p>
+            <p className="device__content__char--value">{displayKey}</p>
           </div>
         );
-      });
-    }
+      }
+
+      // Пропускаем false значения (не возвращаем ничего)
+      if (value === false) {
+        return []; // Возвращаем пустой массив вместо undefined
+      }
+
+      // Для всех остальных значений (числа, строки, null)
+      return (
+        <div key={displayKey} className="device__content__char__item">
+          <p className="device__content__char--name">{displayKey}:</p>
+          <div></div>
+          <p className="device__content__char--value">{String(value)}</p>
+        </div>
+      );
+    });
   };
 
   return (
