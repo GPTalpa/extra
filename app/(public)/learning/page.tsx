@@ -18,6 +18,7 @@ export default function Learning() {
   const [isOpenCurse, setIsOpenCurse] = useState(false);
   const [data, setData] = useState<CourseType[] | null | undefined>(undefined);
   const [searchTerm, setSearchTerm] = useState("");
+   const [openedId, setOpenedId] = useState<string | null>(null);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
@@ -59,6 +60,11 @@ export default function Learning() {
     setIsOpenCurse(false);
   };
 
+    const handleOpenDevice = (id: string) => {
+    setOpenedId(id);
+    setIsOpenCurse(true);
+  };
+
   const getLvl = (level: string) => {
     switch (level) {
       case "beginner":
@@ -69,6 +75,8 @@ export default function Learning() {
         break;
     }
   };
+
+  
 
   // const handleSetterOpenedHelp = (arg: string) => {
   //   setIsOpenHelp(true);
@@ -148,24 +156,34 @@ export default function Learning() {
                       <p className="learning__item--description">
                         {elem.description}
                       </p>
-                      <div className="learning__item--dots">
-                        <ProgressDots completed={1} total={18} />
-                        <p className="learning__item--progress">
-                          <span className="completed">2</span>/
-                          <span className="total">16</span>
-                        </p>
-                      </div>
+                      {elem.progress ? (
+                        <div className="learning__item--dots">
+                          <ProgressDots
+                            completed={elem.progress.completed}
+                            total={elem.progress.total}
+                          />
+                          <p className="learning__item--progress">
+                            <span className="completed">
+                              {elem.progress.completed}
+                            </span>
+                            /
+                            <span className="total">{elem.progress.total}</span>
+                          </p>
+                        </div>
+                      ) : (
+                        ""
+                      )}
 
                       <div className="learning__item__btns">
                         <button
                           className="learning__item--btn"
-                          onClick={() => setIsOpenCurse(true)}
+                          onClick={() => handleOpenDevice(elem.id)}
                         >
                           Продолжить
                         </button>
-                        <button className="learning__item--btn">
+                        {/* <button className="learning__item--btn">
                           Отменить курс
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   );
@@ -254,7 +272,7 @@ export default function Learning() {
           </div>
         </section>
       )}
-      {isOpenCurse && <Course handleBack={handleBack} />}
+      {isOpenCurse && <Course handleBack={handleBack} openedId={openedId} />}
     </main>
   );
 }

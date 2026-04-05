@@ -60,9 +60,6 @@ export default function SelectingDevice() {
       {!isOpenDevice && (
         <section className="selectingDevice">
           <div className="selectingDevice__header">
-            <button className="selectingDevice__header--filter">
-              <Image src="/icon/filter.svg" alt="" width={24} height={24} />
-            </button>
             <Input
               className="selectingDevice__header--input"
               placeholder="Поиск по названию прибора..."

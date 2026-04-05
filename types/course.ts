@@ -3,4 +3,5 @@ export type CourseType = {
   description: string;
   id: string;
   level: string;
+  progress: { completed: number; total: number } | null;
 };

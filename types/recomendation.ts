@@ -1,6 +1,5 @@
-export type Malfunction = {
+export type Recomendation = {
   title: string;
   description: string;
   id: string;
-  image: string;
 };

@@ -45,8 +45,6 @@ const Device = ({ handleBack, openedId }: IDevice) => {
     fetchData();
   }, [openedId]);
 
-  console.log(data);
-
   // Определяем тип для данных характеристики
   type CharacteristicValue =
     | string

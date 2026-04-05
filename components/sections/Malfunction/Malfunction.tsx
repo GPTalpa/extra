@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState, useRef } from "react";
 import PressureSwitch from "./PressureSwitch";
 import MalfunctionDetail from "./MalfunctionDetail";
+import { useDebounce } from "@hooks/useDebounce";
 
 interface IMalfunction {
   handleBack: () => void;
@@ -16,7 +17,14 @@ const Malfunction = ({ handleBack }: IMalfunction) => {
     string | null | undefined
   >(null);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const handleInput = (value: string) => {
+    setSearchTerm(value);
+  };
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  
   const handleWheel = (e: React.WheelEvent) => {
     const el = scrollRef.current;
     if (!el) return;
@@ -55,13 +63,18 @@ const Malfunction = ({ handleBack }: IMalfunction) => {
             <Input
               className="malfunctiom__header--input"
               placeholder="Введите серийный номер, проблему или название..."
+              onChange={handleInput}
+              value={searchTerm}
             />
           </div>
-          <PressureSwitch handleClickMalfunction={handleClickMalfunction} />
+          <PressureSwitch handleClickMalfunction={handleClickMalfunction} input={debouncedSearchTerm}/>
         </div>
       )}
       {isOpenDetail && (
-        <MalfunctionDetail handleClickMalfunction={handleClickMalfunction} choosenMalfunction={choosenMalfunction}/>
+        <MalfunctionDetail
+          handleClickMalfunction={handleClickMalfunction}
+          choosenMalfunction={choosenMalfunction}
+        />
       )}
     </>
   );

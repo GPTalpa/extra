@@ -1,23 +1,32 @@
 import { Malfunction } from "@mytypes/malfunction";
 import getMalfunctions from "@utils/getMalfunctions";
+import getMalfunctionSearch from "@utils/getMalfunctionSearch";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface IMalfunction {
   handleClickMalfunction: (event: boolean, id: string) => void;
+  input: string;
 }
 
-const PressureSwitch = ({ handleClickMalfunction }: IMalfunction) => {
+const PressureSwitch = ({ handleClickMalfunction, input }: IMalfunction) => {
   const [data, setData] = useState<Malfunction[] | null | undefined>(undefined);
 
   useEffect(() => {
     async function fetchData() {
-      const dataServ = await getMalfunctions();
-      setData(dataServ);
+      if (!input) {
+        const dataServ = await getMalfunctions();
+        setData(dataServ);
+      }
+
+      if (input) {
+        const dataServ = await getMalfunctionSearch(input);
+        setData(dataServ);
+      }
     }
 
     fetchData();
-  }, []);
+  }, [input]);
 
   return (
     <div className="malfunctiom__content">
@@ -32,12 +41,12 @@ const PressureSwitch = ({ handleClickMalfunction }: IMalfunction) => {
               >
                 <div className="malfunctiom__content__item--left">
                   <p>{elem.title}</p>
-                  {/* <Image
-                    src="/images/error.png"
+                  <Image
+                    src={`https://extrabackend.duckdns.org${elem.image}`}
                     width={112.4537353515625}
                     height={59.19719696044922}
                     alt=""
-                  /> */}
+                  />
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -64,6 +64,7 @@
       border-radius: 30px;
       padding: 15px 18px;
       cursor: pointer;
+      gap: clamp(10px, 2vw, 40px);
 
       &:hover {
         background: rgba(250, 40, 40, 0.3);
