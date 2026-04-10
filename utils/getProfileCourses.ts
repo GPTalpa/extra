@@ -3,7 +3,7 @@ import { CourseProgress } from "@mytypes/courseProgress";
 
 async function getProfileCourses() {
   try {
-    const res: CourseProgress = await get(`/profile/courses-progress`);
+    const res: CourseProgress[] = await get(`/profile/courses-progress`);
     return res;
   } catch (err) {
     return null;

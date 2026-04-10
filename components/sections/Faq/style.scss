@@ -89,3 +89,15 @@
     max-height: 1000px;
   }
 }
+
+@media (max-width: 768px) {
+  .help-faq {
+    .faq {
+      &__item {
+        &--question {
+          font-size: 22px;
+        }
+      }
+    }
+  }
+}

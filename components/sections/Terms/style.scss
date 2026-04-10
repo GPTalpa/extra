@@ -43,3 +43,15 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .terms {
+    &__content {
+      grid-template-columns: 1fr;
+    }
+
+    &--description {
+      width: 90vw;
+    }
+  }
+}

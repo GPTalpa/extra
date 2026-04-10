@@ -89,3 +89,11 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .help {
+    &__content {
+      grid-template-columns: repeat(auto-fit, minmax(358px, 1fr));
+    }
+  }
+}

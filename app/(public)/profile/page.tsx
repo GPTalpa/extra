@@ -8,17 +8,22 @@ import getUser from "@utils/getUser";
 import Profile from "@sections/Profile";
 import { useEffect, useState } from "react";
 import { User } from "@mytypes/user";
-import { CourseProgress } from "@mytypes/courseProgress";
+import { CoursesProgressResponse } from "@mytypes/courseProgress";
 
 import { useRouter } from "next/navigation";
 import getProfileCourses from "@utils/getProfileCourses";
+import Course from "@sections/Course";
 
 export default function ProfilePage() {
   const [data, setData] = useState<User | null | undefined>(undefined);
   const [dataCourse, setDataCourse] = useState<
-    CourseProgress | null | undefined
+    CoursesProgressResponse | null | undefined
   >(undefined);
   const router = useRouter();
+  const [isOpenCourse, setIsOpenCourse] = useState<boolean>(false);
+  const [openedCourseId, setOpenedCourseId] = useState<string | null>(null);
+
+  console.log(dataCourse);
 
   useEffect(() => {
     async function fetchData() {
@@ -47,71 +52,80 @@ export default function ProfilePage() {
     return null;
   }
   const { fullname, email, role, avatarUrl } = data;
+
+  const handleBackCourses = () => {
+    window.location.href = "/learning/";
+  };
+
+  const handleClickContinue = (id: string) => {
+    setIsOpenCourse(true);
+    setOpenedCourseId(id);
+  };
+
   return (
-    <main className="profile-page">
-      <section>
-        <div className="profile-page__header">
-          <Profile
-            fullName={fullname}
-            email={email}
-            role={role}
-            avatarUrl={avatarUrl}
-          />
-          <div className="profile-page__header__right-side">
-            <div className="profile-page__header__right-side__notify">
-              <div className="profile-page__header__right-side__notify--counter">
-                3
+    <>
+      {!isOpenCourse ? (
+        <main className="profile-page">
+          <section>
+            <div className="profile-page__header">
+              <Profile
+                fullName={fullname}
+                email={email}
+                role={role}
+                avatarUrl={avatarUrl}
+              />
+              <div className="profile-page__header__right-side">
+                <div className="profile-page__header__right-side__notify">
+                  <div className="profile-page__header__right-side__notify--counter">
+                    3
+                  </div>
+                  <p>Новыe уведомления</p>
+                </div>
+                <div className="profile-page__header__right-side__change-pass">
+                  <p>Изменить пароль</p>
+                </div>
               </div>
-              <p>Новыe уведомления</p>
             </div>
-            <div className="profile-page__header__right-side__change-pass">
-              <p>Изменить пароль</p>
-            </div>
-          </div>
-        </div>
-        <div className="profile-page__content">
-          <h2>Мои курсы</h2>
-          <div className="profile-page__content__container">
-            {!dataCourse ? "" : <>{dataCourse}</>}
-            {/* <div className="profile-page__content__course">
-              <div className="profile-page__content__course__heading">
-                <p className="profile-page__content__course__heading--name">
-                  Какой-то курс:{" "}
-                </p>
-                <p className="profile-page__content__course__heading--progress">
-                  <span className="completed">4</span>/
-                  <span className="total">25</span>
-                </p>
-              </div>
+            <div className="profile-page__content">
+              <h2>Мои курсы</h2>
+              <div className="profile-page__content__container">
+                {!dataCourse
+                  ? "Загрузка..."
+                  : dataCourse.map((elem) => {
+                      return (
+                        <div
+                          className="profile-page__content__course"
+                          key={elem.course_id}
+                        >
+                          <div className="profile-page__content__course__heading">
+                            <p className="profile-page__content__course__heading--name">
+                              {elem.course_title}
+                            </p>
+                            <p className="profile-page__content__course__heading--progress">
+                              <span className="completed">4</span>/
+                              <span className="total">25</span>
+                            </p>
+                          </div>
 
-              <div className="profile-page__content__course--progress">
-                <ProgressDots completed={4} total={25} />
+                          <div className="profile-page__content__course--progress">
+                            <ProgressDots completed={4} total={25} />
+                          </div>
+                          <button
+                            className="profile-page__content__course--continue"
+                            onClick={() => handleClickContinue(elem.course_id)}
+                          >
+                            Продолжить
+                          </button>
+                        </div>
+                      );
+                    })}
               </div>
-              <button className="profile-page__content__course--continue">
-                Продолжить
-              </button>
             </div>
-            <div className="profile-page__content__course">
-              <div className="profile-page__content__course__heading">
-                <p className="profile-page__content__course__heading--name">
-                  Еще один курс:{" "}
-                </p>
-                <p className="profile-page__content__course__heading--progress">
-                  <span className="completed">2</span>/
-                  <span className="total">16</span>
-                </p>
-              </div>
-
-              <div className="profile-page__content__course--progress">
-                <ProgressDots completed={2} total={16} />
-              </div>
-              <button className="profile-page__content__course--continue">
-                Продолжить
-              </button>
-            </div> */}
-          </div>
-        </div>
-      </section>
-    </main>
+          </section>
+        </main>
+      ) : (
+        <Course handleBack={handleBackCourses} openedId={openedCourseId} />
+      )}
+    </>
   );
 }

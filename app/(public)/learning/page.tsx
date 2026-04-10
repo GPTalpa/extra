@@ -1,46 +1,42 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import "./style.scss";
-import Image from "next/image";
-import Malfunction from "@sections/Malfunction";
-import Faq from "@sections/Faq";
-import Recomendation from "@sections/Recomendation";
-import Terms from "@sections/Terms";
 import Input from "@ui/Input";
 import ProgressDots from "@ui/ProgressDots";
 import Course from "@sections/Course";
 import { useDebounce } from "@hooks/useDebounce";
 import { CourseType } from "@mytypes/course";
 import getCourses from "@utils/getCourses";
+import getCourseSearch from "@utils/getCourseSearch";
+import postStartCourse from "@utils/postStartCourse";
 
 export default function Learning() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isOpenCurse, setIsOpenCurse] = useState(false);
   const [data, setData] = useState<CourseType[] | null | undefined>(undefined);
   const [searchTerm, setSearchTerm] = useState("");
-   const [openedId, setOpenedId] = useState<string | null>(null);
+  const [openedId, setOpenedId] = useState<string | null>(null);
+  const [typeLearning, settypeLearning] = useState("everyone");
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     async function fetchData() {
       if (!debouncedSearchTerm) {
-        const dataServ = await getCourses();
+        const dataServ = await getCourses(typeLearning);
         setData(dataServ);
       }
 
-      // if (debouncedSearchTerm) {
-      //   const dataServ = await getCourses(debouncedSearchTerm);
-      //   setData(dataServ);
-      // }
+      if (debouncedSearchTerm) {
+        const dataServ = await getCourseSearch(debouncedSearchTerm);
+        setData(dataServ);
+      }
     }
 
     fetchData();
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, typeLearning]);
 
   console.log(data);
-
-  const [typeLearning, settypeLearning] = useState("type1");
 
   const handleWheel = (e: React.WheelEvent) => {
     const el = scrollRef.current;
@@ -60,23 +56,20 @@ export default function Learning() {
     setIsOpenCurse(false);
   };
 
-    const handleOpenDevice = (id: string) => {
+  const handleOpenDevice = (id: string) => {
     setOpenedId(id);
     setIsOpenCurse(true);
   };
 
-  const getLvl = (level: string) => {
-    switch (level) {
-      case "beginner":
-        return "Новичок";
-        break;
-
-      default:
-        break;
-    }
+  const handleOpenAndStartDevice = async (id: string) => {
+    setOpenedId(id);
+    setIsOpenCurse(true);
+    await postStartCourse(id);
   };
 
-  
+  const handleInput = (value: string) => {
+    setSearchTerm(value);
+  };
 
   // const handleSetterOpenedHelp = (arg: string) => {
   //   setIsOpenHelp(true);
@@ -111,6 +104,8 @@ export default function Learning() {
           <Input
             className="learning__header--input"
             placeholder="Введите серийный номер, проблему или название..."
+            onChange={handleInput}
+            value={searchTerm}
           />
           <div
             className="learning__header__filter"
@@ -118,30 +113,18 @@ export default function Learning() {
             onWheel={handleWheel}
           >
             <button
-              className={`btn learning__header__filter__item ${typeLearning === "type1" ? "active" : ""}`}
-              onClick={() => settypeLearning("type1")}
+              className={`btn learning__header__filter__item ${typeLearning === "everyone" ? "active" : ""}`}
+              onClick={() => settypeLearning("everyone")}
             >
               {typeLearning === "type1" ? <span></span> : ""}
-              Реле давления
+              Для всех
             </button>
             <button
-              className={`btn learning__header__filter__item ${typeLearning === "type2" ? "active" : ""}`}
-              onClick={() => settypeLearning("type2")}
+              className={`btn learning__header__filter__item ${typeLearning === "installer" ? "active" : ""}`}
+              onClick={() => settypeLearning("installer")}
             >
               {typeLearning === "type2" ? <span></span> : ""}
-              Устр-ва плавного впуска
-            </button>
-            <button className="btn learning__header__filter__item">
-              Устр-ва защиты насоса
-            </button>
-            <button className="btn learning__header__filter__item">
-              Устр-ва защиты насоса
-            </button>{" "}
-            <button className="btn learning__header__filter__item">
-              Устр-ва защиты насоса
-            </button>{" "}
-            <button className="btn learning__header__filter__item">
-              Устр-ва защиты насоса
+              Для монтажников
             </button>
           </div>
           <div className="learning__content">
@@ -151,7 +134,7 @@ export default function Learning() {
                   return (
                     <div className="learning__item" key={elem.id}>
                       <p className="learning__item--title">
-                        {elem.title}: уровень {getLvl(elem.level)}
+                        {elem.title}: уровень {elem.level_label}
                       </p>
                       <p className="learning__item--description">
                         {elem.description}
@@ -175,12 +158,22 @@ export default function Learning() {
                       )}
 
                       <div className="learning__item__btns">
-                        <button
-                          className="learning__item--btn"
-                          onClick={() => handleOpenDevice(elem.id)}
-                        >
-                          Продолжить
-                        </button>
+                        {elem.progress?.status === "not_started" ? (
+                          <button
+                            className="learning__item--btn"
+                            onClick={() => handleOpenAndStartDevice(elem.id)}
+                          >
+                            Начать
+                          </button>
+                        ) : (
+                          <button
+                            className="learning__item--btn"
+                            onClick={() => handleOpenDevice(elem.id)}
+                          >
+                            Продолжить
+                          </button>
+                        )}
+
                         {/* <button className="learning__item--btn">
                           Отменить курс
                         </button> */}

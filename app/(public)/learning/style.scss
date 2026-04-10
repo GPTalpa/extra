@@ -159,3 +159,13 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .learning {
+    &__item {
+      &--title {
+        font-size: 22px;
+      }
+    }
+  }
+}

@@ -119,3 +119,19 @@
     line-height: 130%;
   }
 }
+
+@media (max-width: 768px) {
+  .recomendation-detail {
+    &__content {
+      padding: 24px 30px;
+    }
+
+    &--title {
+      font-size: 24px;
+    }
+
+    &--text {
+      font-size: 16px;
+    }
+  }
+}

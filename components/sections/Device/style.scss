@@ -96,3 +96,14 @@
   }
 }
 
+@media (max-width: 768px) {
+  .device {
+    &__content {
+      flex-direction: column;
+
+      &__btns {
+        flex-direction: column;
+      }
+    }
+  }
+}

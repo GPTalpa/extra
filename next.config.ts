@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 import path from "path";
 import withBundleAnalyzer from "@next/bundle-analyzer";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-import type { Configuration } from "webpack";
 
 const nextConfig: NextConfig = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
@@ -10,7 +9,7 @@ const nextConfig: NextConfig = withBundleAnalyzer({
   reactStrictMode: true,
   poweredByHeader: false,
 
-  output: "export", // 🔥 ВАЖНО
+  output: "export",
   images: {
     unoptimized: true,
   },

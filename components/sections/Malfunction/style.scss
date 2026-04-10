@@ -157,3 +157,21 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .malfunctiom {
+    &__content {
+      &__item {
+        &--left {
+          p {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .malfunction-detail {
+    flex-direction: column-reverse;
+  }
+}
