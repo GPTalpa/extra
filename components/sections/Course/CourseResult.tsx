@@ -7,7 +7,7 @@ import getCourseResult from "@utils/getCourseResult";
 
 interface ICourse {
   handleBack: () => void;
-  courseId: string | undefineds;
+  courseId: string | undefined;
   blockId: string | undefined;
 }
 
