@@ -104,7 +104,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 7680px) {
   .main__section {
     margin-bottom: 60px;
     flex-direction: column;
@@ -124,10 +124,18 @@
   .popular {
     &__items {
       display: grid;
-      grid-template-columns: 2fr 2fr;
+      grid-template-columns: repeat(auto-fit, minmax(358px, 1fr));
 
       &--item-image {
         padding: 11px 27px;
+        display: flex;
+        align-items: center;
+      }
+
+      &--item {
+        &-wrapper {
+          flex-direction: row;
+        }
       }
     }
   }
