@@ -1,4 +1,5 @@
 export type CourseBlock = {
+  description: ReactNode;
   id: string;
   video_url: string;
   course_id: string;

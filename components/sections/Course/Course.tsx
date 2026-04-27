@@ -93,7 +93,7 @@ const Course = ({ handleBack, openedId }: ICourse) => {
                     {data.blocks[0].title}
                   </h1>
                   <p className="course__text__content--description">
-                    {data.blocks[0].text_content}
+                    {data.blocks[0].description}
                   </p>
                 </div>
               </div>
