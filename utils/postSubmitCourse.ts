@@ -6,7 +6,6 @@ async function postSubmitCourse(
 ) {
   try {
     const res = await post(`/tests/blocks/${id}/submit`, { answers });
-    // console.log(answers);
     return res;
   } catch (err) {
     return null;

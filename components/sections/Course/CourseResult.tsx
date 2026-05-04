@@ -4,14 +4,15 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CourseTestResult } from "@mytypes/courseTest";
 import getCourseResult from "@utils/getCourseResult";
+import Link from "next/link";
 
 interface ICourse {
-  handleBack: () => void;
+  // handleBack: () => void;
   courseId: string | undefined;
   blockId: string | undefined;
 }
 
-const CourseResult = ({ handleBack, courseId, blockId }: ICourse) => {
+const CourseResult = ({ courseId, blockId }: ICourse) => {
   const [data, setData] = useState<CourseTestResult | null | undefined>(
     undefined,
   );
@@ -24,8 +25,6 @@ const CourseResult = ({ handleBack, courseId, blockId }: ICourse) => {
 
     fetchData();
   }, [courseId, blockId]);
-
-  console.log(data);
 
   const isCorrect = (name: string) => {
     switch (name) {
@@ -77,15 +76,8 @@ const CourseResult = ({ handleBack, courseId, blockId }: ICourse) => {
     return `${day} ${month} ${year} в ${hours}:${minutes}-${endHours}:${endMinutes}`;
   };
 
-  const onHandleMain = () => {
-    window.location.reload();
-  };
   return (
     <div className="course-result">
-      <button className="course--back" onClick={handleBack}>
-        <Image src="/icon/back.svg" alt="" width={8.5} height={15} />
-        Назад
-      </button>
       <p className="course-result__content--label">
         <span style={{ color: "#FA2828" }}>Часть 3</span> Мои ответы
       </p>
@@ -126,7 +118,6 @@ const CourseResult = ({ handleBack, courseId, blockId }: ICourse) => {
         {!data?.questions
           ? "Загрузка..."
           : data.questions.map((elem, index) => {
-              console.log(elem);
               return (
                 <div className="course-test__item" key={elem.question_id}>
                   <p className="course-test__item--question-num">
@@ -174,9 +165,9 @@ const CourseResult = ({ handleBack, courseId, blockId }: ICourse) => {
             })}
       </div>
       <div className="course-test__btns">
-        <button className="btn" onClick={onHandleMain}>
+        <Link className="btn" href="/learning">
           На страницу курсов
-        </button>
+        </Link>
       </div>
     </div>
   );

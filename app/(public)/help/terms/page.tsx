@@ -1,13 +1,12 @@
 "use client";
+import "./style.scss";
+import "../style.scss";
 
 import { useEffect, useState } from "react";
-import "./style.scss";
+
 import Image from "next/image";
 import getTerms from "@utils/getTermins";
-
-interface ITerms {
-  handleBack: () => void;
-}
+import Link from "next/link";
 
 type Terms = {
   id: string;
@@ -15,7 +14,7 @@ type Terms = {
   description: string;
 };
 
-const Terms = ({ handleBack }: ITerms) => {
+const Terms = () => {
   const [data, setData] = useState<Terms[] | null | undefined>(undefined);
 
   useEffect(() => {
@@ -29,10 +28,10 @@ const Terms = ({ handleBack }: ITerms) => {
 
   return (
     <div className="terms">
-      <button className="help--back" onClick={handleBack}>
+      <Link className="help--back" href="/help/">
         <Image src="/icon/back.svg" alt="" width={8.5} height={15} />
         Назад
-      </button>
+      </Link>
 
       <div className="terms__content">
         {!data

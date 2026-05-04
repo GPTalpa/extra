@@ -214,7 +214,7 @@
     margin-top: 12px;
 
     .btn {
-      padding: 20px 0;
+      padding: 20px 10px;
       border-radius: 60px;
       border: 1px solid #fa2828;
       background: #fa282833;
@@ -222,6 +222,8 @@
       backdrop-filter: blur(10px);
       font-size: 30px;
       font-weight: 500;
+      display: block;
+      width: fit-content;
 
       &--back {
         border: 1px solid #ffffff80;

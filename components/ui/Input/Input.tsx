@@ -7,6 +7,7 @@ interface IInput {
   isMobile?: boolean;
   value?: string;
   onChange?: (value: string) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const Input = ({
@@ -15,6 +16,7 @@ const Input = ({
   isMobile = false,
   value = "",
   onChange,
+  onKeyDown,
 }: IInput) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);
@@ -43,6 +45,7 @@ const Input = ({
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
+        onKeyDown={onKeyDown}
       />
     </div>
   );

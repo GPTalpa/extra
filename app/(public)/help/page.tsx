@@ -1,116 +1,66 @@
-"use client";
-import { useState } from "react";
 import "./style.scss";
 import Image from "next/image";
-import Malfunction from "@sections/Malfunction";
-import Faq from "@sections/Faq";
-import Recomendation from "@sections/Recomendation";
-import Terms from "@sections/Terms";
+import Link from "next/link";
 
 export default function Help() {
-  const [isOpenHelp, setIsOpenHelp] = useState(false);
-  const [openedHelp, setOpenedHelp] = useState("");
-
-  const handleBack = () => {
-    setIsOpenHelp(false);
-  };
-
-  const handleSetterOpenedHelp = (arg: string) => {
-    setIsOpenHelp(true);
-    setOpenedHelp(arg);
-  };
-
-  const chooseElem = () => {
-    switch (openedHelp) {
-      case "malfunction":
-        return <Malfunction handleBack={handleBack} />;
-        break;
-
-      case "faq":
-        return <Faq handleBack={handleBack} />;
-        break;
-
-      case "recomendation":
-        return <Recomendation handleBack={handleBack} />;
-        break;
-      case "terms":
-        return <Terms handleBack={handleBack} />;
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <main>
-      {!isOpenHelp && (
-        <section className="help">
-          <h1>Справка и поддержка</h1>
-          <div className="help__content">
-            <div
-              className="help__item help__item--1"
-              onClick={() => handleSetterOpenedHelp("malfunction")}
-            >
-              <Image
-                src="/icon/lightning.svg"
-                alt=""
-                width={91.3520278930664}
-                height={107.9626693725586}
-              />
-              <p className="help__item--title">Аварийные режимы</p>
-              <p className="help__item--description">
-                Инструкции для нештатных ситуаций
-              </p>
-            </div>
-            <div
-              className="help__item help__item--2"
-              onClick={() => handleSetterOpenedHelp("recomendation")}
-            >
-              <Image
-                src="/icon/advice.svg"
-                alt=""
-                width={118.95281219482422}
-                height={118.95281219482422}
-              />
-              <p className="help__item--title">Рекомендации</p>
-              <p className="help__item--description">
-                Полезные советы по эксплуатации и обслуживанию приборов
-              </p>
-            </div>
-            <div
-              className="help__item help__item--3"
-              onClick={() => handleSetterOpenedHelp("terms")}
-            >
-              <Image
-                src="/icon/term.svg"
-                alt=""
-                width={75.57455444335938}
-                height={107.96361541748047}
-              />
-              <p className="help__item--title">Термины</p>
-              <p className="help__item--description">
-                Простые объяснения технических терминов
-              </p>
-            </div>
-            <div
-              className="help__item help__item--4"
-              onClick={() => handleSetterOpenedHelp("faq")}
-            >
-              <Image
-                src="/icon/faq.svg"
-                alt=""
-                width={107.96192169189453}
-                height={107.96192169189453}
-              />
-              <p className="help__item--title">FAQ</p>
-              <p className="help__item--description">
-                Быстрые ответы на популярные вопросы клиентов.
-              </p>
-            </div>
-          </div>
-        </section>
-      )}
-      {isOpenHelp && <section>{chooseElem()}</section>}
+      <section className="help">
+        <h1>Справка и поддержка</h1>
+        <div className="help__content">
+          <Link className="help__item help__item--1" href="/help/malfunction/">
+            <Image
+              src="/icon/lightning.svg"
+              alt=""
+              width={91.3520278930664}
+              height={107.9626693725586}
+            />
+            <p className="help__item--title">Аварийные режимы</p>
+            <p className="help__item--description">
+              Инструкции для нештатных ситуаций
+            </p>
+          </Link>
+          <Link
+            className="help__item help__item--2"
+            href="/help/recomendation/"
+          >
+            <Image
+              src="/icon/advice.svg"
+              alt=""
+              width={118.95281219482422}
+              height={118.95281219482422}
+            />
+            <p className="help__item--title">Рекомендации</p>
+            <p className="help__item--description">
+              Полезные советы по эксплуатации и обслуживанию приборов
+            </p>
+          </Link>
+          <Link className="help__item help__item--3" href="/help/terms/">
+            <Image
+              src="/icon/term.svg"
+              alt=""
+              width={75.57455444335938}
+              height={107.96361541748047}
+            />
+            <p className="help__item--title">Термины</p>
+            <p className="help__item--description">
+              Простые объяснения технических терминов
+            </p>
+          </Link>
+          <Link className="help__item help__item--4" href="/help/faq/">
+            <Image
+              src="/icon/faq.svg"
+              alt=""
+              width={107.96192169189453}
+              height={107.96192169189453}
+            />
+            <p className="help__item--title">FAQ</p>
+            <p className="help__item--description">
+              Быстрые ответы на популярные вопросы клиентов.
+            </p>
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

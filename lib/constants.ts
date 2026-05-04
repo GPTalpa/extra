@@ -4,21 +4,19 @@ export const API_URL = "https://webcoder-app.ru/api/";
 
 export const ROLES = [
   {
-    name: "Пользователь",
-    key: "user",
+    name: "Монтажник",
+    key: "installer",
   },
   {
-    name: "Администратор",
-    key: "administrator",
+    name: "Продавец",
+    key: "seller",
   },
   {
-    name: "Менеджер",
-    key: "manager",
+    name: "Сервесник",
+    key: "serviceman",
   },
   {
-    name: "Клиент",
-    key: "client",
+    name: "Покупатель",
+    key: "buyer",
   },
 ] as const;
-
-export const PRODUCT_CATEGORIES = ["Electronics", "Books", "Clothes"] as const;

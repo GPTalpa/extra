@@ -51,8 +51,6 @@ const CourseTest = ({ handleBack, openedId, courseId, blockId }: ICourse) => {
     await postSubmitCourse(data?.[0]?.block_id, answers);
     setIsResult(true);
   };
-  console.log(data);
-
   return (
     <>
       {!isResult ? (
@@ -110,11 +108,7 @@ const CourseTest = ({ handleBack, openedId, courseId, blockId }: ICourse) => {
           </form>
         </div>
       ) : (
-        <CourseResult
-          handleBack={handleBackResults}
-          blockId={blockId}
-          courseId={courseId}
-        />
+        <CourseResult blockId={blockId} courseId={courseId} />
       )}
     </>
   );

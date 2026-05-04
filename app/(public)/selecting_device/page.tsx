@@ -3,16 +3,18 @@ import Input from "@ui/Input";
 import "./style.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Device from "@sections/Device";
 import { Products } from "@mytypes/products";
 import getProducts from "@utils/getProducts";
 import { useDebounce } from "@hooks/useDebounce";
 import getProductSearch from "@utils/getProductSearch";
+import Link from "next/link";
+
+const ITEMS_PER_PAGE = 9;
 
 export default function SelectingDevice() {
-  const [isOpenDevice, setIsOpenDevice] = useState(false);
-  const [openedId, setOpenedId] = useState<string | null>(null);
   const [data, setData] = useState<Products[] | null | undefined>(undefined);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [offset, setOffset] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -20,7 +22,7 @@ export default function SelectingDevice() {
   useEffect(() => {
     async function fetchData() {
       if (!debouncedSearchTerm) {
-        const dataServ = await getProducts();
+        const dataServ = await getProducts(9, 1);
         setData(dataServ);
       }
 
@@ -33,31 +35,22 @@ export default function SelectingDevice() {
     fetchData();
   }, [debouncedSearchTerm]);
 
-  const handleBack = () => {
-    setIsOpenDevice(false);
-  };
-
-  const handleOpenDevice = (id: string) => {
-    setOpenedId(id);
-    setIsOpenDevice(true);
-  };
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const dataServ = await getProductSearch(debouncedSearchTerm);
-  //     setData(dataServ);
-  //   }
-
-  //   fetchData();
-  // }, [debouncedSearchTerm]);
-
   const handleInput = (value: string) => {
     setSearchTerm(value);
   };
 
+  const loadMore = async () => {
+    setIsLoadingMore(true);
+    const nextOffset = offset + 1;
+    const newData = await getProducts(ITEMS_PER_PAGE, nextOffset);
+    setData((prev) => [...(prev || []), ...newData]);
+    setOffset(nextOffset);
+    setIsLoadingMore(false);
+  };
+
   return (
     <main>
-      {!isOpenDevice && (
+      {data ? (
         <section className="selectingDevice">
           <div className="selectingDevice__header">
             <Input
@@ -72,7 +65,12 @@ export default function SelectingDevice() {
               ? ""
               : data.map((elem) => {
                   return (
-                    <div className="selectingDevice__item" key={elem.id}>
+                    <Link
+                      className="selectingDevice__item"
+                      key={elem.id}
+                      href={`/selecting_device/${elem.id}`}
+                      target="_blank"
+                    >
                       <div className="selectingDevice__item__wrapper">
                         {" "}
                         <div className="selectingDevice__item--image">
@@ -91,19 +89,23 @@ export default function SelectingDevice() {
                           {elem.title}
                         </p>
                       </div>
-                      <button
-                        className="btn selectingDevice__item--btn"
-                        onClick={() => handleOpenDevice(elem.id)}
-                      >
-                        Подробнее
-                      </button>
-                    </div>
+                    </Link>
                   );
                 })}
           </div>
+          {!debouncedSearchTerm && (
+            <button
+              onClick={loadMore}
+              disabled={isLoadingMore}
+              className="btn btn--active selectingDevice--btn-more"
+            >
+              {isLoadingMore ? "Загрузка..." : "Загрузить еще"}
+            </button>
+          )}
         </section>
+      ) : (
+        "Загрузка..."
       )}
-      {isOpenDevice && <Device handleBack={handleBack} openedId={openedId} />}
     </main>
   );
 }

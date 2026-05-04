@@ -18,7 +18,6 @@ const LoginForm = () => {
     setLoading(true);
     try {
       const data = await postForm("/auth/login", { username: email, password });
-      console.log(data);
       setLoading(false);
       setWithErrors(false);
       window.location.href = "/profile";

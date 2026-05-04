@@ -28,8 +28,6 @@ const Faq = ({ handleBack }: IFaq) => {
     fetchData();
   }, []);
 
-  console.log(data);
-
   return (
     <div className="help-faq">
       <div className="help__header">

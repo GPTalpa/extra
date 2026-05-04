@@ -1,1 +1,1 @@
-export { default } from "./Malfunction";
+export { default } from "./PressureSwitch";

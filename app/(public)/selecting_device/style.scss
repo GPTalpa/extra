@@ -37,6 +37,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    height: 250px;
 
     &__wrapper {
       @include overlay;
@@ -44,13 +45,17 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      height: -webkit-fill-available;
+      height: 100%;
       justify-content: space-between;
     }
 
     &--image {
       display: flex;
       justify-content: center;
+      max-height: 130px;
+      img {
+        object-fit: contain;
+      }
     }
 
     &--description {
@@ -74,6 +79,22 @@
         backdrop-filter: blur(10px);
       }
     }
+
+    &:hover {
+      .selectingDevice__item__wrapper {
+        border-color: rgb(250, 40, 40);
+        box-shadow: 0px 0px 28.09px 0px rgba(250, 40, 40, 0.5);
+      }
+    }
   }
 }
 
+.selectingDevice {
+  text-align: center;
+  &--btn-more {
+    margin: 0 auto;
+    margin-top: 15px;
+    width: fit-content;
+    padding: 10px 15px;
+  }
+}

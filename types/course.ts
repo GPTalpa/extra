@@ -5,6 +5,7 @@ export type CourseBlock = {
   course_id: string;
   title: string;
   text_content: string;
+  block_type: string;
 };
 
 export type CourseType = {

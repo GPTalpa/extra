@@ -1,8 +1,8 @@
 export type CourseProgress = {
+  completed: number;
+  all_total: number;
+  title: string;
   course_id: string;
-  course_title: string;
-  total_blocks: number;
-  completed_blocks: number;
   percent: number;
 };
 

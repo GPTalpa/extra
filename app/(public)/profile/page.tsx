@@ -23,8 +23,6 @@ export default function ProfilePage() {
   const [isOpenCourse, setIsOpenCourse] = useState<boolean>(false);
   const [openedCourseId, setOpenedCourseId] = useState<string | null>(null);
 
-  console.log(dataCourse);
-
   useEffect(() => {
     async function fetchData() {
       const dataServ = await getUser();
@@ -61,6 +59,8 @@ export default function ProfilePage() {
     setIsOpenCourse(true);
     setOpenedCourseId(id);
   };
+
+  console.log(dataCourse);
 
   return (
     <>
@@ -99,16 +99,21 @@ export default function ProfilePage() {
                         >
                           <div className="profile-page__content__course__heading">
                             <p className="profile-page__content__course__heading--name">
-                              {elem.course_title}
+                              {elem.title}
                             </p>
                             <p className="profile-page__content__course__heading--progress">
-                              <span className="completed">4</span>/
-                              <span className="total">25</span>
+                              <span className="completed">
+                                {elem.completed}
+                              </span>
+                              /<span className="total">{elem.all_total}</span>
                             </p>
                           </div>
 
                           <div className="profile-page__content__course--progress">
-                            <ProgressDots completed={4} total={25} />
+                            <ProgressDots
+                              completed={elem.completed}
+                              total={elem.all_total}
+                            />
                           </div>
                           <button
                             className="profile-page__content__course--continue"

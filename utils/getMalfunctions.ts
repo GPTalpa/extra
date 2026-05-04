@@ -1,13 +1,13 @@
+// @utils/getMalfunctions.ts
 import { get } from "@lib/api";
 import { Malfunction } from "@mytypes/malfunction";
 
-async function getMalfunctions() {
+export default async function getMalfunctions(): Promise<Malfunction[]> {
   try {
-    const res: Malfunction[] = await get(`/error`);
-    return res;
-  } catch (err) {
-    return null;
+    const data = await get(`/error`);
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("Error in getMalfunctions:", error);
+    return [];
   }
 }
-
-export default getMalfunctions;

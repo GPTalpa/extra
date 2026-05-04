@@ -9,6 +9,7 @@ import { CourseType } from "@mytypes/course";
 import getCourses from "@utils/getCourses";
 import getCourseSearch from "@utils/getCourseSearch";
 import postStartCourse from "@utils/postStartCourse";
+import Link from "next/link";
 
 export default function Learning() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -36,8 +37,6 @@ export default function Learning() {
     fetchData();
   }, [debouncedSearchTerm, typeLearning]);
 
-  console.log(data);
-
   const handleWheel = (e: React.WheelEvent) => {
     const el = scrollRef.current;
     if (!el) return;
@@ -56,14 +55,7 @@ export default function Learning() {
     setIsOpenCurse(false);
   };
 
-  const handleOpenDevice = (id: string) => {
-    setOpenedId(id);
-    setIsOpenCurse(true);
-  };
-
   const handleOpenAndStartDevice = async (id: string) => {
-    setOpenedId(id);
-    setIsOpenCurse(true);
     await postStartCourse(id);
   };
 
@@ -116,15 +108,29 @@ export default function Learning() {
               className={`btn learning__header__filter__item ${typeLearning === "everyone" ? "active" : ""}`}
               onClick={() => settypeLearning("everyone")}
             >
-              {typeLearning === "type1" ? <span></span> : ""}
+              {typeLearning === "everyone" ? <span></span> : ""}
               Для всех
             </button>
             <button
               className={`btn learning__header__filter__item ${typeLearning === "installer" ? "active" : ""}`}
               onClick={() => settypeLearning("installer")}
             >
-              {typeLearning === "type2" ? <span></span> : ""}
-              Для монтажников
+              {typeLearning === "installer" ? <span></span> : ""}
+              Для Монтажников
+            </button>
+            <button
+              className={`btn learning__header__filter__item ${typeLearning === "seller" ? "active" : ""}`}
+              onClick={() => settypeLearning("seller")}
+            >
+              {typeLearning === "seller" ? <span></span> : ""}
+              Для Продавцов
+            </button>
+            <button
+              className={`btn learning__header__filter__item ${typeLearning === "serviceman" ? "active" : ""}`}
+              onClick={() => settypeLearning("serviceman")}
+            >
+              {typeLearning === "serviceman" ? <span></span> : ""}
+              Для Сервесников
             </button>
           </div>
           <div className="learning__content">
@@ -159,19 +165,20 @@ export default function Learning() {
 
                       <div className="learning__item__btns">
                         {elem.progress?.status === "not_started" ? (
-                          <button
+                          <Link
                             className="learning__item--btn"
                             onClick={() => handleOpenAndStartDevice(elem.id)}
+                            href={`/learning/${elem.id}`}
                           >
                             Начать
-                          </button>
+                          </Link>
                         ) : (
-                          <button
+                          <Link
                             className="learning__item--btn"
-                            onClick={() => handleOpenDevice(elem.id)}
+                            href={`/learning/${elem.id}`}
                           >
                             Продолжить
-                          </button>
+                          </Link>
                         )}
 
                         {/* <button className="learning__item--btn">

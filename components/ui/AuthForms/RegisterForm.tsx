@@ -5,6 +5,7 @@ import "./style.scss";
 import { useState } from "react";
 
 import { ROLES } from "@lib/constants";
+import CustomSelect, { SelectChangeEvent } from "./CustomSelect";
 
 const RegisterForm = () => {
   const [fullName, setFullName] = useState("");
@@ -43,6 +44,10 @@ const RegisterForm = () => {
     }
   };
 
+  const handleRoleChange = (event: SelectChangeEvent) => {
+    setRole(event.target.value);
+  };
+
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
       <label className="auth-field">
@@ -57,8 +62,14 @@ const RegisterForm = () => {
         />
       </label>
 
-      <label className="auth-field">
-        <select
+      <CustomSelect
+        value={role}
+        onChange={handleRoleChange}
+        options={ROLES}
+        placeholder="Роль"
+        withErrors={withErrors}
+      />
+      {/* <select
           name="role"
           value={role}
           onChange={(e) => setRole(e.target.value)}
@@ -74,8 +85,8 @@ const RegisterForm = () => {
               {r.name}
             </option>
           ))}
-        </select>
-      </label>
+        </select> */}
+
       <label className="auth-field">
         <input
           type="email"
