@@ -99,6 +99,7 @@ const Device = async ({ params }: IDevice) => {
     });
   };
 
+  console.log(data);
   return (
     <section className="device">
       <div className="device__header">
@@ -109,6 +110,13 @@ const Device = async ({ params }: IDevice) => {
       </div>
       <div className="device__content">
         <div className="device__content__left">
+          <div className="device__content__char__item device__content__char__item--article">
+            <p className="device__content__char--name">Артикул:</p>
+            <div></div>
+            <p className="device__content__char--value">
+              {data.article ? String(data.article) : "Загрузка..."}
+            </p>
+          </div>
           <p className="device__content--title">
             {data ? data.title : "Загрузка..."}
           </p>

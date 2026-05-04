@@ -6,4 +6,5 @@ export type Products = {
   schema_connect: string;
   attributes: Record<string, unknown>;
   image_url: string[];
+  article: string;
 };

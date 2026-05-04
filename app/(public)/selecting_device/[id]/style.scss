@@ -59,6 +59,13 @@
           background: rgba(179, 179, 179, 1);
           flex: 1;
         }
+
+        &--article {
+          gap: 10px;
+          .device__content__char--value {
+            font-size: 20px;
+          }
+        }
       }
 
       &--name {
