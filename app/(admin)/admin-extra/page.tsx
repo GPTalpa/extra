@@ -31,7 +31,6 @@ export default function Admin() {
     if (num < 0) return "";
   }
 
-  console.log(data);
   return (
     <main>
       {data ? (

@@ -81,18 +81,6 @@
         gap: clamp(15px, 2vw, 35px);
         font-size: 32px;
         font-weight: 500;
-        width: 100%;
-        justify-content: space-between;
-
-        &--image {
-          width: auto;
-          height: 60px;
-
-          img {
-            height: 100%;
-            width: auto;
-          }
-        }
       }
     }
   }

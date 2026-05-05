@@ -57,22 +57,6 @@ const Header = () => {
     };
   }, []);
 
-  // Закрытие результатов поиска при клике вне
-  useEffect(() => {
-    function handleClickOutsideSearch(event: MouseEvent) {
-      if (
-        searchRef.current &&
-        !searchRef.current.contains(event.target as Node)
-      ) {
-        setShowResults(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutsideSearch);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutsideSearch);
-    };
-  }, []);
-
   // Поиск при изменении debounced значения
   useEffect(() => {
     if (debouncedSearchQuery.trim()) {
@@ -219,12 +203,12 @@ const Header = () => {
     setSearchQuery("");
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
-      setShowResults(false);
-    }
-  };
+  // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter" && searchQuery.trim()) {
+  //     router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+  //     setShowResults(false);
+  //   }
+  // };
 
   // Функция для получения иконки типа результата
   const getTypeIcon = (type: UnifiedSearchResult["type"]) => {
@@ -354,7 +338,7 @@ const Header = () => {
             placeholder="Глобальный поиск..."
             value={searchQuery}
             onChange={handleSearchChange}
-            onKeyDown={handleKeyDown}
+            // onKeyDown={handleKeyDown}
           />
 
           {showResults && (

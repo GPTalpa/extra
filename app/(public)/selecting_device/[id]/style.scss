@@ -15,6 +15,7 @@
     margin-top: 42px;
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 
     &__left {
       max-width: 700.513916px;
@@ -25,6 +26,15 @@
 
     &__right {
       max-width: 483.9881591796875px;
+
+      &--image {
+        margin-bottom: 20px;
+        overflow: hidden;
+        border-radius: 20px;
+        img {
+          width: 100%;
+        }
+      }
     }
 
     &--title {
@@ -44,9 +54,8 @@
 
       &__container {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 5px;
-        flex-wrap: wrap;
       }
 
       &__item {

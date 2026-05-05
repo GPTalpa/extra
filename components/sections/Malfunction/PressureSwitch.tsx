@@ -6,6 +6,7 @@ import getMalfunctionSearch from "@utils/getMalfunctionSearch";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import "./style.scss";
 
 interface IMalfunction {
   input: string;
@@ -54,12 +55,14 @@ const PressureSwitch = ({ input }: IMalfunction) => {
           >
             <div className="malfunctiom__content__item--left">
               <p>{elem.title}</p>
-              <Image
-                src={`https://extrabackend.duckdns.org${elem.image}`}
-                width={112.4537353515625}
-                height={59.19719696044922}
-                alt={elem.title}
-              />
+              <div className="malfunctiom__content__item--left--image">
+                <Image
+                  src={`https://extrabackend.duckdns.org${elem.image}`}
+                  width={112.4537353515625}
+                  height={59.19719696044922}
+                  alt={elem.title}
+                />
+              </div>
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"

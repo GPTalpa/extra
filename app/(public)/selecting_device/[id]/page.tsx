@@ -98,8 +98,6 @@ const Device = async ({ params }: IDevice) => {
       );
     });
   };
-
-  console.log(data);
   return (
     <section className="device">
       <div className="device__header">
@@ -135,7 +133,11 @@ const Device = async ({ params }: IDevice) => {
         <div className="device__content__right">
           <div className="device__content__right--image">
             <img
-              src={`https://extrabackend.duckdns.org${data.image_url[0] ? data.image_url[0] : "/images/no-photo.png"}`}
+              src={
+                data.image_url[0]
+                  ? `https://extrabackend.duckdns.org${data.image_url[0]}`
+                  : "/images/no-photo.png"
+              }
             />
           </div>
 

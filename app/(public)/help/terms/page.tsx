@@ -38,10 +38,14 @@ const Terms = () => {
           ? ""
           : data.map((elem) => {
               return (
-                <div className="terms__item" key={elem.id}>
+                <Link
+                  className="terms__item"
+                  key={elem.id}
+                  href={`/help/terms/${elem.id}`}
+                >
                   <p className="terms--title">{elem.title}</p>
-                  <p className="terms--description">{elem.description}</p>
-                </div>
+                  {/* <p className="terms--description">{elem.description}</p> */}
+                </Link>
               );
             })}
       </div>

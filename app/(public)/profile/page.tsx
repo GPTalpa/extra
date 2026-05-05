@@ -60,8 +60,6 @@ export default function ProfilePage() {
     setOpenedCourseId(id);
   };
 
-  console.log(dataCourse);
-
   return (
     <>
       {!isOpenCourse ? (
