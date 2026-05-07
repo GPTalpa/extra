@@ -193,10 +193,7 @@ const Header = () => {
     setSearchQuery(value);
   };
 
-  const handleResultClick = (
-    url: string,
-    e: React.MouseEvent<HTMLAnchorElement>,
-  ) => {
+  const handleResultClick = (url: string) => {
     setShowResults(false);
     setSearchQuery("");
     router.push(url);
@@ -354,7 +351,7 @@ const Header = () => {
                       // href={result.url}
                       key={`${result.type}-${result.id}`}
                       className="search-result-item"
-                      onClick={(e) => handleResultClick(result.url, e)}
+                      onClick={(e) => handleResultClick(result.url)}
                     >
                       <div className="result-type-badge">
                         <span className="result-icon">
