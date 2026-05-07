@@ -6,12 +6,14 @@ type Terms = {
   description: string;
 };
 
-async function getTerms() {
+async function getTerms(limit?: number, offset?: number) {
   try {
-    const res: Terms[] = await get(`/terms`);
+    const res: Terms[] = await get(
+      `/terms${limit ? `?limit=${limit}` : ""}${offset ? `&page=${offset}` : ""}`,
+    );
     return res;
   } catch (err) {
-    return null;
+    return [];
   }
 }
 

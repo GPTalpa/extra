@@ -49,6 +49,7 @@ const Header = () => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         setOpen(false);
+        setSearchQuery("");
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -196,11 +197,9 @@ const Header = () => {
     url: string,
     e: React.MouseEvent<HTMLAnchorElement>,
   ) => {
-    e.stopPropagation();
-    e.preventDefault();
-    router.push(url);
     setShowResults(false);
     setSearchQuery("");
+    router.push(url);
   };
 
   // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -332,7 +331,10 @@ const Header = () => {
       {renderMobileNavContent()}
 
       {!isAdminPanel && (
-        <div className="search-wrapper" ref={searchRef}>
+        <div
+          className={`search-wrapper ${showResults ? "has-results" : ""}`}
+          ref={searchRef}
+        >
           <Input
             className="nav--input"
             placeholder="Глобальный поиск..."
@@ -348,8 +350,8 @@ const Header = () => {
               {!isLoading && searchResults.length > 0 && (
                 <>
                   {searchResults.map((result) => (
-                    <Link
-                      href={result.url}
+                    <div
+                      // href={result.url}
                       key={`${result.type}-${result.id}`}
                       className="search-result-item"
                       onClick={(e) => handleResultClick(result.url, e)}
@@ -368,7 +370,7 @@ const Header = () => {
                           {result.description}
                         </div>
                       )}
-                    </Link>
+                    </div>
                   ))}
                 </>
               )}

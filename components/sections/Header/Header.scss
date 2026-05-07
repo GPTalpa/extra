@@ -48,7 +48,45 @@ header {
     }
   }
 
-  &:has(.search__bar:focus-within) {
+  // &:has(.search__bar:focus-within) {
+  //   nav {
+  //     opacity: 0;
+  //     transform: translateX(-10px);
+  //     pointer-events: none;
+  //     max-width: 0;
+  //   }
+
+  //   .search-wrapper {
+  //     width: 100%;
+  //   }
+
+  //   .search__bar {
+  //     max-width: 100%;
+  //     flex: 1;
+
+  //     input {
+  //       border-color: rgba(250, 40, 40, 1);
+  //       box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.5);
+  //     }
+
+  //     .btn {
+  //       display: flex;
+  //     }
+  //   }
+  // }
+
+  .search-wrapper.has-results {
+    .search__bar {
+      input {
+        border-color: rgba(250, 40, 40, 1);
+        box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.5);
+      }
+    }
+  }
+
+  // И измените селектор:
+  header:has(.search__bar:focus-within),
+  header:has(.search-wrapper.has-results) {
     nav {
       opacity: 0;
       transform: translateX(-10px);
@@ -58,20 +96,6 @@ header {
 
     .search-wrapper {
       width: 100%;
-    }
-
-    .search__bar {
-      max-width: 100%;
-      flex: 1;
-
-      input {
-        border-color: rgba(250, 40, 40, 1);
-        box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.5);
-      }
-
-      .btn {
-        display: flex;
-      }
     }
   }
 }

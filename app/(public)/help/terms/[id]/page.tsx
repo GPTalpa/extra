@@ -15,7 +15,7 @@ interface TermsDetailProps {
 
 export async function generateStaticParams() {
   try {
-    const terms = await getTerms();
+    const terms = await getTerms(100);
 
     if (!terms || !Array.isArray(terms)) {
       return [];

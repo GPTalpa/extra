@@ -26,11 +26,16 @@
 
     &__right {
       max-width: 483.9881591796875px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
 
       &--image {
         margin-bottom: 20px;
         overflow: hidden;
         border-radius: 20px;
+        max-width: 250px;
         img {
           width: 100%;
         }
@@ -104,6 +109,8 @@
         gap: 5px;
         justify-content: center;
         background: rgba(0, 0, 0, 0.5);
+        padding-left: 10px;
+        padding-right: 10px;
 
         &:hover {
           border-color: rgba(250, 40, 40, 0.5);

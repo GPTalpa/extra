@@ -14,17 +14,30 @@ type Terms = {
   description: string;
 };
 
+const ITEMS_PER_PAGE = 9;
+
 const Terms = () => {
-  const [data, setData] = useState<Terms[] | null | undefined>(undefined);
+  const [data, setData] = useState<Terms[]>([]);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [offset, setOffset] = useState(1);
 
   useEffect(() => {
     async function fetchData() {
       const dataServ = await getTerms();
-      setData(dataServ);
+      setData(dataServ || []);
     }
 
     fetchData();
   }, []);
+
+  const loadMore = async () => {
+    setIsLoadingMore(true);
+    const nextOffset = offset + 1;
+    const newData = await getTerms(ITEMS_PER_PAGE, nextOffset);
+    setData((prev) => [...(prev || []), ...newData]);
+    setOffset(nextOffset);
+    setIsLoadingMore(false);
+  };
 
   return (
     <div className="terms">
@@ -49,6 +62,14 @@ const Terms = () => {
               );
             })}
       </div>
+
+      <button
+        onClick={loadMore}
+        disabled={isLoadingMore}
+        className="btn btn--active terms--btn-more"
+      >
+        {isLoadingMore ? "Загрузка..." : "Загрузить еще"}
+      </button>
     </div>
   );
 };
