@@ -14,9 +14,10 @@ const ResetPasswordForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const data = await post("/auth/forgot-passsword", { email });
+      const data = await post("/auth/forgot-password", { email });
       setLoading(false);
       setWithErrors(false);
+      window.location.href = "/check";
     } catch (err: unknown) {
       setLoading(false);
       if (err instanceof Error) {
