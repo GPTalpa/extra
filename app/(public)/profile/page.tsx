@@ -13,6 +13,7 @@ import { CoursesProgressResponse } from "@mytypes/courseProgress";
 import { useRouter } from "next/navigation";
 import getProfileCourses from "@utils/getProfileCourses";
 import Course from "@sections/Course";
+import { useAuthStore } from "store";
 
 export default function ProfilePage() {
   const [data, setData] = useState<User | null | undefined>(undefined);
@@ -22,7 +23,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const [isOpenCourse, setIsOpenCourse] = useState<boolean>(false);
   const [openedCourseId, setOpenedCourseId] = useState<string | null>(null);
-
+  const { setMode } = useAuthStore();
   useEffect(() => {
     async function fetchData() {
       const dataServ = await getUser();
@@ -60,6 +61,10 @@ export default function ProfilePage() {
     setOpenedCourseId(id);
   };
 
+  const handleChangePassword = () => {
+    window.location.href = "/auth?mode=reset";
+  };
+
   return (
     <>
       {!isOpenCourse ? (
@@ -75,11 +80,14 @@ export default function ProfilePage() {
               <div className="profile-page__header__right-side">
                 <div className="profile-page__header__right-side__notify">
                   <div className="profile-page__header__right-side__notify--counter">
-                    3
+                    0
                   </div>
                   <p>Новыe уведомления</p>
                 </div>
-                <div className="profile-page__header__right-side__change-pass">
+                <div
+                  className="profile-page__header__right-side__change-pass"
+                  onClick={handleChangePassword}
+                >
                   <p>Изменить пароль</p>
                 </div>
               </div>

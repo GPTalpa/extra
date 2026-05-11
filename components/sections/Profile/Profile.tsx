@@ -4,8 +4,6 @@ import "./style.scss";
 import Image from "next/image";
 import Link from "next/link";
 
-import Input from "@ui/Input";
-import getUser from "@utils/getUser";
 import { useState } from "react";
 import { ROLES } from "@lib/constants";
 

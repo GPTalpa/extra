@@ -3,10 +3,22 @@
 import "./style.scss";
 
 import { LoginForm, RegisterForm, ResetPasswordForm } from "@ui/AuthForms";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { useAuthStore } from "store";
 
 export default function Auth() {
   const { mode, setMode } = useAuthStore();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    // Check for mode query parameter when component mounts
+    const modeParam = searchParams.get("mode");
+    if (modeParam === "reset") {
+      setMode("reset");
+    }
+  }, [searchParams, setMode]);
+
 
   return (
     <main className="auth">
