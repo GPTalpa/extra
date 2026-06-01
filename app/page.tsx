@@ -61,7 +61,11 @@ export default function Home() {
             ? ""
             : data.map((elem) => {
                 return (
-                  <div className="popular__items--item-wrapper" key={elem.id}>
+                  <a
+                    href={`/selecting_device/${elem.id}`}
+                    className="popular__items--item-wrapper"
+                    key={elem.id}
+                  >
                     <div className="popular__items--item-image">
                       <Image
                         src={
@@ -75,7 +79,7 @@ export default function Home() {
                       />
                     </div>
                     <p>{elem.title}</p>
-                  </div>
+                  </a>
                 );
               })}
         </div>

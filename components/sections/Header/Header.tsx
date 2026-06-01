@@ -114,7 +114,7 @@ const Header = () => {
             id: term.id || "",
             title: term.title,
             description: term.description || "Термин",
-            url: `/help/terms`,
+            url: `/help/terms/${term.id}`,
             type: "term",
           });
         }

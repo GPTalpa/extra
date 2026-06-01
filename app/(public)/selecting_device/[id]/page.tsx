@@ -98,6 +98,11 @@ const Device = async ({ params }: IDevice) => {
       );
     });
   };
+
+  function formatDescription(text: string) {
+    // Разбиваем перед каждым "– ", который идет после точки с запятой или новой строки
+    return text.replace(/(\s*– )/g, "<br>$1");
+  }
   return (
     <section className="device">
       <div className="device__header">
@@ -118,9 +123,14 @@ const Device = async ({ params }: IDevice) => {
           <p className="device__content--title">
             {data ? data.title : "Загрузка..."}
           </p>
-          <p className="device__content--desciprion">
-            {data ? data?.description : "Загрузка..."}
-          </p>
+          <p
+            className="device__content--desciprion"
+            dangerouslySetInnerHTML={{
+              __html: data
+                ? formatDescription(data?.description)
+                : "Загрузка...",
+            }}
+          />
           <div className="device__content__char">
             <p className="device__content__char--title">Характеристики</p>
             <div className="device__content__char__container">

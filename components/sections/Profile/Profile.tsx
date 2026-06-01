@@ -129,7 +129,7 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
             </div>
           </address>
         </div>
-        <button
+        {/* <button
           className="profile-page__header__left-side__info--edit"
           onClick={() => handleClickPensil()}
         >
@@ -139,7 +139,7 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
             height={29}
             alt="Иконка карандаша"
           />
-        </button>
+        </button> */}
       </div>{" "}
       {isEdit ? <div className="overlay"></div> : ""}
     </>

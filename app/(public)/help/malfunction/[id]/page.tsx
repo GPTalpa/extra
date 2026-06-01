@@ -44,6 +44,16 @@ export default async function MalfunctionDetail({
     notFound();
   }
 
+  function addLineBreaksAfterSentences(text: string) {
+    const result = text
+      // Вставляем перевод после точки, если дальше буква или цифра
+      // .replace(/\.\s+([A-ZА-ЯЁ\d])/g, ".\n$1")
+      // Вставляем перевод перед цифрой с точкой
+      .replace(/(\d+\.\s+)/g, "\n$1");
+
+    return result;
+  }
+
   return (
     <>
       <div className="help__header">
@@ -56,9 +66,14 @@ export default async function MalfunctionDetail({
         <div className="malfunction-detail__left">
           <div className="malfunction-detail__header">
             <p className="malfunction-detail--title">{data.title}</p>
-            <p className="malfunction-detail--description">
-              {data.description}
-            </p>
+            <p
+              className="malfunction-detail--description"
+              dangerouslySetInnerHTML={{
+                __html: data
+                  ? addLineBreaksAfterSentences(data?.description)
+                  : "Загрузка...",
+              }}
+            ></p>
           </div>
         </div>
         <div className="malfunction-detail__right">

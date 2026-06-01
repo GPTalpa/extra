@@ -36,6 +36,28 @@ export async function post<T>(url: string, body: unknown): Promise<T> {
   return res.json();
 }
 
+export async function postPatch<T>(url: string, body: unknown): Promise<T> {
+  const res = await fetch(`${API_URL}${url}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const message = await parseError(res);
+    throw new Error(message);
+  }
+
+  if (url === "/auth/logout") {
+    return res.ok as unknown as T;
+  }
+
+  return res.json();
+}
+
 export async function postForm<T>(
   url: string,
   body: Record<string, string | number | boolean>,

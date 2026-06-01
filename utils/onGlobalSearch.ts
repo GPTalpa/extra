@@ -3,7 +3,7 @@ import { SearchResponse } from "@mytypes/search";
 
 async function onGlobalSearch(q?: string) {
   try {
-    const res: SearchResponse = await get(`/search${q ? `?q=${q}` : ""}}`);
+    const res: SearchResponse = await get(`/search${q ? `?q=${q}` : ""}`);
     return res;
   } catch (err) {
     return err;

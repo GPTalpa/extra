@@ -9,6 +9,8 @@
     &__right-side {
       @include flex-center($direction: column, $justify: space-between);
       gap: 18px;
+      position: relative;
+      z-index: 99;
 
       &__notify,
       &__change-pass {
@@ -39,6 +41,50 @@
           width: 74px;
 
           font-size: 42px;
+        }
+
+        &__section {
+          @include overlay;
+          position: absolute;
+          background: rgba(0, 0, 0, 0.8);
+          border-radius: 16px;
+          padding: 15px 20px;
+          left: 0;
+          right: 0;
+          z-index: 999;
+          transform: translateX(-100%);
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          max-height: 0px;
+          overflow: hidden;
+          transition: all 0.3s ease;
+          opacity: 0;
+
+          &__item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            a {
+              color: rgb(250, 40, 40);
+            }
+
+            button {
+              height: 15px;
+            }
+          }
+
+          &.active {
+            max-height: 500px;
+            opacity: 1;
+            overflow: auto;
+          }
         }
       }
 
@@ -175,5 +221,9 @@
         }
       }
     }
+  }
+
+  .profile-page__header__right-side__notify__section {
+    transform: translateY(-100%);
   }
 }
