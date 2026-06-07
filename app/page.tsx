@@ -62,7 +62,7 @@ export default function Home() {
             : data.map((elem) => {
                 return (
                   <a
-                    href={`/selecting_device/${elem.id}`}
+                    href={`/selecting_device/id?id=${elem.id}`}
                     className="popular__items--item-wrapper"
                     key={elem.id}
                   >
