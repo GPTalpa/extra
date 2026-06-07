@@ -12,7 +12,7 @@
     @include flex-center($direction: column, $align: flex-start);
     gap: 48px;
     &__heading {
-      @include flex-center($justify: space-between, $align: flex-start);
+      @include flex-center($justify: space-between, $align: center);
       gap: 24px;
 
       &--profile-image {

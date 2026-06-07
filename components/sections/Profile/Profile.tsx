@@ -6,6 +6,8 @@ import Link from "next/link";
 
 import { useState } from "react";
 import { ROLES } from "@lib/constants";
+import onUpdateUsersData from "@utils/onUpdateUsersData";
+import { useAuthStore } from "store";
 
 interface IProfile {
   fullName: string;
@@ -19,9 +21,35 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
   const [open, setOpen] = useState(false);
   const [roleHandle, setRoleHandle] = useState(role);
   const [emailHandle, setEmailHandle] = useState(email);
+  const selectedRole = ROLES.find((r) => r.key === roleHandle)?.name ?? role;
+  const { loading, setLoading } = useAuthStore();
+  const [withErrors, setWithErrors] = useState(false);
 
-  const handleClickPensil = () => {
-    setIsEdit(!isEdit);
+  const handleClickPensil = async () => {
+    console.log(emailHandle);
+    console.log(selectedRole);
+    if (emailHandle === email && selectedRole === role) {
+      setIsEdit(!isEdit);
+      return;
+    }
+
+    try {
+      const data = await onUpdateUsersData({
+        email: emailHandle,
+        role: selectedRole,
+      });
+      console.log(data);
+      setLoading(false);
+      setWithErrors(false);
+      setIsEdit(!isEdit);
+    } catch (err: unknown) {
+      setLoading(false);
+      if (err instanceof Error) {
+        setWithErrors(true);
+      } else {
+        console.log("Неизвестная ошибка");
+      }
+    }
   };
 
   const handleClickSelect = (role: string) => {
@@ -84,7 +112,7 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
                 {isEdit ? (
                   <div className="custom-select">
                     <button onClick={() => setOpen(!open)}>
-                      {roleHandle || role}
+                      {selectedRole}
                     </button>
 
                     {open && (
@@ -102,7 +130,7 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
                     )}
                   </div>
                 ) : (
-                  <span>{roleHandle}</span>
+                  <span>{selectedRole}</span>
                 )}
               </div>
             </div>
@@ -119,7 +147,11 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
                   <input
                     type="email"
                     value={emailHandle}
-                    className="profile-page__header__left-side__info__contacts--edit-field"
+                    className={
+                      withErrors
+                        ? "profile-page__header__left-side__info__contacts--edit-field with-error"
+                        : "profile-page__header__left-side__info__contacts--edit-field"
+                    }
                     onChange={(e) => handleInputEmail(e.target.value)}
                   />
                 ) : (
@@ -129,17 +161,23 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
             </div>
           </address>
         </div>
-        {/* <button
+        <button
           className="profile-page__header__left-side__info--edit"
           onClick={() => handleClickPensil()}
         >
           <Image
-            src={isEdit ? "/icon/cross.svg" : "/icon/pensil.svg"}
+            src={
+              !loading
+                ? isEdit
+                  ? "/icon/cross.svg"
+                  : "/icon/pensil.svg"
+                : "/icon/loading.gif"
+            }
             width={29}
             height={29}
             alt="Иконка карандаша"
           />
-        </button> */}
+        </button>
       </div>{" "}
       {isEdit ? <div className="overlay"></div> : ""}
     </>

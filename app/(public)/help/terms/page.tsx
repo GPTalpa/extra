@@ -54,7 +54,7 @@ const Terms = () => {
                 <Link
                   className="terms__item"
                   key={elem.id}
-                  href={`/help/terms/${elem.id}`}
+                  href={`/help/terms/id?id=${elem.id}`}
                 >
                   <p className="terms--title">{elem.title}</p>
                   {/* <p className="terms--description">{elem.description}</p> */}

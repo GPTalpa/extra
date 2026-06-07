@@ -1,47 +1,28 @@
+"use client";
+
 import "../style.scss";
 import "./style.scss";
 
 import Image from "next/image";
-import { JSX } from "react";
+import { JSX, Suspense, useEffect, useState } from "react";
 import { Products } from "@mytypes/products";
 import getProduct from "@utils/getProduct";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import getProducts from "@utils/getProducts";
+import { useSearchParams } from "next/navigation";
 
-interface IDevice {
-  params: Promise<{
-    id: string;
-  }>;
-}
+function MalfunctionContent() {
+  const [data, setData] = useState<Products | null | undefined>(undefined);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
 
-export async function generateStaticParams() {
-  try {
-    const products = await getProducts();
-
-    if (!products || !Array.isArray(products)) {
-      return [];
+  useEffect(() => {
+    if (!id) return;
+    async function fetchData() {
+      const dataServ = await getProduct(id);
+      setData(dataServ);
     }
-
-    return products.map((item: Products) => ({
-      id: String(item.id),
-    }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
-}
-
-const Device = async ({ params }: IDevice) => {
-  const { id } = await params;
-
-  // Получаем данные на сервере
-  const data = await getProduct(id);
-
-  // Если данные не найдены - показываем 404
-  if (!data) {
-    notFound();
-  }
+    fetchData();
+  }, [id]);
 
   // Определяем тип для данных характеристики
   type CharacteristicValue =
@@ -103,6 +84,11 @@ const Device = async ({ params }: IDevice) => {
     // Разбиваем перед каждым "– ", который идет после точки с запятой или новой строки
     return text.replace(/(\s*– )/g, "<br>$1");
   }
+
+  if (!data) {
+    return <div>Загрузка...</div>;
+  }
+
   return (
     <section className="device">
       <div className="device__header">
@@ -117,7 +103,7 @@ const Device = async ({ params }: IDevice) => {
             <p className="device__content__char--name">Артикул:</p>
             <div></div>
             <p className="device__content__char--value">
-              {data.article ? String(data.article) : "Загрузка..."}
+              {data?.article ? String(data.article) : "Загрузка..."}
             </p>
           </div>
           <p className="device__content--title">
@@ -144,7 +130,7 @@ const Device = async ({ params }: IDevice) => {
           <div className="device__content__right--image">
             <img
               src={
-                data.image_url[0]
+                data?.image_url[0]
                   ? `https://extrabackend.duckdns.org${data.image_url[0]}`
                   : "/images/no-photo.png"
               }
@@ -180,6 +166,14 @@ const Device = async ({ params }: IDevice) => {
         </div>
       </div>
     </section>
+  );
+}
+
+const Device = () => {
+  return (
+    <Suspense fallback={<div>Загрузка...</div>}>
+      <MalfunctionContent />
+    </Suspense>
   );
 };
 

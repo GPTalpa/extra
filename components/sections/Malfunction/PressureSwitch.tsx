@@ -50,7 +50,7 @@ const PressureSwitch = ({ input }: IMalfunction) => {
         data.map((elem) => (
           <Link
             className="malfunctiom__content__item"
-            href={`/help/malfunction/${elem.id}`}
+            href={`/help/malfunction/id?id=${elem.id}`}
             key={elem.id}
           >
             <div className="malfunctiom__content__item--left">

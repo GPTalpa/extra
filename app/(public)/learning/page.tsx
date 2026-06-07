@@ -168,14 +168,14 @@ export default function Learning() {
                           <Link
                             className="learning__item--btn"
                             onClick={() => handleOpenAndStartDevice(elem.id)}
-                            href={`/learning/${elem.id}`}
+                            href={`/learning/course?id=${elem.id}`}
                           >
                             Начать
                           </Link>
                         ) : (
                           <Link
                             className="learning__item--btn"
-                            href={`/learning/${elem.id}`}
+                            href={`/learning/course?id=${elem.id}`}
                           >
                             Продолжить
                           </Link>

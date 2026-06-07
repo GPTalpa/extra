@@ -32,8 +32,8 @@ const RegisterForm = () => {
         role,
         email,
       });
-      window.location.href = "/check";
       setWithErrors(false);
+      window.location.href = "/check";
     } catch (err: unknown) {
       if (err instanceof Error) {
         setWithErrors(true);

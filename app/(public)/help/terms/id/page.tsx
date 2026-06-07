@@ -1,43 +1,31 @@
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+"use client";
+
 import "../style.scss";
 import "./style.scss";
-import getTerms from "@utils/getTermins";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import Terms from "../page";
 import getTerm from "@utils/getTerm";
+import { useEffect, useState, Suspense } from "react";
 
-interface TermsDetailProps {
-  params: Promise<{
-    id: string;
-  }>;
-}
+function TermsDetailContent() {
+  const [data, setData] = useState<Terms | null | undefined>(undefined);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
 
-export async function generateStaticParams() {
-  try {
-    const terms = await getTerms(100);
-
-    if (!terms || !Array.isArray(terms)) {
-      return [];
+  useEffect(() => {
+    async function fetchData() {
+      if (!id) return;
+      const dataServ = await getTerm(id);
+      setData(dataServ);
     }
-
-    return terms.map((item: Terms) => ({
-      id: String(item.id),
-    }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
-}
-
-export default async function TermsDetail({ params }: TermsDetailProps) {
-  const { id } = await params;
-
-  // Получаем данные на сервере
-  const data = await getTerm(id);
+    fetchData();
+  }, [id]);
 
   if (!data) {
-    notFound();
+    return <div>Загрузка...</div>;
   }
 
   return (
@@ -51,9 +39,9 @@ export default async function TermsDetail({ params }: TermsDetailProps) {
       <div className="malfunction-detail">
         <div className="malfunction-detail__left">
           <div className="malfunction-detail__header">
-            <p className="malfunction-detail--title">{data.title}</p>
+            <p className="malfunction-detail--title">{data?.title}</p>
             <p className="malfunction-detail--description">
-              {data.description}
+              {data?.description}
             </p>
           </div>
         </div>
@@ -67,5 +55,13 @@ export default async function TermsDetail({ params }: TermsDetailProps) {
         </div> */}
       </div>
     </>
+  );
+}
+
+export default function TermsDetail() {
+  return (
+    <Suspense fallback={<div>Загрузка...</div>}>
+      <TermsDetailContent />
+    </Suspense>
   );
 }

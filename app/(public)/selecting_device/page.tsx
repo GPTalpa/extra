@@ -68,7 +68,7 @@ export default function SelectingDevice() {
                     <Link
                       className="selectingDevice__item"
                       key={elem.id}
-                      href={`/selecting_device/${elem.id}`}
+                      href={`/selecting_device/id?id=${elem.id}`}
                       target="_blank"
                     >
                       <div className="selectingDevice__item__wrapper">

@@ -10,7 +10,7 @@
       @include flex-center($direction: column, $justify: space-between);
       gap: 18px;
       position: relative;
-      z-index: 99;
+      z-index: 1;
 
       &__notify,
       &__change-pass {

@@ -79,7 +79,7 @@ export default function ProfilePage() {
   };
 
   const handleChangePassword = () => {
-    window.location.href = "/auth?mode=reset";
+    window.location.href = "/change_password";
   };
 
   const handleReadNotify = async (id: string) => {
@@ -116,7 +116,7 @@ export default function ProfilePage() {
                   className="profile-page__header__right-side__change-pass"
                   onClick={handleChangePassword}
                 >
-                  <p>Запросить новый пароль</p>
+                  <p>Сменить пароль</p>
                 </div>
                 <div
                   className={`profile-page__header__right-side__notify__section ${activeNotify === "active" ? "active" : ""}`}
@@ -124,15 +124,16 @@ export default function ProfilePage() {
                   {!dataNotify
                     ? "Загрузка..."
                     : dataNotify.map((elem) => {
+                        console.log(elem);
                         return (
                           <div
                             className="profile-page__header__right-side__notify__section__item"
-                            key={elem.id}
+                            key={elem.reference_id}
                           >
                             <div className="profile-page__header__right-side__notify__section--text">
                               Появился новый{" "}
                               <Link
-                                href={`/learning/${elem.id}`}
+                                href={`/learning/course?id=${elem.reference_id}`}
                                 target="_blank"
                               >
                                 Курс

@@ -1,7 +1,7 @@
 "use client";
 
+import "../style.scss";
 import "../../style.scss";
-import "../../../style.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import getCourseTest from "@utils/getCourseTest";

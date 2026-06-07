@@ -17,8 +17,6 @@ import onGlobalSearch from "@utils/onGlobalSearch";
 import { validateSearchResponse } from "@utils/validateSearchResponse";
 import { SearchResponse, UnifiedSearchResult } from "@mytypes/search";
 
-// Типы для результатов поиска
-
 const Header = () => {
   const [data, setData] = useState<User | null>(null);
   const [open, setOpen] = useState(false);
@@ -47,7 +45,10 @@ const Header = () => {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
         setSearchQuery("");
       }
@@ -99,7 +100,7 @@ const Header = () => {
             description: product.description
               ? product.description.substring(0, 150) + "..."
               : "Товар",
-            url: `/selecting_device/${product.id}`,
+            url: `/selecting_device/id?id=${product.id}`,
             type: "product",
           });
         }
@@ -114,7 +115,7 @@ const Header = () => {
             id: term.id || "",
             title: term.title,
             description: term.description || "Термин",
-            url: `/help/terms/${term.id}`,
+            url: `/help/terms/id?id=${term.id}`,
             type: "term",
           });
         }
@@ -129,7 +130,7 @@ const Header = () => {
             id: error.id || "",
             title: error.title,
             description: error.description || "Ошибка",
-            url: `/help/malfunction/${error.id}`,
+            url: `/help/malfunction/id?id=${error.id}`,
             type: "error",
           });
         }

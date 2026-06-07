@@ -1,48 +1,27 @@
-import { Malfunction } from "@mytypes/malfunction";
-import getMalfunction from "@utils/getMalfunction";
-import getMalfunctions from "@utils/getMalfunctions";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+"use client";
 
 import "../../style.scss";
 import "../style.scss";
 
-interface MalfunctionDetailProps {
-  params: Promise<{
-    id: string;
-  }>;
-}
+import Image from "next/image";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { Recomendation } from "@mytypes/recomendation";
+import getRecomendation from "@utils/getRecomendation";
+import { useEffect, useState, Suspense } from "react";
 
-export async function generateStaticParams() {
-  try {
-    const malfunctions = await getMalfunctions();
+function RecomendationDetailContent() {
+  const [data, setData] = useState<Recomendation | null | undefined>(undefined);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
 
-    if (!malfunctions || !Array.isArray(malfunctions)) {
-      return [];
+  useEffect(() => {
+    async function fetchData() {
+      const dataServ = await getRecomendation(id);
+      setData(dataServ);
     }
-
-    return malfunctions.map((item: Malfunction) => ({
-      id: String(item.id),
-    }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
-}
-
-export default async function MalfunctionDetail({
-  params,
-}: MalfunctionDetailProps) {
-  const { id } = await params;
-
-  // Получаем данные на сервере
-  const data = await getMalfunction(id);
-
-  // Если данные не найдены - показываем 404
-  if (!data) {
-    notFound();
-  }
+    fetchData();
+  }, [id]);
 
   function addLineBreaksAfterSentences(text: string) {
     const result = text
@@ -52,6 +31,10 @@ export default async function MalfunctionDetail({
       .replace(/(\d+\.\s+)/g, "\n$1");
 
     return result;
+  }
+
+  if (!data) {
+    return <div>Загрузка...</div>;
   }
 
   return (
@@ -65,7 +48,7 @@ export default async function MalfunctionDetail({
       <div className="malfunction-detail">
         <div className="malfunction-detail__left">
           <div className="malfunction-detail__header">
-            <p className="malfunction-detail--title">{data.title}</p>
+            <p className="malfunction-detail--title">{data?.title}</p>
             <p
               className="malfunction-detail--description"
               dangerouslySetInnerHTML={{
@@ -76,15 +59,22 @@ export default async function MalfunctionDetail({
             ></p>
           </div>
         </div>
-        <div className="malfunction-detail__right">
+        {/* <div className="malfunction-detail__right">
           <Image
             src={`https://extrabackend.duckdns.org${data.image}`}
             width={293.689697265625}
             height={154.60231018066406}
             alt={data.title}
           />
-        </div>
+        </div> */}
       </div>
     </>
+  );
+}
+export default function RecomendationDetail() {
+  return (
+    <Suspense fallback={<div>Загрузка...</div>}>
+      <RecomendationDetailContent />
+    </Suspense>
   );
 }
