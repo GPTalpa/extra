@@ -98,3 +98,16 @@
     padding: 10px 15px;
   }
 }
+
+@media (max-width: 768px) {
+  .selectingDevice {
+    &__header {
+      &--input {
+        height: auto;
+      }
+      input {
+        height: auto;
+      }
+    }
+  }
+}
