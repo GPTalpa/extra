@@ -26,9 +26,7 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
   const [withErrors, setWithErrors] = useState(false);
 
   const handleClickPensil = async () => {
-    console.log(emailHandle);
-    console.log(selectedRole);
-    if (emailHandle === email && selectedRole === role) {
+    if (emailHandle === email) {
       setIsEdit(!isEdit);
       return;
     }
@@ -36,9 +34,7 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
     try {
       const data = await onUpdateUsersData({
         email: emailHandle,
-        role: selectedRole,
       });
-      console.log(data);
       setLoading(false);
       setWithErrors(false);
       setIsEdit(!isEdit);
@@ -109,7 +105,7 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
               />
               <div className="profile-page__header__left-side__info__contacts__tel--phone">
                 <p>Роль:</p>
-                {isEdit ? (
+                {/* {isEdit ? (
                   <div className="custom-select">
                     <button onClick={() => setOpen(!open)}>
                       {selectedRole}
@@ -131,7 +127,8 @@ const Profile = ({ fullName, email, role, avatarUrl }: IProfile) => {
                   </div>
                 ) : (
                   <span>{selectedRole}</span>
-                )}
+                )} */}
+                <span>{role}</span>
               </div>
             </div>
             <div className="profile-page__header__left-side__info__contacts__mail">

@@ -124,7 +124,6 @@ export default function ProfilePage() {
                   {!dataNotify
                     ? "Загрузка..."
                     : dataNotify.map((elem) => {
-                        console.log(elem);
                         return (
                           <div
                             className="profile-page__header__right-side__notify__section__item"
@@ -214,12 +213,13 @@ export default function ProfilePage() {
                               total={elem.all_total}
                             />
                           </div>
-                          <button
+                          <Link
                             className="profile-page__content__course--continue"
-                            onClick={() => handleClickContinue(elem.course_id)}
+                            // onClick={() => handleClickContinue(elem.course_id)}
+                            href={`/learning/course?id=${elem.course_id}`}
                           >
                             Продолжить
-                          </button>
+                          </Link>
                         </div>
                       );
                     })}

@@ -3,7 +3,6 @@ import { courseTest } from "@mytypes/courseTest";
 
 async function getCourseTest(id: string | null | undefined) {
   try {
-    console.log(id);
     const res: courseTest[] = await get(`/tests/blocks/${id}/questions`);
 
     return res;

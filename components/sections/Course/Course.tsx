@@ -49,7 +49,7 @@ const Course = ({ handleBack, openedId }: ICourse) => {
             <div className="course__content">
               <div className="course__content__video">
                 <Link
-                  href={data.blocks[0].video_url}
+                  href={data?.blocks[0]?.video_url}
                   className="course__content__video--video"
                   target="_blank"
                 >
@@ -63,7 +63,7 @@ const Course = ({ handleBack, openedId }: ICourse) => {
                   </p>
                   <button
                     className="course__content__video--btn-totest"
-                    onClick={() => handleOpenDevice(data.blocks[1].id)}
+                    onClick={() => handleOpenDevice(data.blocks[1]?.id)}
                   >
                     К тесту{" "}
                     <Image
@@ -82,18 +82,18 @@ const Course = ({ handleBack, openedId }: ICourse) => {
                     <span className="total">18</span>
                   </div>
                   <div className="course__text--type">
-                    {data.audience_label}
+                    {data?.audience_label}
                   </div>
                   <div className="course__text--lvl">
-                    Уровень: {data.level_label}
+                    Уровень: {data?.level_label}
                   </div>
                 </div>
                 <div className="course__text__content">
                   <h1 className="course__text__content--title">
-                    {data.blocks[0].title}
+                    {data?.blocks[0]?.title}
                   </h1>
                   <p className="course__text__content--description">
-                    {data.blocks[0].description}
+                    {data?.blocks[0]?.description}
                   </p>
                 </div>
               </div>
@@ -104,8 +104,8 @@ const Course = ({ handleBack, openedId }: ICourse) => {
         <CourseTest
           handleBack={handleBackTest}
           openedId={openedIdTest}
-          blockId={data?.blocks[1].id}
-          courseId={data?.blocks[0].course_id}
+          blockId={data?.blocks[1]?.id}
+          courseId={data?.blocks[0]?.course_id}
         />
       )}
     </>

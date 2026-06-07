@@ -24,8 +24,7 @@ export default function ChangePass() {
     }
     setLoading(true);
     try {
-      const data = await onUpdateUsersData({password: password});
-      console.log(data);
+      const data = await onUpdateUsersData({ password: password });
       setLoading(false);
       setWithErrors(false);
       window.location.href = "/profile";

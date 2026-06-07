@@ -11,7 +11,7 @@ interface Data {
 async function onUpdateUsersData(data: Data) {
   try {
     const res = await postPatch(`/users/me`, {
-      data,
+      ...data,
     });
     return res;
   } catch (err) {
