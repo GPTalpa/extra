@@ -1,114 +1,22 @@
 @use "@styles/mixins.scss" as *;
 
+.course {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+
+  &--back {
+    color: rgba(250, 40, 40, 1);
+    font-size: 23.75px;
+    line-height: 110.00000000000001%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
 .learning {
-  &__header {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-top: 42px;
-
-    &--input {
-      max-width: 868.74658203125px;
-    }
-
-    &__filter {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: none;
-      /* Firefox */
-      scrollbar-width: none;
-      /* IE */
-      -ms-overflow-style: none;
-      margin-top: 12px;
-      &::-webkit-scrollbar {
-        display: none;
-      }
-
-      &__item {
-        width: fit-content;
-        // white-space: nowrap;
-        flex: 0 0 auto;
-        padding: 5px 10px;
-        display: flex;
-        align-items: center;
-        gap: 12.35px;
-
-        &.active {
-          border-color: rgba(250, 40, 40, 1);
-          backdrop-filter: blur(10px);
-          box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.7);
-        }
-
-        span {
-          width: 11.771240234375px;
-          height: 11.771240234375px;
-          background: rgba(250, 40, 40, 1);
-          border-radius: 50%;
-        }
-      }
-    }
-  }
-
-  &__content {
-    margin-top: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 36px;
-  }
-
   &__item {
-    @include overlay;
-    display: flex;
-    flex-direction: column;
-    padding: 40px 24px;
-    position: relative;
-
-    &--title {
-      font-size: 30px;
-      line-height: 100%;
-      font-weight: 600;
-      margin-bottom: 18px;
-    }
-
-    &--description {
-      font-size: 18px;
-      font-weight: 400;
-      max-width: 458px;
-      margin-bottom: 36px;
-    }
-
-    &--dots {
-      display: flex;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-
-      .progressDots {
-        max-width: 755.9041748046875px;
-      }
-    }
-
-    &--progress {
-      font-size: 36px;
-      color: rgba(255, 255, 255, 0.4);
-
-      .completed {
-        color: rgba(250, 40, 40, 1);
-      }
-
-      .total {
-        color: rgba(255, 255, 255, 0.4);
-      }
-    }
-
-    &__btns {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-    }
-
     &--btn {
       padding: 17px;
       flex: 1;
@@ -117,6 +25,10 @@
       border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 20px;
       font-size: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
 
       &:hover {
         background: rgba(0, 0, 0, 0.5);
@@ -125,43 +37,99 @@
         box-shadow: 0px 0px 30px 0px rgba(250, 40, 40, 0.7);
       }
     }
-
-    &.in-progress {
-      &::after {
-        position: absolute;
-        content: "В процессе";
-        padding: 17px 30px;
-        border: 1px solid rgba(250, 40, 40, 0.5);
-        background: rgba(250, 40, 40, 0.5);
-        backdrop-filter: blur(10px);
-        font-size: 24px;
-        color: rgba(255, 255, 255, 1);
-        top: -20px;
-        right: -30px;
-        border-radius: 20px;
-      }
-    }
-
-    &.new {
-      &::after {
-        position: absolute;
-        content: "Новое";
-        padding: 17px 30px;
-        border: 1px solid rgba(250, 40, 40, 0.5);
-        background: rgba(250, 40, 40, 0.5);
-        backdrop-filter: blur(10px);
-        font-size: 24px;
-        color: rgba(255, 255, 255, 1);
-        top: -20px;
-        right: -30px;
-        border-radius: 20px;
-      }
-    }
   }
 }
 
-.learning__item--btn--header {
-  margin-bottom: 20px;
+.course-create {
+  &__content {
+    margin-top: 42px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &--title,
+  &--descripion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    p {
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+      padding-left: 0;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 100%;
+    }
+  }
+
+  &__right {
+    &__content {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+
+      &__column {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    &--title {
+      margin-bottom: 18px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
+
+  &__header {
+    &__filter {
+      &__item {
+        cursor: pointer;
+        padding: 3px 10px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        font-size: 24px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+
+        &.active {
+          border: 1px solid rgba(250, 40, 40, 0.5);
+        }
+      }
+    }
+  }
+
+  &__errors {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    align-items: flex-end;
+    gap: 7px;
+
+    p {
+      font-size: 14px;
+      color: rgba(250, 40, 40, 1);
+    }
+  }
 }
 
 @media (max-width: 768px) {

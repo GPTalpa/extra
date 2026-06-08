@@ -36,6 +36,33 @@ export async function post<T>(url: string, body: unknown): Promise<T> {
   return res.json();
 }
 
+export async function deleteRequest<T>(
+  url: string,
+  body?: unknown,
+): Promise<T> {
+  const res = await fetch(`${API_URL}${url}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body ? JSON.stringify(body) : undefined,
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const message = await parseError(res);
+    throw new Error(message);
+  }
+
+  // Для DELETE запросов часто не возвращается тело ответа
+  // или возвращается пустой ответ
+  if (res.status === 204 || res.headers.get("content-length") === "0") {
+    return res.ok as unknown as T;
+  }
+
+  return res.json();
+}
+
 export async function postPatch<T>(url: string, body: unknown): Promise<T> {
   const res = await fetch(`${API_URL}${url}`, {
     method: "PATCH",

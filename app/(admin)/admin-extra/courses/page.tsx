@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./style.scss";
 import Input from "@ui/Input";
-import ProgressDots from "@ui/ProgressDots";
 import Course from "@sections/Course";
 import { useDebounce } from "@hooks/useDebounce";
 import { CourseType } from "@mytypes/course";
@@ -10,6 +9,7 @@ import getCourses from "@utils/getCourses";
 import getCourseSearch from "@utils/getCourseSearch";
 import postStartCourse from "@utils/postStartCourse";
 import Link from "next/link";
+import onDeleteCourse from "@utils/admin/onDeleteCourse";
 
 export default function Learning() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -61,6 +61,18 @@ export default function Learning() {
 
   const handleInput = (value: string) => {
     setSearchTerm(value);
+  };
+
+  const handleDeleteCourse = async (id: string) => {
+    try {
+      await onDeleteCourse(id);
+      window.location.reload();
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+      } else {
+        console.log("Неизвестная ошибка");
+      }
+    }
   };
 
   return (
@@ -131,7 +143,10 @@ export default function Learning() {
                           Редактировать
                         </button>
 
-                        <button className="learning__item--btn">
+                        <button
+                          className="learning__item--btn"
+                          onClick={() => handleDeleteCourse(elem.id)}
+                        >
                           Удалить курс
                         </button>
                       </div>
