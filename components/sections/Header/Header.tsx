@@ -259,7 +259,7 @@ const Header = () => {
             <Link href="/admin-extra/courses">Управление курсами</Link>
           </li>
           <li>
-            <Link href="/admin-extra/users">Проверка вопросов</Link>
+            <Link href="/admin-extra/check">Проверка вопросов</Link>
           </li>
         </ul>
       );

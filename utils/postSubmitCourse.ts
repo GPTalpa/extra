@@ -2,7 +2,11 @@ import { post } from "@lib/api";
 
 async function postSubmitCourse(
   id: string | null | undefined,
-  answers: Array<{ question_id: string; selected_answer_id: string }>,
+  answers: Array<{
+    question_id: string;
+    selected_answer_id?: string;
+    text_answer?: string;
+  }>,
 ) {
   try {
     const res = await post(`/tests/blocks/${id}/submit`, { answers });

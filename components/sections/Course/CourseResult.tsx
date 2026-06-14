@@ -9,7 +9,7 @@ import Link from "next/link";
 interface ICourse {
   // handleBack: () => void;
   courseId: string | undefined;
-  blockId: string | undefined;
+  blockId?: string | undefined;
 }
 
 const CourseResult = ({ courseId, blockId }: ICourse) => {

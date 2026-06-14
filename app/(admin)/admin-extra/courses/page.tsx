@@ -16,7 +16,6 @@ export default function Learning() {
   const [isOpenCurse, setIsOpenCurse] = useState(false);
   const [data, setData] = useState<CourseType[] | null | undefined>(undefined);
   const [searchTerm, setSearchTerm] = useState("");
-  const [openedId, setOpenedId] = useState<string | null>(null);
   const [typeLearning, settypeLearning] = useState("everyone");
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -49,16 +48,6 @@ export default function Learning() {
     el.scrollLeft += e.deltaY;
   };
 
-  // const [openedHelp, setOpenedHelp] = useState("");
-
-  const handleBack = () => {
-    setIsOpenCurse(false);
-  };
-
-  const handleOpenAndStartDevice = async (id: string) => {
-    await postStartCourse(id);
-  };
-
   const handleInput = (value: string) => {
     setSearchTerm(value);
   };
@@ -84,79 +73,79 @@ export default function Learning() {
       >
         Создать курс
       </Link>
-      {!isOpenCurse && (
-        <section className="learning">
-          <Input
-            className="learning__header--input"
-            placeholder="Введите серийный номер, проблему или название..."
-            onChange={handleInput}
-            value={searchTerm}
-          />
-          <div
-            className="learning__header__filter"
-            ref={scrollRef}
-            onWheel={handleWheel}
+      <section className="learning">
+        <Input
+          className="learning__header--input"
+          placeholder="Введите серийный номер, проблему или название..."
+          onChange={handleInput}
+          value={searchTerm}
+        />
+        <div
+          className="learning__header__filter"
+          ref={scrollRef}
+          onWheel={handleWheel}
+        >
+          <button
+            className={`btn learning__header__filter__item ${typeLearning === "everyone" ? "active" : ""}`}
+            onClick={() => settypeLearning("everyone")}
           >
-            <button
-              className={`btn learning__header__filter__item ${typeLearning === "everyone" ? "active" : ""}`}
-              onClick={() => settypeLearning("everyone")}
-            >
-              {typeLearning === "everyone" ? <span></span> : ""}
-              Для всех
-            </button>
-            <button
-              className={`btn learning__header__filter__item ${typeLearning === "installer" ? "active" : ""}`}
-              onClick={() => settypeLearning("installer")}
-            >
-              {typeLearning === "installer" ? <span></span> : ""}
-              Для Монтажников
-            </button>
-            <button
-              className={`btn learning__header__filter__item ${typeLearning === "seller" ? "active" : ""}`}
-              onClick={() => settypeLearning("seller")}
-            >
-              {typeLearning === "seller" ? <span></span> : ""}
-              Для Продавцов
-            </button>
-            <button
-              className={`btn learning__header__filter__item ${typeLearning === "serviceman" ? "active" : ""}`}
-              onClick={() => settypeLearning("serviceman")}
-            >
-              {typeLearning === "serviceman" ? <span></span> : ""}
-              Для Сервесников
-            </button>
-          </div>
-          <div className="learning__content">
-            {!data
-              ? "Загрузка..."
-              : data.map((elem) => {
-                  return (
-                    <div className="learning__item" key={elem.id}>
-                      <p className="learning__item--title">
-                        {elem.title}: уровень {elem.level_label}
-                      </p>
-                      <p className="learning__item--description">
-                        {elem.description}
-                      </p>
-                      <div className="learning__item__btns">
-                        <button className="learning__item--btn">
-                          Редактировать
-                        </button>
+            {typeLearning === "everyone" ? <span></span> : ""}
+            Для всех
+          </button>
+          <button
+            className={`btn learning__header__filter__item ${typeLearning === "installer" ? "active" : ""}`}
+            onClick={() => settypeLearning("installer")}
+          >
+            {typeLearning === "installer" ? <span></span> : ""}
+            Для Монтажников
+          </button>
+          <button
+            className={`btn learning__header__filter__item ${typeLearning === "seller" ? "active" : ""}`}
+            onClick={() => settypeLearning("seller")}
+          >
+            {typeLearning === "seller" ? <span></span> : ""}
+            Для Продавцов
+          </button>
+          <button
+            className={`btn learning__header__filter__item ${typeLearning === "serviceman" ? "active" : ""}`}
+            onClick={() => settypeLearning("serviceman")}
+          >
+            {typeLearning === "serviceman" ? <span></span> : ""}
+            Для Сервесников
+          </button>
+        </div>
+        <div className="learning__content">
+          {!data
+            ? "Загрузка..."
+            : data.map((elem) => {
+                return (
+                  <div className="learning__item" key={elem.id}>
+                    <p className="learning__item--title">
+                      {elem.title}: уровень {elem.level_label}
+                    </p>
+                    <p className="learning__item--description">
+                      {elem.description}
+                    </p>
+                    <div className="learning__item__btns">
+                      <a
+                        className="learning__item--btn"
+                        href={`/admin-extra/courses/edit?id=${elem.id}`}
+                      >
+                        Редактировать
+                      </a>
 
-                        <button
-                          className="learning__item--btn"
-                          onClick={() => handleDeleteCourse(elem.id)}
-                        >
-                          Удалить курс
-                        </button>
-                      </div>
+                      <button
+                        className="learning__item--btn"
+                        onClick={() => handleDeleteCourse(elem.id)}
+                      >
+                        Удалить курс
+                      </button>
                     </div>
-                  );
-                })}
-          </div>
-        </section>
-      )}
-      {isOpenCurse && <Course handleBack={handleBack} openedId={openedId} />}
+                  </div>
+                );
+              })}
+        </div>
+      </section>
     </main>
   );
 }

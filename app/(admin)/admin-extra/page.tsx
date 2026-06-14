@@ -1,9 +1,6 @@
 "use client";
 
 import "./style.scss";
-import Image from "next/image";
-
-import Item from "@ui/Item";
 import { useEffect, useState } from "react";
 import getUsersSummary from "@utils/admin/getInfoSummary";
 import { summaryType } from "@mytypes/admin/summaryType";
@@ -13,6 +10,10 @@ export default function Admin() {
   useEffect(() => {
     async function fetchData() {
       const dataServ = await getUsersSummary();
+      if (!dataServ) {
+        window.location.href = "/auth";
+        return;
+      }
       setData(dataServ);
     }
 

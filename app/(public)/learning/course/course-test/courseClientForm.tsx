@@ -2,7 +2,6 @@
 
 import "../style.scss";
 import "../../style.scss";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import getCourseTest from "@utils/getCourseTest";
 import { courseTest } from "@mytypes/courseTest";
@@ -14,10 +13,26 @@ interface ICourse {
   blockId: string;
 }
 
+const normalizeQuestionType = (value?: string | null) => {
+  switch (value) {
+    case "single_choice":
+    case "single":
+      return "single";
+    case "multiple_choice":
+    case "multiple":
+      return "multiple";
+    case "free_text":
+    case "text":
+      return "text";
+    default:
+      return "single";
+  }
+};
+
 const CourseClientForm = ({ id, blockId }: ICourse) => {
   const [dataFromTest, setDataFromTest] = useState<
     courseTest[] | null | undefined
-  >([]);
+  >(undefined);
   const [isResult, setIsResult] = useState<boolean>(false);
 
   useEffect(() => {
@@ -33,20 +48,53 @@ const CourseClientForm = ({ id, blockId }: ICourse) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // Собираем данные из формы
     const formData = new FormData(e.currentTarget);
-    const answers: Array<{ question_id: string; selected_answer_id: string }> =
-      [];
+    const answers: Array<{
+      question_id: string;
+      selected_answer_id?: string;
+      text_answer?: string;
+    }> = [];
 
-    for (const [questionId, answerId] of formData.entries()) {
-      answers.push({
-        question_id: questionId,
-        selected_answer_id: answerId as string,
-      });
+    for (const question of dataFromTest ?? []) {
+      const questionType = normalizeQuestionType(question.question_type);
+
+      if (questionType === "multiple") {
+        const selectedAnswers = formData.getAll(question.id);
+
+        selectedAnswers.forEach((answerId) => {
+          answers.push({
+            question_id: question.id,
+            selected_answer_id: String(answerId),
+          });
+        });
+
+        continue;
+      } else if (questionType === "single") {
+        const selectedAnswer = formData.get(question.id);
+
+        if (selectedAnswer === null || selectedAnswer === "") {
+          continue;
+        }
+
+        answers.push({
+          question_id: question.id,
+          selected_answer_id: String(selectedAnswer),
+        });
+      } else if (questionType === "text") {
+        const selectedAnswer = formData.get(question.id);
+
+        if (selectedAnswer === null || selectedAnswer === "") {
+          continue;
+        }
+
+        answers.push({
+          question_id: question.id,
+          text_answer: String(selectedAnswer),
+        });
+      }
     }
 
-    // Здесь отправка на сервер
-    await postSubmitCourse(dataFromTest?.[0]?.block_id, answers);
+    await postSubmitCourse(blockId, answers);
     setIsResult(true);
   };
   return (
@@ -59,9 +107,13 @@ const CourseClientForm = ({ id, blockId }: ICourse) => {
           </p>
           <form onSubmit={handleSubmit}>
             <div className="course-test__content">
-              {!dataFromTest
+              {dataFromTest === undefined || dataFromTest === null
                 ? "Загрузка..."
                 : dataFromTest.map((elem, index) => {
+                    const questionType = normalizeQuestionType(
+                      elem.question_type,
+                    );
+
                     return (
                       <div className="course-test__item" key={elem.id}>
                         <p className="course-test__item--question-num">
@@ -71,23 +123,52 @@ const CourseClientForm = ({ id, blockId }: ICourse) => {
                         <p className="course-test__item--question">
                           {elem.text}
                         </p>
-                        <div className="course-test__options">
-                          {elem.options.map((e) => {
-                            return (
-                              <label className="course-test__option" key={e.id}>
-                                <input
-                                  type="radio"
-                                  name={elem.id}
-                                  value={e.id}
-                                  className="course-test__radio"
-                                  required
-                                />{" "}
-                                <span className="course-test__custom-radio"></span>
-                                <span>{e.text}</span>
-                              </label>
-                            );
-                          })}
-                        </div>
+                        {questionType === "text" ? (
+                          <div className="course-test__text-wrap">
+                            <input
+                              type="text"
+                              name={elem.id}
+                              className="course-test__text-input"
+                              placeholder="Введите ответ"
+                              required
+                            />
+                          </div>
+                        ) : (
+                          <div className="course-test__options">
+                            {elem.options.map((option) => {
+                              return (
+                                <label
+                                  className={`course-test__option ${questionType === "multiple" ? "course-test__option--multiple" : ""}`}
+                                  key={option.id}
+                                >
+                                  <input
+                                    type={
+                                      questionType === "multiple"
+                                        ? "checkbox"
+                                        : "radio"
+                                    }
+                                    name={elem.id}
+                                    value={option.id}
+                                    className={
+                                      questionType === "multiple"
+                                        ? "course-test__checkbox"
+                                        : "course-test__radio"
+                                    }
+                                    required={questionType === "single"}
+                                  />{" "}
+                                  <span
+                                    className={
+                                      questionType === "multiple"
+                                        ? "course-test__custom-checkbox"
+                                        : "course-test__custom-radio"
+                                    }
+                                  ></span>
+                                  <span>{option.text}</span>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
                     );
                   })}

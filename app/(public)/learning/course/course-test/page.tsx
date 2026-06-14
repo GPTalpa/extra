@@ -20,7 +20,7 @@ function MalfunctionContent() {
 
   return (
     <div className="course-test">
-      <Link href={`/learning/${id}`} className="course--back">
+      <Link href={`/learning/course?id=${id}`} className="course--back">
         <Image src="/icon/back.svg" alt="" width={8.5} height={15} />
         Назад
       </Link>

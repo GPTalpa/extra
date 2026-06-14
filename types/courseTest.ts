@@ -2,13 +2,15 @@ export type courseTest = {
   block_id: string;
   id: string;
   text: string;
+  question_type?: string;
   options: Option[];
 };
 
 export type Option = {
   id: string;
   text: string;
-  order_index: number;
+  order_index?: number;
+  is_correct?: boolean;
 };
 
 export type CourseTestResult = {

@@ -1,11 +1,12 @@
 "use client";
 import "./style.scss";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useAuthStore } from "store";
 import { useSearchParams } from "next/navigation";
-import createCourseBlock from "@utils/admin/createCourseBlock";
+import getCourse from "@utils/getCourse";
+import editCourseBlock from "@utils/admin/editCourseBlock";
 
 function CreateCourseLearningContent() {
   const searchParams = useSearchParams();
@@ -17,13 +18,39 @@ function CreateCourseLearningContent() {
   const [courseDescription, setCourseDescription] = useState("");
   const [withErrors, setWithErrors] = useState(false);
   const [errors, setError] = useState<string[]>([]);
+  const [learning_block_id, setLearning_block_id] = useState("");
+  const [test_block_id, setTest_block_id] = useState("");
 
   const { loading, setLoading } = useAuthStore();
+
+  useEffect(() => {
+    if (!id) return;
+    async function fetchData() {
+      const dataServ = await getCourse(id);
+      dataServ?.blocks.forEach((elem) => {
+        if (elem.block_type === "lesson") {
+          setCourseTitle(elem.title);
+          setCourseDescription(elem.text_content);
+          setVideoUrl(elem.video_url);
+          setLearning_block_id(elem.id);
+        }
+
+        if (elem.block_type === "mixed_test") {
+          setTest_block_id(elem.id);
+        }
+      });
+      console.log(dataServ);
+    }
+    fetchData();
+  }, [id]);
 
   if (!id) {
     return (
       <div className="course">
-        <Link className="course--back" href="/admin-extra/courses/create/">
+        <Link
+          className="course--back"
+          href={`/admin-extra/courses/edit?id=${id}`}
+        >
           <Image src="/icon/back.svg" alt="" width={8.5} height={15} />
           Назад
         </Link>
@@ -87,21 +114,13 @@ function CreateCourseLearningContent() {
     const block_type = "lesson";
 
     try {
-      createCourseBlock(id, {
+      editCourseBlock(id, learning_block_id, {
         title,
         text_content,
         video_url,
         block_type,
       }).then(() => {
-        createCourseBlock(id, {
-          block_type: "mixed_test",
-          title,
-        }).then((res) => {
-          console.log(res);
-          setLoading(false);
-          setWithErrors(false);
-          window.location.href = `/admin-extra/courses/create/test?id=${id}&blockId=${res?.id}`;
-        });
+        window.location.href = `/admin-extra/courses/edit/test?id=${id}&blockId=${test_block_id}`;
       });
     } catch (err: unknown) {
       setLoading(false);
@@ -116,7 +135,10 @@ function CreateCourseLearningContent() {
   return (
     <>
       <div className="course">
-        <Link className="course--back" href="/admin-extra/courses/create/">
+        <Link
+          className="course--back"
+          href={`/admin-extra/courses/edit?id=${id}`}
+        >
           <Image src="/icon/back.svg" alt="" width={8.5} height={15} />
           Назад
         </Link>

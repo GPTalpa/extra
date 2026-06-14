@@ -12,20 +12,33 @@ import { useSearchParams } from "next/navigation";
 
 function MalfunctionContent() {
   const [data, setData] = useState<CourseType | null | undefined>(undefined);
+  const [videoUrl, setVideoUrl] = useState("");
+  const [blockId, setBlockId] = useState("");
+  const [courseTitle, setCourseTitle] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
   useEffect(() => {
     if (!id) return;
+
     async function fetchData() {
       const dataServ = await getCourse(id);
       setData(dataServ);
+      dataServ?.blocks.forEach((elem) => {
+        if (elem.block_type === "lesson") {
+          setCourseTitle(elem.title);
+          setCourseDescription(elem.text_content);
+          setVideoUrl(elem.video_url);
+        }
+
+        if (elem.block_type === "mixed_test") {
+          setBlockId(elem.id);
+        }
+      });
     }
     fetchData();
   }, [id]);
-
-  const videoUrl = data?.blocks?.[0]?.video_url;
-  const blockId = data?.blocks[1]?.id;
 
   if (!data) {
     return <div>Загрузка...</div>;
@@ -94,11 +107,9 @@ function MalfunctionContent() {
               </div>
             </div>
             <div className="course__text__content">
-              <h1 className="course__text__content--title">
-                {data?.blocks[0]?.title}
-              </h1>
+              <h1 className="course__text__content--title">{courseTitle}</h1>
               <p className="course__text__content--description">
-                {data?.blocks[0]?.description}
+                {courseDescription}
               </p>
             </div>
           </div>

@@ -1,10 +1,10 @@
 import { post } from "@lib/api";
 
 interface Data {
-  title: string;
-  block_type: string;
-  text_content: string;
-  video_url: string;
+  title?: string;
+  block_type?: string;
+  text_content?: string;
+  video_url?: string;
 }
 
 interface resBlockId {

@@ -13,6 +13,7 @@ export type CourseType = {
   description: string;
   id: string;
   level: string;
+  audience: string;
   progress: { completed: number; total: number; status: string } | null;
   level_label: string;
   audience_label: string;

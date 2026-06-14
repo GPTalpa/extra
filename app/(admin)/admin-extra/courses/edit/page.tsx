@@ -1,20 +1,37 @@
 "use client";
 import "./style.scss";
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useAuthStore } from "store";
-import createCourse from "@utils/admin/createCourse";
+import editCourse from "@utils/admin/editCourse";
+import { useSearchParams } from "next/navigation";
+import getCourse from "@utils/admin/getCourse";
 
-export default function CreateCourse() {
+function CreateCourseContent() {
   const [typeLearning, settypeLearning] = useState("");
   const [level, setLevel] = useState("");
   const [withErrors, setWithErrors] = useState(false);
   const [errors, setError] = useState<string[]>([]);
   const [courseTitle, setCourseTitle] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
-
   const { loading, setLoading } = useAuthStore();
+
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
+  useEffect(() => {
+    if (!id) return;
+    async function fetchData() {
+      const dataServ = await getCourse(id);
+      console.log(dataServ);
+      setLevel(dataServ?.level || "");
+      settypeLearning(dataServ?.audience || "");
+      setCourseTitle(dataServ?.title || "");
+      setCourseDescription(dataServ?.description || "");
+    }
+    fetchData();
+  }, [id]);
 
   const validateForm = () => {
     let hasErrors = false;
@@ -48,6 +65,11 @@ export default function CreateCourse() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    if (!id) {
+      setWithErrors(true);
+      setError((prev) => [...prev, "Что то пошло не так"]);
+      return;
+    }
     e.preventDefault();
     e.stopPropagation();
     setLoading(true);
@@ -61,11 +83,11 @@ export default function CreateCourse() {
     const audience = typeLearning;
 
     try {
-      createCourse({ title, description, level, audience }).then((res) => {
+      editCourse(id, { title, description, level, audience }).then((res) => {
         setLoading(false);
         setWithErrors(false);
         console.log(res?.id);
-        window.location.href = `/admin-extra/courses/create/learning?id=${res?.id}`;
+        window.location.href = `/admin-extra/courses/edit/learning?id=${res?.id}`;
       });
     } catch (err: unknown) {
       setLoading(false);
@@ -83,6 +105,7 @@ export default function CreateCourse() {
         <Image src="/icon/back.svg" alt="" width={8.5} height={15} />
         Назад
       </Link>
+
       <form className="course-create__content" onSubmit={handleSubmit}>
         <div className="course-create__left">
           <label htmlFor="title" className="course-create--title">
@@ -189,5 +212,14 @@ export default function CreateCourse() {
         </div>
       </form>
     </main>
+  );
+  
+}
+
+export default function CreateCourse() {
+  return (
+    <Suspense fallback={<div>Загрузка...</div>}>
+      <CreateCourseContent />
+    </Suspense>
   );
 }
